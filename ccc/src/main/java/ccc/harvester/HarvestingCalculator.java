@@ -167,12 +167,12 @@ public class HarvestingCalculator {
 		case TOP_LEFT:
 			switch (direction) {
 			case EAST:
-				scenario = Scenario.build(field).goEastWithMowers(mowers).goWestWithMowersFaky(mowers)
-						.getSerpentineScenario();
+				scenario = Scenario.build(field).goEastWithMowers(mowers).goSouthWithoutMowing(mowers)
+						.goWestWithMowersFaky(mowers).goSouthWithoutMowing(mowers).getSerpentineScenario();
 				break;
 			case SOUTH:
-				scenario = Scenario.build(field).goSouthWithMowers(mowers).goNorthWithMowersFaky(mowers)
-						.getSerpentineScenario();
+				scenario = Scenario.build(field).goSouthWithMowers(mowers).goEastWithoutMowing(mowers)
+						.goNorthWithMowersFaky(mowers).goEastWithoutMowing(mowers).getSerpentineScenario();
 				break;
 			default:
 				throw new RuntimeException();
@@ -181,12 +181,12 @@ public class HarvestingCalculator {
 		case TOP_RIGHT:
 			switch (direction) {
 			case WEST:
-				scenario = Scenario.build(field).goWestWithMowers(mowers).goEastWithMowersFaky(mowers)
-						.getSerpentineScenario();
+				scenario = Scenario.build(field).goWestWithMowers(mowers).goSouthWithoutMowing(mowers)
+						.goEastWithMowersFaky(mowers).goSouthWithoutMowing(mowers).getSerpentineScenario();
 				break;
 			case SOUTH:
-				scenario = Scenario.build(field).goSouthWithMowers(mowers).goNorthWithMowersFaky(mowers)
-						.getSerpentineScenario();
+				scenario = Scenario.build(field).goSouthWithMowers(mowers).goWestWithoutMowing(mowers)
+						.goNorthWithMowersFaky(mowers).goWestWithoutMowing(mowers).getSerpentineScenario();
 				break;
 			default:
 				throw new RuntimeException();
@@ -195,12 +195,12 @@ public class HarvestingCalculator {
 		case BOTTOM_LEFT:
 			switch (direction) {
 			case EAST:
-				scenario = Scenario.build(field).goEastWithMowers(mowers).goWestWithMowersFaky(mowers)
-						.getSerpentineScenario();
+				scenario = Scenario.build(field).goEastWithMowersFaky(mowers).goNorthWithoutMowing(mowers)
+						.goWestWithMowers(mowers).goNorthWithoutMowing(mowers).getSerpentineScenario();
 				break;
 			case NORTH:
-				scenario = Scenario.build(field).goNorthWithMowers(mowers).goSouthWithMowersFaky(mowers)
-						.getSerpentineScenario();
+				scenario = Scenario.build(field).goNorthWithMowers(mowers).goNorthWithoutMowing(mowers)
+						.goSouthWithMowersFaky(mowers).goNorthWithoutMowing(mowers).getSerpentineScenario();
 				break;
 			default:
 				throw new RuntimeException();
@@ -209,12 +209,12 @@ public class HarvestingCalculator {
 		case BOTTOM_RIGHT:
 			switch (direction) {
 			case WEST:
-				scenario = Scenario.build(field).goWestWithMowersFaky(mowers).goNorthWithoutMowing(2)
-						.goEastWithMowers(mowers).goNorthWithoutMowing(2).getSerpentineScenario();
+				scenario = Scenario.build(field).goWestWithMowersFaky(mowers).goNorthWithoutMowing(mowers)
+						.goEastWithMowers(mowers).goNorthWithoutMowing(mowers).getSerpentineScenario();
 				break;
 			case NORTH:
-				scenario = Scenario.build(field).goNorthWithMowersFaky(mowers).goWestWithoutMowing(2)
-						.goSouthWithMowersFaky(mowers).goWestWithoutMowing(2).getSerpentineScenario();
+				scenario = Scenario.build(field).goNorthWithMowersFaky(mowers).goWestWithoutMowing(mowers)
+						.goSouthWithMowersFaky(mowers).goWestWithoutMowing(mowers).getSerpentineScenario();
 				break;
 			default:
 				throw new RuntimeException();
