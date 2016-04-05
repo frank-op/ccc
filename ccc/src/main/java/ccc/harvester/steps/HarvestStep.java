@@ -2,7 +2,7 @@ package ccc.harvester.steps;
 
 import java.util.List;
 
-import ccc.harvester.Cell;
+import ccc.harvester.field.Cell;
 
 public abstract class HarvestStep {
 

@@ -1,4 +1,4 @@
-package ccc.harvester;
+package ccc.harvester.field;
 
 public class Cell {
 	private int row, column;

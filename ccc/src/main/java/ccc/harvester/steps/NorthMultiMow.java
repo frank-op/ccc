@@ -5,13 +5,15 @@ import java.util.List;
 import ccc.harvester.field.Cell;
 import ccc.harvester.field.CornField;
 
-public class North extends HarvestStep {
+public class NorthMultiMow extends HarvestStep {
 
 	private CornField field;
 	private int i = Integer.MIN_VALUE;
+	private int mowers;
 
-	public North(CornField field, int[] i) {
+	public NorthMultiMow(CornField field, int mowers, int[] i) {
 		this.field = field;
+		this.mowers = mowers;
 		if (isArrayNullOrEmtpy(i)) {
 			this.i = i[0];
 		}
@@ -23,9 +25,9 @@ public class North extends HarvestStep {
 		int column = startCell.getColumn();
 
 		if (i == Integer.MIN_VALUE) {
-			return field.cellsNorthFromHere(row, column);
+			return field.cellsNorthFromHereMultiMow(mowers, row, column);
 		} else {
-			return field.cellsNorthFromHere(i, row, column);
+			return field.cellsNorthFromHereMultiMow(mowers, i, row, column);
 		}
 	}
 }

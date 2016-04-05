@@ -2,8 +2,8 @@ package ccc.harvester.steps;
 
 import java.util.List;
 
-import ccc.harvester.Cell;
-import ccc.harvester.CornField;
+import ccc.harvester.field.Cell;
+import ccc.harvester.field.CornField;
 
 public class East extends HarvestStep {
 
