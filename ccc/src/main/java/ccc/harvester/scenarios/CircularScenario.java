@@ -9,8 +9,7 @@ import ccc.harvester.OutputFormatter;
 import ccc.harvester.field.Cell;
 import ccc.harvester.field.CornField;
 import ccc.harvester.steps.HarvestStep;
-import ccc.harvester.steps.North;
-import ccc.harvester.steps.South;
+import ccc.harvester.steps.HarvestStep.Alignment;
 
 public class CircularScenario extends Scenario {
 
@@ -30,19 +29,22 @@ public class CircularScenario extends Scenario {
 
 	private List<Cell> executeStepsCircularAndGetCells(CornField field, Cell startCell) {
 		LinkedHashSet<Cell> cells = new LinkedHashSet<>();
-		int iteration = 1;
+		int iteration = 0;
 
-		Cell currentCell = startCell;
-		iterateScenarioCircular(field, cells, currentCell, iteration);
+		HarvestStep firstStep = getSteps().get(0);
+		boolean isCurPosLeftOrUp = ((firstStep.getAlignment() == Alignment.VERTICAL && startCell.getColumn() == 1)
+				|| (firstStep.getAlignment() == Alignment.HORIZONTAL && startCell.getRow() == 1));
+
+		iterateScenarioCircular(field, cells, startCell, iteration, isCurPosLeftOrUp);
 		return new ArrayList<Cell>(cells);
 	}
 
-	private void iterateScenarioCircular(CornField field, Collection<Cell> cells, Cell currentCell, int iteration) {
+	private void iterateScenarioCircular(CornField field, Collection<Cell> cells, Cell currentCell, int iteration,
+			boolean isCurPosLeftOrUp) {
 
 		for (HarvestStep harvestStep : getSteps()) {
-			int currentSpace = Math.abs(iteration / 2);
-			cells.add(currentCell);
 			iteration++;
+			int currentSpace = Math.abs(iteration / 2);
 
 			List<Cell> resultOfStep = harvestStep.doIt(currentCell);
 			currentCell = resultOfStep.get(resultOfStep.size() - 1);
@@ -51,37 +53,38 @@ public class CircularScenario extends Scenario {
 				return;
 			}
 
-			if (harvestStep instanceof North || harvestStep instanceof South) {
+			currentCell = figureOutNextCell(field, currentCell, isCurPosLeftOrUp, harvestStep, currentSpace);
 
-				double halfOfTheColumns = field.getColumns() / 2;
-				int row = currentCell.getRow();
-				int column = currentCell.getColumn();
-
-				if (column > halfOfTheColumns) {
-					currentCell = field.getCell(row, 1 + currentSpace);
-				} else {
-					currentCell = field.getCell(row, field.getColumns() - currentSpace);
-				}
-
-			} else {
-				double halfOfTheRows = field.getRows() / 2;
-
-				int row = currentCell.getRow();
-				int column = currentCell.getColumn();
-
-				if (row > halfOfTheRows) {
-					currentCell = field.getCell(1 + currentSpace, column);
-				} else {
-					currentCell = field.getCell(field.getColumns() - currentSpace, column);
-				}
-
-			}
+			isCurPosLeftOrUp = !isCurPosLeftOrUp;
 			cells.addAll(resultOfStep);
+
+			if (cells.size() >= field.size()) {
+				return;
+			}
 		}
-		if (cells.size() >= field.size()) {
-			return;
+
+		iterateScenarioCircular(field, cells, currentCell, iteration, isCurPosLeftOrUp);
+	}
+
+	private Cell figureOutNextCell(CornField field, Cell currentCell, boolean isCurPosLeftOrUp, HarvestStep harvestStep,
+			int currentSpace) {
+
+		if (harvestStep.getAlignment() == Alignment.VERTICAL) {
+
+			if (isCurPosLeftOrUp) {
+				currentCell = field.getCell(currentCell.getRow(),
+						field.getColumns() - currentSpace * harvestStep.getMowers());
+			} else {
+				currentCell = field.getCell(currentCell.getRow(), currentSpace * harvestStep.getMowers() + 1);
+			}
 		} else {
-			iterateScenarioCircular(field, cells, currentCell, iteration);
+			if (isCurPosLeftOrUp) {
+				currentCell = field.getCell(field.getRows() - currentSpace * harvestStep.getMowers(),
+						currentCell.getColumn());
+			} else {
+				currentCell = field.getCell(currentSpace * harvestStep.getMowers() + 1, currentCell.getColumn());
+			}
 		}
+		return currentCell;
 	}
 }

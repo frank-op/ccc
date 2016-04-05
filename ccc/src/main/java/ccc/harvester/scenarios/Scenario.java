@@ -60,6 +60,11 @@ public abstract class Scenario {
 				public List<Cell> doIt(Cell startCell) {
 					throw new RuntimeException();
 				}
+
+				@Override
+				public Alignment getAlignment() {
+					return null;
+				}
 			});
 			return this;
 		}

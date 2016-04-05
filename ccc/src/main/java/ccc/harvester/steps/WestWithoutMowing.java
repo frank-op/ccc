@@ -35,4 +35,9 @@ public class WestWithoutMowing extends HarvestStep {
 			}
 		}
 	}
+
+	@Override
+	public Alignment getAlignment() {
+		return Alignment.HORIZONTAL;
+	}
 }

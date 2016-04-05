@@ -10,7 +10,7 @@ import ccc.harvester.field.CornField;
 public class Level4Tester_Circular {
 
 	@Test
-	public void test() {
+	public void test1() {
 
 		System.out.println(new CornField(3, 4));
 		String harvestCircularStartFromGivenCorner = HarvestingCalculator
@@ -20,9 +20,13 @@ public class Level4Tester_Circular {
 
 		System.out.println();
 		System.out.println();
+	}
+
+	@Test
+	public void test2() {
 
 		System.out.println(new CornField(5, 2));
-		harvestCircularStartFromGivenCorner = HarvestingCalculator
+		String harvestCircularStartFromGivenCorner = HarvestingCalculator
 				.harvestCircularStartFromGivenCorner(new CornField(5, 2), Direction.NORTH, 5, 2);
 		System.out.println(harvestCircularStartFromGivenCorner);
 		Assert.assertEquals(harvestCircularStartFromGivenCorner, "10 8 6 4 2 1 3 5 7 9 ");

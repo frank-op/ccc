@@ -28,4 +28,9 @@ public class South extends HarvestStep {
 			return field.cellsSouthFromHere(i, row, column);
 		}
 	}
+
+	@Override
+	public Alignment getAlignment() {
+		return Alignment.VERTICAL;
+	}
 }

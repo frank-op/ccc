@@ -1,3 +1,9 @@
 .metadata/
 .recommenders/
 ccc/test-output/
+*.
+*.prefs
+*.
+.classpath
+.gitignore
+.project

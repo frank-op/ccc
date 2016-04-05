@@ -20,6 +20,11 @@ public class SouthMultiMow extends HarvestStep {
 	}
 
 	@Override
+	public int getMowers() {
+		return mowers;
+	}
+
+	@Override
 	public List<Cell> doIt(Cell startCell) {
 		int row = startCell.getRow();
 		int column = startCell.getColumn();
@@ -29,5 +34,10 @@ public class SouthMultiMow extends HarvestStep {
 		} else {
 			return field.cellsSouthFromHereMultiMow(mowers, i, row, column);
 		}
+	}
+
+	@Override
+	public Alignment getAlignment() {
+		return Alignment.VERTICAL;
 	}
 }

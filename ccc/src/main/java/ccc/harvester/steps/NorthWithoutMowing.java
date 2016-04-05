@@ -35,4 +35,9 @@ public class NorthWithoutMowing extends HarvestStep {
 			}
 		}
 	}
+
+	@Override
+	public Alignment getAlignment() {
+		return Alignment.VERTICAL;
+	}
 }
