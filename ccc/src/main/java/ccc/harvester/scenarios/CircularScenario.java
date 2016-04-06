@@ -48,7 +48,7 @@ public class CircularScenario extends Scenario {
 		for (HarvestStep harvestStep : getSteps()) {
 			iteration++;
 
-			List<Cell> resultOfStep = addCellsOfCurrentStep(cells, currentCell, harvestStep);
+			List<Cell> resultOfStep = addCellsOfCurrentStep(field, cells, currentCell, harvestStep);
 
 			if (cells.size() >= field.size()) {
 				return;
@@ -60,10 +60,54 @@ public class CircularScenario extends Scenario {
 		iterateScenarioCircular(field, cells, currentCell, iteration, postionFlipSwitch);
 	}
 
-	private List<Cell> addCellsOfCurrentStep(Collection<Cell> cells, Cell currentCell, HarvestStep harvestStep) {
+	private List<Cell> addCellsOfCurrentStep(CornField field, Collection<Cell> cells, Cell currentCell,
+			HarvestStep harvestStep) {
 		List<Cell> resultOfStep = harvestStep.doIt(currentCell);
+		resultOfStep = fixEmptyCells(field, harvestStep, resultOfStep, cells);
 		cells.addAll(resultOfStep);
 		return resultOfStep;
+	}
+
+	private List<Cell> fixEmptyCells(CornField field, HarvestStep harvestStep, List<Cell> resultOfStep,
+			Collection<Cell> cells) {
+
+		if (Scenario.isFixEmptyCells()) {
+			if (harvestStep.getMowers() > 1) {
+				if (harvestStep.getAlignment() == Alignment.VERTICAL && resultOfStep.size() == field.getRows()
+						|| harvestStep.getAlignment() == Alignment.HORIZONTAL
+								&& resultOfStep.size() == field.getColumns()) {
+
+					List<Cell> temp = new ArrayList<>();
+					for (Cell cell : resultOfStep) {
+						temp.add(cell);
+						temp.add(new Cell(0, 0, 0, field));
+					}
+					resultOfStep = temp;
+				} else if (areCellsOfLastStepAlreadyInCells(resultOfStep, cells)) {
+					List<Cell> temp = new ArrayList<>();
+					for (Cell cell : resultOfStep) {
+						if (cells.contains(cell)) {
+							temp.add(new Cell(0, 0, 0, field));
+						} else {
+							temp.add(cell);
+						}
+					}
+					resultOfStep = temp;
+				}
+			}
+		}
+		return resultOfStep;
+	}
+
+	private boolean areCellsOfLastStepAlreadyInCells(List<Cell> resultOfStep, Collection<Cell> cells) {
+		boolean isContained = false;
+		for (Cell cell : cells) {
+			if (resultOfStep.contains(cell)) {
+				return true;
+			}
+		}
+
+		return isContained;
 	}
 
 	private Cell findNextCellToStartFrom(CornField field, int iteration, boolean postionFlipSwitch,
@@ -73,7 +117,6 @@ public class CircularScenario extends Scenario {
 		Cell lastCell = resultOfStep.get(resultOfStep.size() - 1);
 
 		if (harvestStep.getAlignment() == Alignment.VERTICAL) {
-
 			if (postionFlipSwitch) {
 				return field.getCell(lastCell.getRow(), field.getColumns() - currentSpaceFromFirstOfLastCell);
 			} else {

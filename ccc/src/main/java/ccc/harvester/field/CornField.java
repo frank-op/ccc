@@ -378,7 +378,7 @@ public class CornField {
 
 		return (row == 1 && column == 1) //
 				|| (row == 1 && column == 1 + spaceBecauseofMower)//
-				|| (row == 1 + spaceBecauseofMower && column == columns);
+				|| (row == 1 + spaceBecauseofMower && column == 1);
 	}
 
 	private boolean isBottomLeft(int row, int column, int spaceBecauseofMower) {

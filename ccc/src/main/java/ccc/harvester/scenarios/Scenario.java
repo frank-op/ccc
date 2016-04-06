@@ -6,8 +6,8 @@ import java.util.List;
 import ccc.harvester.field.Cell;
 import ccc.harvester.field.CornField;
 import ccc.harvester.steps.East;
-import ccc.harvester.steps.EastWithMowersSouthernNeighbours;
 import ccc.harvester.steps.EastWithMowersNorthernNeighbours;
+import ccc.harvester.steps.EastWithMowersSouthernNeighbours;
 import ccc.harvester.steps.EastWithoutMowing;
 import ccc.harvester.steps.HarvestStep;
 import ccc.harvester.steps.North;
@@ -19,11 +19,13 @@ import ccc.harvester.steps.SouthWithMowersEasternNeighbours;
 import ccc.harvester.steps.SouthWithMowersWesternNeighbours;
 import ccc.harvester.steps.SouthWithoutMowing;
 import ccc.harvester.steps.West;
-import ccc.harvester.steps.WestWithMowersSouthernNeighbours;
 import ccc.harvester.steps.WestWithMowersNorthernNeighbours;
+import ccc.harvester.steps.WestWithMowersSouthernNeighbours;
 import ccc.harvester.steps.WestWithoutMowing;
 
 public abstract class Scenario {
+
+	private static boolean isFixEmptyCells;
 
 	private List<HarvestStep> steps;
 
@@ -188,5 +190,13 @@ public abstract class Scenario {
 		public CircularScenario getCircularScenario() {
 			return new CircularScenario(steps);
 		}
+	}
+
+	public static boolean isFixEmptyCells() {
+		return isFixEmptyCells;
+	}
+
+	public static void setFixEmptyCells(boolean isFixEmptyCells) {
+		Scenario.isFixEmptyCells = isFixEmptyCells;
 	}
 }
