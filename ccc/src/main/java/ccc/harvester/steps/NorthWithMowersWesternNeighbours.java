@@ -32,9 +32,9 @@ public class NorthWithMowersWesternNeighbours extends HarvestStep {
 		int column = startCell.getColumn();
 
 		if (i == Integer.MIN_VALUE) {
-			return field.cellsNorthFromHereMultiMowEastNeighbours(mowers,neighboursFirst, row, column);
+			return field.cellsNorthFromHereMultiMowEastNeighbours(mowers, neighboursFirst, row, column);
 		} else {
-			return field.cellsNorthFromHereMultiMowEastNeighbours(mowers,neighboursFirst, i, row, column);
+			return field.cellsNorthFromHereMultiMowEastNeighbours(mowers, neighboursFirst, i, row, column);
 		}
 	}
 

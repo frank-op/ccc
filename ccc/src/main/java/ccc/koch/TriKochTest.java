@@ -6,14 +6,14 @@ public class TriKochTest {
 
 	@Test
 	public void createKochSnowflake() {
-		
+
 		System.out.println(generateKochSnowflakeForTriangle(243 * 3, 0, 3));
 		System.out.println(generateKochSnowflakeForTriangle(19683 * 3, 0, 7));
 		System.out.println(generateKochSnowflakeForTriangle(531441 * 3, 0, 7));
 		System.out.println(generateKochSnowflakeForTriangle(531441 * 3, 0, 9));
-		
+
 		System.out.println();
-		
+
 		System.out.println(generateKochSnowflakeForRectangle(243 * 4, 0, 3));
 		System.out.println(generateKochSnowflakeForRectangle(19683 * 4, 0, 7));
 		System.out.println(generateKochSnowflakeForRectangle(531441 * 4, 0, 7));
@@ -28,7 +28,7 @@ public class TriKochTest {
 			return length;
 		}
 	}
-	
+
 	public long generateKochSnowflakeForRectangle(long length, int currentIteration, int iterations) {
 		if (currentIteration < iterations) {
 			length = length * 5 / 3;

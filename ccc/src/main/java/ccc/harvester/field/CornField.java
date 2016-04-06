@@ -28,6 +28,56 @@ public class CornField {
 		}
 	}
 
+	public int getRows() {
+		return rows;
+	}
+
+	public void setRows(int rows) {
+		this.rows = rows;
+	}
+
+	public int getColumns() {
+		return columns;
+	}
+
+	public void setColumns(int columns) {
+		this.columns = columns;
+	}
+
+	public Cell getCell(Cell cell) {
+		return getCell(cell.getRow(), cell.getColumn());
+	}
+
+	public Cell getCell(int row, int column) {
+		return matrix[row - 1][column - 1];
+	}
+
+	public Cell getCellReturnNull(int row, int column) {
+		try {
+			return matrix[row - 1][column - 1];
+		} catch (ArrayIndexOutOfBoundsException e) {
+			return null;
+		}
+	}
+
+	public int size() {
+		return rows * columns;
+	}
+
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+
+		for (int i = 1; i <= rows; i++) {
+			for (int j = 1; j <= columns; j++) {
+				builder.append(String.format("%03d", getCell(i, j).getContent())).append(",");
+			}
+			builder.append("\n");
+		}
+
+		return builder.toString();
+	}
+
 	public String getContentNorthFromHere(int row, int column) {
 		StringBuilder builder = new StringBuilder();
 
@@ -304,56 +354,8 @@ public class CornField {
 		}
 	}
 
-	public Cell getCell(Cell cell) {
-		return getCell(cell.getRow(), cell.getColumn());
-	}
-
-	public Cell getCell(int row, int column) {
-		return matrix[row - 1][column - 1];
-	}
-
-	public Cell getCellReturnNull(int row, int column) {
-		try {
-			return matrix[row - 1][column - 1];
-		} catch (ArrayIndexOutOfBoundsException e) {
-			return null;
-		}
-	}
-
-	@Override
-	public String toString() {
-		StringBuilder builder = new StringBuilder();
-
-		for (int i = 1; i <= rows; i++) {
-			for (int j = 1; j <= columns; j++) {
-				builder.append(String.format("%03d", getCell(i, j).getContent())).append(",");
-			}
-			builder.append("\n");
-		}
-
-		return builder.toString();
-	}
-
-	public int size() {
-		return rows * columns;
-	}
-
-	public enum CornerPosition {
-		TOP_LEFT, TOP_RIGHT, BOTTOM_LEFT, BOTTOM_RIGHT, NOT_A_CORNER;
-	}
-
 	public CornerPosition whichCorner(int row, int column) {
-
-		if (row == 1 && column == 1) {
-			return CornerPosition.TOP_LEFT;
-		} else if (row == rows && column == 1) {
-			return CornerPosition.BOTTOM_LEFT;
-		} else if (row == 1 && column == columns) {
-			return CornerPosition.TOP_RIGHT;
-		} else if (row == rows && column == columns) {
-			return CornerPosition.BOTTOM_RIGHT;
-		}
-		return CornerPosition.NOT_A_CORNER;
+		return whichCorner(row, column, 1);
 	}
 
 	public CornerPosition whichCorner(int row, int column, int mowers) {
@@ -372,15 +374,10 @@ public class CornField {
 		return CornerPosition.NOT_A_CORNER;
 	}
 
-	private boolean isBottomRight(int row, int column, int spaceBecauseofMower) {
-		return (row == rows && column == columns) //
-				|| (row == rows && column == columns - spaceBecauseofMower)//
-				|| (row == rows - spaceBecauseofMower && column == columns);
-	}
+	private boolean isTopLeft(int row, int column, int spaceBecauseofMower) {
 
-	private boolean isTopRight(int row, int column, int spaceBecauseofMower) {
-		return (row == 1 && column == columns) //
-				|| (row == 1 && column == columns - spaceBecauseofMower)//
+		return (row == 1 && column == 1) //
+				|| (row == 1 && column == 1 + spaceBecauseofMower)//
 				|| (row == 1 + spaceBecauseofMower && column == columns);
 	}
 
@@ -391,26 +388,19 @@ public class CornField {
 				|| (row == rows - spaceBecauseofMower && column == 1);
 	}
 
-	private boolean isTopLeft(int row, int column, int spaceBecauseofMower) {
-
-		return (row == 1 && column == 1) //
-				|| (row == 1 && column == 1 + spaceBecauseofMower)//
+	private boolean isTopRight(int row, int column, int spaceBecauseofMower) {
+		return (row == 1 && column == columns) //
+				|| (row == 1 && column == columns - spaceBecauseofMower)//
 				|| (row == 1 + spaceBecauseofMower && column == columns);
 	}
 
-	public int getRows() {
-		return rows;
+	private boolean isBottomRight(int row, int column, int spaceBecauseofMower) {
+		return (row == rows && column == columns) //
+				|| (row == rows && column == columns - spaceBecauseofMower)//
+				|| (row == rows - spaceBecauseofMower && column == columns);
 	}
 
-	public void setRows(int rows) {
-		this.rows = rows;
-	}
-
-	public int getColumns() {
-		return columns;
-	}
-
-	public void setColumns(int columns) {
-		this.columns = columns;
+	public enum CornerPosition {
+		TOP_LEFT, TOP_RIGHT, BOTTOM_LEFT, BOTTOM_RIGHT, NOT_A_CORNER;
 	}
 }
