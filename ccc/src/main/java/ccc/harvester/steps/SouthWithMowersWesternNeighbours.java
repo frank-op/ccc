@@ -5,15 +5,17 @@ import java.util.List;
 import ccc.harvester.field.Cell;
 import ccc.harvester.field.CornField;
 
-public class WestMultiMowFaky extends HarvestStep {
+public class SouthWithMowersWesternNeighbours extends HarvestStep {
 
 	private CornField field;
 	private int i = Integer.MIN_VALUE;
 	private int mowers;
+	private boolean neighboursFirst;
 
-	public WestMultiMowFaky(CornField field, int mowers, int[] i) {
+	public SouthWithMowersWesternNeighbours(CornField field, int mowers, boolean neighboursFirst, int[] i) {
 		this.field = field;
 		this.mowers = mowers;
+		this.neighboursFirst = neighboursFirst;
 		if (isArrayNullOrEmtpy(i)) {
 			this.i = i[0];
 		}
@@ -30,14 +32,14 @@ public class WestMultiMowFaky extends HarvestStep {
 		int column = startCell.getColumn();
 
 		if (i == Integer.MIN_VALUE) {
-			return field.cellsWestFromHereMultiMowFaky(mowers, row, column);
+			return field.cellsSouthFromHereMultiMowWestNeighbours(mowers,neighboursFirst, row, column);
 		} else {
-			return field.cellsWestFromHereMultiMowFaky(mowers, i, row, column);
+			return field.cellsSouthFromHereMultiMowWestNeighbours(mowers,neighboursFirst, i, row, column);
 		}
 	}
 
 	@Override
 	public Alignment getAlignment() {
-		return Alignment.HORIZONTAL;
+		return Alignment.VERTICAL;
 	}
 }
