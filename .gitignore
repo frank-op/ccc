@@ -7,3 +7,4 @@ ccc/test-output/
 .classpath
 .gitignore
 .project
+*.class
