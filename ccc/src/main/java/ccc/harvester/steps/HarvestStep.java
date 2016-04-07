@@ -10,6 +10,8 @@ public abstract class HarvestStep {
 
 	public abstract Alignment getAlignment();
 
+	public abstract Cell getLastCell();
+
 	public int getMowers() {
 		return 1;
 	}

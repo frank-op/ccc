@@ -11,6 +11,7 @@ public class EastWithMowersNorthernNeighbours extends HarvestStep {
 	private int i = Integer.MIN_VALUE;
 	private int mowers;
 	private boolean neighboursFirst;
+	private Cell lastCell;
 
 	public EastWithMowersNorthernNeighbours(CornField field, int mowers, boolean neighboursFirst, int[] i) {
 		this.field = field;
@@ -31,11 +32,25 @@ public class EastWithMowersNorthernNeighbours extends HarvestStep {
 		int row = startCell.getRow();
 		int column = startCell.getColumn();
 
+		List<Cell> cellsEastFromHereMultiMowNorthNeighbours;
 		if (i == Integer.MIN_VALUE) {
-			return field.cellsEastFromHereMultiMowNorthNeighbours(mowers, neighboursFirst, row, column);
+			cellsEastFromHereMultiMowNorthNeighbours = field.cellsEastFromHereMultiMowNorthNeighbours(mowers,
+					neighboursFirst, row, column);
 		} else {
-			return field.cellsEastFromHereMultiMowNorthNeighbours(mowers, neighboursFirst, i, row, column);
+			cellsEastFromHereMultiMowNorthNeighbours = field.cellsEastFromHereMultiMowNorthNeighbours(mowers,
+					neighboursFirst, i, row, column);
 		}
+		if (!cellsEastFromHereMultiMowNorthNeighbours.isEmpty()) {
+			lastCell = cellsEastFromHereMultiMowNorthNeighbours
+					.get(cellsEastFromHereMultiMowNorthNeighbours.size() - 1);
+		}
+
+		return cellsEastFromHereMultiMowNorthNeighbours;
+	}
+
+	@Override
+	public Cell getLastCell() {
+		return lastCell;
 	}
 
 	@Override

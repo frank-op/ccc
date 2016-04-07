@@ -9,6 +9,7 @@ public class West extends HarvestStep {
 
 	private CornField field;
 	private int i = Integer.MIN_VALUE;
+	private Cell lastCell;
 
 	public West(CornField field, int[] i) {
 		this.field = field;
@@ -22,11 +23,21 @@ public class West extends HarvestStep {
 		int row = startCell.getRow();
 		int column = startCell.getColumn();
 
+		List<Cell> cellsWestFromHere;
 		if (i == Integer.MIN_VALUE) {
-			return field.cellsWestFromHere(row, column);
+			cellsWestFromHere = field.cellsWestFromHere(row, column);
 		} else {
-			return field.cellsWestFromHere(i, row, column);
+			cellsWestFromHere = field.cellsWestFromHere(0, i, row, column);
 		}
+		if (!cellsWestFromHere.isEmpty()) {
+			lastCell = cellsWestFromHere.get(cellsWestFromHere.size() - 1);
+		}
+		return cellsWestFromHere;
+	}
+
+	@Override
+	public Cell getLastCell() {
+		return lastCell;
 	}
 
 	@Override

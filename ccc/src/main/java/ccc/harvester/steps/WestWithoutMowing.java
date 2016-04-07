@@ -10,6 +10,7 @@ public class WestWithoutMowing extends HarvestStep {
 
 	private CornField field;
 	private int i = Integer.MIN_VALUE;
+	private Cell lastCell;
 
 	public WestWithoutMowing(CornField field, int[] i) {
 		this.field = field;
@@ -25,15 +26,16 @@ public class WestWithoutMowing extends HarvestStep {
 		int column = startCell.getColumn();
 
 		if (i == Integer.MIN_VALUE) {
-			return Collections.singletonList(field.getCell(row, 1));
+			lastCell = field.getCell(row, 1);
 		} else {
-			Cell cellReturnNull = field.getCellReturnNull(row, column - i);
-			if (cellReturnNull == null)
-				return Collections.emptyList();
-			else {
-				return Collections.singletonList(cellReturnNull);
-			}
+			lastCell = field.getCellReturnNull(row, column - i);
 		}
+		return Collections.emptyList();
+	}
+
+	@Override
+	public Cell getLastCell() {
+		return lastCell;
 	}
 
 	@Override

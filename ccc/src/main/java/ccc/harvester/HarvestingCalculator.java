@@ -124,17 +124,19 @@ public class HarvestingCalculator {
 		return scenario.executeSteps(field, row, column);
 	}
 
-	public static String harvestWith2Mowers(CornField field, Direction direction, int row, int column, Style style) {
+	public static String harvestWithMultipleMowers(CornField field, Direction direction, int row, int column,
+			int mowers, Style style) {
 
 		if (style == Style.S) {
-			return harvestWith2MowersSerpentine(field, direction, row, column);
+			return harvestWith2MowersSerpentine(field, direction, row, column, mowers);
 		} else if (style == Style.C) {
-			return harvestWith2MowersCircular(field, direction, row, column);
+			return harvestWith2MowersCircular(field, direction, row, column, mowers);
 		}
 		throw new RuntimeException();
 	}
 
-	private static String harvestWith2MowersCircular(CornField field, Direction direction, int row, int column) {
+	private static String harvestWith2MowersCircular(CornField field, Direction direction, int row, int column,
+			int mowers) {
 
 		Scenario scenario = Scenario.build(null).error().getCircularScenario();
 
@@ -204,13 +206,12 @@ public class HarvestingCalculator {
 		return scenario.executeSteps(field, row, column);
 	}
 
-	private static String harvestWith2MowersSerpentine(CornField field, Direction direction, int row, int column) {
+	private static String harvestWith2MowersSerpentine(CornField field, Direction direction, int row, int column,
+			int mowers) {
 
 		CornerPosition whichCorner = field.whichCorner(row, column);
 
 		Scenario scenario = Scenario.build(null).error().getSerpentineScenario();
-
-		int mowers = 2;
 
 		switch (whichCorner) {
 

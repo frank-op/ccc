@@ -67,6 +67,11 @@ public abstract class Scenario {
 				public Alignment getAlignment() {
 					return null;
 				}
+
+				@Override
+				public Cell getLastCell() {
+					return null;
+				}
 			});
 			return this;
 		}
