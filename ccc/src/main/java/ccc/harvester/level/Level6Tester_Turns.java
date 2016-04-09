@@ -5,9 +5,9 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-import ccc.harvester.Direction;
-import ccc.harvester.HarvestingCalculator;
-import ccc.harvester.HarvestingCalculator.Style;
+import ccc.harvester.HarvestingScenarioExecutor;
+import ccc.harvester.HarvestingScenarioExecutor.Direction2;
+import ccc.harvester.HarvestingScenarioExecutor.Style;
 import ccc.harvester.field.CornField;
 import ccc.harvester.scenarios.Scenario;
 
@@ -31,7 +31,7 @@ public class Level6Tester_Turns {
 		// 5 4 1 1 O S 2
 		CornField field = new CornField(5, 4);
 		System.out.println(field);
-		String harvestWith2Mowers = HarvestingCalculator.harvestWithMultipleMowers(field, Direction.EAST, 1, 1, 2,
+		String harvestWith2Mowers = HarvestingScenarioExecutor.harvestWithMultipleMowers(field, Direction2.EAST, 1, 1, 2,
 				Style.S);
 		System.out.println(harvestWith2Mowers);
 		Assert.assertEquals(harvestWith2Mowers, "1 5 2 6 3 7 4 8 16 12 15 11 14 10 13 9 17 0 18 0 19 0 20 0 ");
@@ -45,7 +45,7 @@ public class Level6Tester_Turns {
 		// 5 4 4 1 O Z 2
 		CornField field = new CornField(5, 4);
 		System.out.println(field);
-		String harvestWith2Mowers = HarvestingCalculator.harvestWithMultipleMowers(field, Direction.EAST, 4, 1, 2,
+		String harvestWith2Mowers = HarvestingScenarioExecutor.harvestWithMultipleMowers(field, Direction2.EAST, 4, 1, 2,
 				Style.C);
 		System.out.println(harvestWith2Mowers);
 		Assert.assertEquals(harvestWith2Mowers, "13 17 14 18 15 19 16 20 8 4 7 3 6 2 5 1 9 0 10 0 11 0 12 0 ");
@@ -59,8 +59,8 @@ public class Level6Tester_Turns {
 		// 10 10 10 10 W S 1
 		CornField field = new CornField(10, 10);
 		System.out.println(field);
-		String harvestSerpentinesStartFromGivenCornerColumns = HarvestingCalculator
-				.harvestSerpentinesStartFromGivenCornerColumns(field, Direction.WEST, 10, 10);
+		String harvestSerpentinesStartFromGivenCornerColumns = HarvestingScenarioExecutor
+				.harvestSerpentinesStartFromGivenCornerColumns(field, Direction2.WEST, 10, 10);
 		System.out.println(harvestSerpentinesStartFromGivenCornerColumns);
 		Assert.assertEquals(
 				"100 99 98 97 96 95 94 93 92 91 81 82 83 84 85 86 87 88 89 90 80 79 78 77 76 75 74 73 72 71 61 62 63 64 65 66 67 68 69 70 60 59 58 57 56 55 54 53 52 51 41 42 43 44 45 46 47 48 49 50 40 39 38 37 36 35 34 33 32 31 21 22 23 24 25 26 27 28 29 30 20 19 18 17 16 15 14 13 12 11 1 2 3 4 5 6 7 8 9 10 ",
@@ -75,7 +75,7 @@ public class Level6Tester_Turns {
 		// 10 10 10 10 W S 2
 		CornField field = new CornField(10, 10);
 		System.out.println(field);
-		String harvestWith2Mowers = HarvestingCalculator.harvestWithMultipleMowers(field, Direction.WEST, 10, 10, 2,
+		String harvestWith2Mowers = HarvestingScenarioExecutor.harvestWithMultipleMowers(field, Direction2.WEST, 10, 10, 2,
 				Style.S);
 		System.out.println(harvestWith2Mowers);
 		Assert.assertEquals(
@@ -91,7 +91,7 @@ public class Level6Tester_Turns {
 		// 17 9 17 1 N Z 2
 		CornField field = new CornField(17, 9);
 		System.out.println(field);
-		String harvestWith2Mowers = HarvestingCalculator.harvestWithMultipleMowers(field, Direction.NORTH, 17, 1, 2,
+		String harvestWith2Mowers = HarvestingScenarioExecutor.harvestWithMultipleMowers(field, Direction2.NORTH, 17, 1, 2,
 				Style.C);
 		System.out.println(harvestWith2Mowers);
 		Assert.assertEquals(

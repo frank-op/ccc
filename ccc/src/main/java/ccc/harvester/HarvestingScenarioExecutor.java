@@ -5,7 +5,7 @@ import ccc.harvester.field.CornField.CornerPosition;
 import ccc.harvester.scenarios.Scenario;
 import ccc.harvester.scenarios.SerpentineScenario;
 
-public class HarvestingCalculator {
+public class HarvestingScenarioExecutor {
 
 	public static String harvestInSerpentinesStartTopLeft(CornField field, int row, int column) {
 		SerpentineScenario scenario = Scenario.build(field)//
@@ -63,7 +63,7 @@ public class HarvestingCalculator {
 		return scenario.executeSteps(field, row, column);
 	}
 
-	public static String harvestSerpentinesStartFromGivenCornerColumns(CornField field, Direction direction, int row,
+	public static String harvestSerpentinesStartFromGivenCornerColumns(CornField field, Direction2 direction, int row,
 			int column) {
 
 		CornerPosition whichCorner = field.whichCorner(row, column);
@@ -167,7 +167,7 @@ public class HarvestingCalculator {
 		return scenario.executeSteps(field, row, column);
 	}
 
-	public static String harvestCircularStartFromGivenCorner(CornField field, Direction direction, int row,
+	public static String harvestCircularStartFromGivenCorner(CornField field, Direction2 direction, int row,
 			int column) {
 
 		Scenario scenario = Scenario.build(null).error().getCircularScenario();
@@ -200,7 +200,7 @@ public class HarvestingCalculator {
 		return scenario.executeSteps(field, row, column);
 	}
 
-	public static String harvestWithMultipleMowers(CornField field, Direction direction, int row, int column,
+	public static String harvestWithMultipleMowers(CornField field, Direction2 direction, int row, int column,
 			int mowers, Style style) {
 
 		if (style == Style.S) {
@@ -211,7 +211,7 @@ public class HarvestingCalculator {
 		throw new RuntimeException();
 	}
 
-	private static String harvestWithMultipleMowersCircular(CornField field, Direction direction, int row, int column,
+	private static String harvestWithMultipleMowersCircular(CornField field, Direction2 direction, int row, int column,
 			int mowers) {
 
 		Scenario scenario = Scenario.build(null).error().getCircularScenario();
@@ -282,7 +282,7 @@ public class HarvestingCalculator {
 		return scenario.executeSteps(field, row, column);
 	}
 
-	private static String harvestWithMultipleMowersSerpentine(CornField field, Direction direction, int row, int column,
+	private static String harvestWithMultipleMowersSerpentine(CornField field, Direction2 direction, int row, int column,
 			int mowers) {
 
 		CornerPosition whichCorner = field.whichCorner(row, column);
@@ -386,6 +386,10 @@ public class HarvestingCalculator {
 		return scenario.executeSteps(field, row, column);
 	}
 
+	public enum Direction2 {
+		NORTH, EAST, SOUTH, WEST;
+	}
+	
 	public enum Style {
 		S, C;
 	}

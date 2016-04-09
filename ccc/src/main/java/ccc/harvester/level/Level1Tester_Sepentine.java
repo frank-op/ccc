@@ -1,6 +1,6 @@
 package ccc.harvester.level;
 
-import static ccc.harvester.HarvestingCalculator.harvestInSerpentinesStartTopLeft;
+import static ccc.harvester.HarvestingScenarioExecutor.harvestInSerpentinesStartTopLeft;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;

@@ -3,7 +3,7 @@ package ccc.harvester.level;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import ccc.harvester.HarvestingCalculator;
+import ccc.harvester.HarvestingScenarioExecutor;
 import ccc.harvester.field.CornField;
 
 public class Level2Tester_Serpentine_Corner {
@@ -11,7 +11,7 @@ public class Level2Tester_Serpentine_Corner {
 	@Test
 	public void test1() {
 
-		String harvestSerpentinesStartFromGivenCorner = HarvestingCalculator
+		String harvestSerpentinesStartFromGivenCorner = HarvestingScenarioExecutor
 				.harvestSerpentinesStartFromGivenCorner(new CornField(2, 5), 2, 1);
 		System.out.println(harvestSerpentinesStartFromGivenCorner);
 		Assert.assertEquals(harvestSerpentinesStartFromGivenCorner, "6 7 8 9 10 5 4 3 2 1 ");
@@ -19,7 +19,7 @@ public class Level2Tester_Serpentine_Corner {
 
 	@Test
 	public void test2() {
-		String harvestSerpentinesStartFromGivenCorner = HarvestingCalculator
+		String harvestSerpentinesStartFromGivenCorner = HarvestingScenarioExecutor
 				.harvestSerpentinesStartFromGivenCorner(new CornField(5, 2), 5, 2);
 		System.out.println(harvestSerpentinesStartFromGivenCorner);
 		Assert.assertEquals(harvestSerpentinesStartFromGivenCorner, "10 9 7 8 6 5 3 4 2 1 ");
@@ -27,7 +27,7 @@ public class Level2Tester_Serpentine_Corner {
 
 	@Test
 	public void test3() {
-		String harvestSerpentinesStartFromGivenCorner = HarvestingCalculator
+		String harvestSerpentinesStartFromGivenCorner = HarvestingScenarioExecutor
 				.harvestSerpentinesStartFromGivenCorner(new CornField(23, 12), 1, 12);
 		System.out.println(new CornField(23, 12));
 		System.out.println(harvestSerpentinesStartFromGivenCorner);
