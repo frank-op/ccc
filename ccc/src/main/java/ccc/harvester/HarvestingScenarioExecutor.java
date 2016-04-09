@@ -216,13 +216,17 @@ public class HarvestingScenarioExecutor {
 
 		Scenario scenario = Scenario.build(null).error().getCircularScenario();
 
-		CornerPosition whichCorner = field.whichCorner(row, column, 2);
+		CornerPosition whichCorner = field.whichCorner(row, column, mowers);
 
 		switch (whichCorner) {
 
 		case TOP_LEFT:
 			switch (direction) {
 			case EAST:
+				scenario = Scenario.build(field)//
+						.goEastWithMowersSouthernNeighbours(mowers)//
+						.goWestWithMowersNorthernNeighbours(mowers, true)//
+						.getCircularScenario();
 				break;
 			case SOUTH:
 				scenario = Scenario.build(field)//
@@ -296,16 +300,16 @@ public class HarvestingScenarioExecutor {
 			case EAST:
 				scenario = Scenario.build(field)//
 						.goEastWithMowersSouthernNeighbours(mowers)//
-						.goSouthWithoutMowing(mowers)//
-						.goWestWithMowersNorthernNeighbours(mowers)//
+						.goSouthWithoutMowing(1)//
+						.goWestWithMowersSouthernNeighbours(mowers, true)//
 						.goSouthWithoutMowing(mowers)//
 						.getSerpentineScenario();//
 				break;
 			case SOUTH:
 				scenario = Scenario.build(field)//
 						.goSouthWithMowersEasternNeighbours(mowers)//
-						.goEastWithoutMowing(mowers)//
-						.goNorthWithMowersEasternNeighbours(mowers)//
+						.goEastWithoutMowing(1)//
+						.goNorthWithMowersWesternNeighbours(mowers, true)//
 						.goEastWithoutMowing(mowers)//
 						.getSerpentineScenario();//
 				break;
@@ -318,16 +322,16 @@ public class HarvestingScenarioExecutor {
 			case WEST:
 				scenario = Scenario.build(field)//
 						.goWestWithMowersSouthernNeighbours(mowers)//
-						.goSouthWithoutMowing(mowers)//
-						.goEastWithMowersNorthernNeighbours(mowers)//
+						.goSouthWithoutMowing(1)//
+						.goEastWithMowersSouthernNeighbours(mowers, true)//
 						.goSouthWithoutMowing(mowers)//
 						.getSerpentineScenario();//
 				break;
 			case SOUTH:
 				scenario = Scenario.build(field)//
-						.goSouthWithMowersEasternNeighbours(mowers)//
-						.goWestWithoutMowing(mowers)//
-						.goNorthWithMowersEasternNeighbours(mowers)//
+						.goSouthWithMowersWesternNeighbours(mowers)//
+						.goWestWithoutMowing(1)//
+						.goNorthWithMowersWesternNeighbours(mowers, true)//
 						.goWestWithoutMowing(mowers)//
 						.getSerpentineScenario();//
 				break;
@@ -340,16 +344,16 @@ public class HarvestingScenarioExecutor {
 			case EAST:
 				scenario = Scenario.build(field)//
 						.goEastWithMowersNorthernNeighbours(mowers)//
-						.goNorthWithoutMowing(mowers)//
-						.goWestWithMowersSouthernNeighbours(mowers)//
+						.goNorthWithoutMowing(1)//
+						.goWestWithMowersNorthernNeighbours(mowers, true)//
 						.goNorthWithoutMowing(mowers)//
 						.getSerpentineScenario();//
 				break;
 			case NORTH:
 				scenario = Scenario.build(field)//
 						.goNorthWithMowersWesternNeighbours(mowers)//
-						.goNorthWithoutMowing(mowers)//
-						.goSouthWithMowersWesternNeighbours(mowers)//
+						.goNorthWithoutMowing(1)//
+						.goSouthWithMowersEasternNeighbours(mowers, true)//
 						.goNorthWithoutMowing(mowers)//
 						.getSerpentineScenario();//
 				break;
@@ -362,16 +366,16 @@ public class HarvestingScenarioExecutor {
 			case WEST:
 				scenario = Scenario.build(field)//
 						.goWestWithMowersNorthernNeighbours(mowers)//
-						.goNorthWithoutMowing(mowers)//
-						.goEastWithMowersSouthernNeighbours(mowers)//
+						.goNorthWithoutMowing(1)//
+						.goEastWithMowersNorthernNeighbours(mowers, true)//
 						.goNorthWithoutMowing(mowers)//
 						.getSerpentineScenario();//
 				break;
 			case NORTH:
 				scenario = Scenario.build(field)//
 						.goNorthWithMowersEasternNeighbours(mowers)//
-						.goWestWithoutMowing(mowers)//
-						.goSouthWithMowersWesternNeighbours(mowers)//
+						.goWestWithoutMowing(1)//
+						.goSouthWithMowersEasternNeighbours(mowers, true)//
 						.goWestWithoutMowing(mowers)//
 						.getSerpentineScenario();//
 				break;
@@ -389,7 +393,7 @@ public class HarvestingScenarioExecutor {
 	public enum Direction {
 		NORTH, EAST, SOUTH, WEST;
 	}
-	
+
 	public enum Style {
 		S, C;
 	}

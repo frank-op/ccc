@@ -1,6 +1,7 @@
 package ccc.harvester.field;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import ccc.harvester.scenarios.Scenario;
@@ -123,7 +124,7 @@ public class CornField {
 				listWithNeighbours.add(cell);
 				listWithNeighbours.addAll(cellsNorthFromHere);
 			} else {
-				// TODO one must possibly flip the order if mowers > 2
+				Collections.reverse(cellsNorthFromHere);
 				listWithNeighbours.addAll(cellsNorthFromHere);
 				listWithNeighbours.add(cell);
 			}
@@ -193,7 +194,7 @@ public class CornField {
 				listWithNeighbours.add(cell);
 				listWithNeighbours.addAll(cellsEastFromHere);
 			} else {
-				// TODO one must possibly flip the order if mowers > 2
+				Collections.reverse(cellsEastFromHere);
 				listWithNeighbours.addAll(cellsEastFromHere);
 				listWithNeighbours.add(cell);
 			}
@@ -263,7 +264,7 @@ public class CornField {
 				listWithNeighbours.add(cell);
 				listWithNeighbours.addAll(cellsSouthFromHere);
 			} else {
-				// TODO one must possibly flip the order if mowers > 2
+				Collections.reverse(cellsSouthFromHere);
 				listWithNeighbours.addAll(cellsSouthFromHere);
 				listWithNeighbours.add(cell);
 			}
@@ -333,7 +334,7 @@ public class CornField {
 				listWithNeighbours.add(cell);
 				listWithNeighbours.addAll(cellsWestFromHere);
 			} else {
-				// TODO one must possibly flip the order if mowers > 2
+				Collections.reverse(cellsWestFromHere);
 				listWithNeighbours.addAll(cellsWestFromHere);
 				listWithNeighbours.add(cell);
 			}

@@ -34,8 +34,7 @@ public class Level7Tester_Turns {
 		String harvestWithMultipleMowers = HarvestingScenarioExecutor.harvestWithMultipleMowers(field, Direction.EAST,
 				1, 1, 3, Style.S);
 		System.out.println(harvestWithMultipleMowers);
-		// Assert.assertEquals(harvestWithMultipleMowers, "1 5 9 2 6 10 3 7 11 4
-		// 8 12 0 20 16 0 19 15 0 18 14 0 17 13 ");
+		Assert.assertEquals(harvestWithMultipleMowers, "1 5 9 2 6 10 3 7 11 4 8 12 0 20 16 0 19 15 0 18 14 0 17 13 ");
 
 		System.out.println();
 		System.out.println();
@@ -49,15 +48,12 @@ public class Level7Tester_Turns {
 		String harvestWithMultipleMowers = HarvestingScenarioExecutor.harvestWithMultipleMowers(field, Direction.EAST,
 				3, 1, 3, Style.C);
 		System.out.println(harvestWithMultipleMowers);
-		// Assert.assertEquals(harvestWithMultipleMowers, "13 17 14 18 15 19 16
-		// 20 8 4
-		// 7 3 6 2 5 1 9 0 10 0 11 0 12 0 ");
-
+		// Assert.assertEquals("",harvestWithMultipleMowers);
 		System.out.println();
 		System.out.println();
 	}
 
-	// @Test
+	@Test
 	public void test3() {
 		// 10 10 10 10 W S 1
 		CornField field = new CornField(10, 10);
@@ -76,7 +72,7 @@ public class Level7Tester_Turns {
 		System.out.println();
 	}
 
-	// @Test
+	@Test
 	public void test4() {
 		// 10 10 10 10 W S 3
 		CornField field = new CornField(10, 10);
@@ -84,13 +80,9 @@ public class Level7Tester_Turns {
 		String harvestWithMultipleMowers = HarvestingScenarioExecutor.harvestWithMultipleMowers(field, Direction.WEST,
 				10, 10, 3, Style.S);
 		System.out.println(harvestWithMultipleMowers);
-		// Assert.assertEquals(
-		// "100 90 99 89 98 88 97 87 96 86 95 85 94 84 93 83 92 82 91 81 61 71
-		// 62 72 63 73 64 74 65 75 66 76 67 77 68 78 69 79 70 80 60 50 59 49 58
-		// 48 57 47 56 46 55 45 54 44 53 43 52 42 51 41 21 31 22 32 23 33 24 34
-		// 25 35 26 36 27 37 28 38 29 39 30 40 20 10 19 9 18 8 17 7 16 6 15 5 14
-		// 4 13 3 12 2 11 1 ",
-		// harvestWithMultipleMowers);
+		Assert.assertEquals(
+				"100 90 80 99 89 79 98 88 78 97 87 77 96 86 76 95 85 75 94 84 74 93 83 73 92 82 72 91 81 71 41 51 61 42 52 62 43 53 63 44 54 64 45 55 65 46 56 66 47 57 67 48 58 68 49 59 69 50 60 70 40 30 20 39 29 19 38 28 18 37 27 17 36 26 16 35 25 15 34 24 14 33 23 13 32 22 12 31 21 11 0 0 1 0 0 2 0 0 3 0 0 4 0 0 5 0 0 6 0 0 7 0 0 8 0 0 9 0 0 10 ",
+				harvestWithMultipleMowers);
 
 		System.out.println();
 		System.out.println();
@@ -104,21 +96,12 @@ public class Level7Tester_Turns {
 		String harvestWithMultipleMowers = HarvestingScenarioExecutor.harvestWithMultipleMowers(field, Direction.NORTH,
 				17, 1, 3, Style.C);
 		System.out.println(harvestWithMultipleMowers);
-		// Assert.assertEquals(
-		// "145 146 136 137 127 128 118 119 109 110 100 101 91 92 82 83 73 74 64
-		// 65 55 56 46 47 37 38 28 29 19 20 10 11 1 2 9 8 18 17 27 26 36 35 45
-		// 44 54 53 63 62 72 71 81 80 90 89 99 98 108 107 117 116 126 125 135
-		// 134 144 143 153 152 147 148 138 139 129 130 120 121 111 112 102 103
-		// 93 94 84 85 75 76 66 67 57 58 48 49 39 40 30 31 21 22 12 13 3 4 7 6
-		// 16 15 25 24 34 33 43 42 52 51 61 60 70 69 79 78 88 87 97 96 106 105
-		// 115 114 124 123 133 132 142 141 151 150 149 0 140 0 131 0 122 0 113 0
-		// 104 0 95 0 86 0 77 0 68 0 59 0 50 0 41 0 32 0 23 0 14 0 5 0 ",
-		// harvestWithMultipleMowers);
+		// Assert.assertEquals("",harvestWithMultipleMowers);
 		System.out.println();
 		System.out.println();
 	}
 
-	// @Test
+	@Test
 	public void test6() {
 		// 97 123 1 123 S S 3
 		CornField field = new CornField(97, 123);
@@ -126,16 +109,7 @@ public class Level7Tester_Turns {
 		String harvestWithMultipleMowers = HarvestingScenarioExecutor.harvestWithMultipleMowers(field, Direction.SOUTH,
 				1, 123, 3, Style.S);
 		System.out.println(harvestWithMultipleMowers);
-		// Assert.assertEquals(
-		// "145 146 136 137 127 128 118 119 109 110 100 101 91 92 82 83 73 74 64
-		// 65 55 56 46 47 37 38 28 29 19 20 10 11 1 2 9 8 18 17 27 26 36 35 45
-		// 44 54 53 63 62 72 71 81 80 90 89 99 98 108 107 117 116 126 125 135
-		// 134 144 143 153 152 147 148 138 139 129 130 120 121 111 112 102 103
-		// 93 94 84 85 75 76 66 67 57 58 48 49 39 40 30 31 21 22 12 13 3 4 7 6
-		// 16 15 25 24 34 33 43 42 52 51 61 60 70 69 79 78 88 87 97 96 106 105
-		// 115 114 124 123 133 132 142 141 151 150 149 0 140 0 131 0 122 0 113 0
-		// 104 0 95 0 86 0 77 0 68 0 59 0 50 0 41 0 32 0 23 0 14 0 5 0 ",
-		// harvestWithMultipleMowers);
+		// Assert.assertEquals("",harvestWithMultipleMowers);
 		System.out.println();
 		System.out.println();
 	}
@@ -148,16 +122,7 @@ public class Level7Tester_Turns {
 		String harvestWithMultipleMowers = HarvestingScenarioExecutor.harvestWithMultipleMowers(field, Direction.WEST,
 				8, 123, 8, Style.C);
 		System.out.println(harvestWithMultipleMowers);
-		// Assert.assertEquals(
-		// "145 146 136 137 127 128 118 119 109 110 100 101 91 92 82 83 73 74 64
-		// 65 55 56 46 47 37 38 28 29 19 20 10 11 1 2 9 8 18 17 27 26 36 35 45
-		// 44 54 53 63 62 72 71 81 80 90 89 99 98 108 107 117 116 126 125 135
-		// 134 144 143 153 152 147 148 138 139 129 130 120 121 111 112 102 103
-		// 93 94 84 85 75 76 66 67 57 58 48 49 39 40 30 31 21 22 12 13 3 4 7 6
-		// 16 15 25 24 34 33 43 42 52 51 61 60 70 69 79 78 88 87 97 96 106 105
-		// 115 114 124 123 133 132 142 141 151 150 149 0 140 0 131 0 122 0 113 0
-		// 104 0 95 0 86 0 77 0 68 0 59 0 50 0 41 0 32 0 23 0 14 0 5 0 ",
-		// harvestWithMultipleMowers);
+		// Assert.assertEquals("",harvestWithMultipleMowers);
 		System.out.println();
 		System.out.println();
 	}
