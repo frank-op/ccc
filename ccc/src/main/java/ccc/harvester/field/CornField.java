@@ -362,13 +362,13 @@ public class CornField {
 			return cells.subList(startIndex, count);
 		} else {
 			List<Cell> cellsInRange = new ArrayList<>();
-			int i = 1;
-			for (i = 1; i < cells.size(); i++) {
+			int i;
+			for (i = startIndex; i < cells.size(); i++) {
 				cellsInRange.add(cells.get(i));
 			}
 
 			if (Scenario.isFixEmptyCells()) {
-				for (int j = i; j <= count; j++) {
+				for (int j = i; j < count; j++) {
 					cellsInRange.add(new Cell(0, 0, 0, this));
 				}
 			}

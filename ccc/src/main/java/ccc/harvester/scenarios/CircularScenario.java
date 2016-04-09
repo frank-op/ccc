@@ -48,24 +48,23 @@ public class CircularScenario extends Scenario {
 		for (HarvestStep harvestStep : getSteps()) {
 			iteration++;
 
-			List<Cell> resultOfStep = addCellsOfCurrentStep(field, cells, currentCell, harvestStep);
+			addCellsOfCurrentStep(field, cells, currentCell, harvestStep);
 
 			if (cells.size() >= field.size()) {
 				return;
 			}
-
-			currentCell = findNextCellToStartFrom(field, iteration, postionFlipSwitch, harvestStep, resultOfStep);
+			currentCell = harvestStep.getLastCell();
+			currentCell = findNextCellToStartFrom(field, iteration, postionFlipSwitch, harvestStep, currentCell);
 			postionFlipSwitch = !postionFlipSwitch;
 		}
 		iterateScenarioCircular(field, cells, currentCell, iteration, postionFlipSwitch);
 	}
 
-	private List<Cell> addCellsOfCurrentStep(CornField field, Collection<Cell> cells, Cell currentCell,
+	private void addCellsOfCurrentStep(CornField field, Collection<Cell> cells, Cell currentCell,
 			HarvestStep harvestStep) {
 		List<Cell> resultOfStep = harvestStep.doIt(currentCell);
 		resultOfStep = fixEmptyCells(field, harvestStep, resultOfStep, cells);
 		cells.addAll(resultOfStep);
-		return resultOfStep;
 	}
 
 	private List<Cell> fixEmptyCells(CornField field, HarvestStep harvestStep, List<Cell> resultOfStep,
@@ -111,10 +110,9 @@ public class CircularScenario extends Scenario {
 	}
 
 	private Cell findNextCellToStartFrom(CornField field, int iteration, boolean postionFlipSwitch,
-			HarvestStep harvestStep, List<Cell> resultOfStep) {
+			HarvestStep harvestStep, Cell lastCell) {
 
 		int currentSpaceFromFirstOfLastCell = Math.abs(iteration / 2) * harvestStep.getMowers();
-		Cell lastCell = resultOfStep.get(resultOfStep.size() - 1);
 
 		if (harvestStep.getAlignment() == Alignment.VERTICAL) {
 			if (postionFlipSwitch) {

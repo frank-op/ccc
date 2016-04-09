@@ -33,7 +33,6 @@ public class Level5Tester_TwoMowers {
 				Style.C);
 		System.out.println(harvestWith2Mowers);
 		Assert.assertEquals("13 17 14 18 15 19 16 20 8 4 7 3 6 2 5 1 9 10 11 12 ", harvestWith2Mowers);
-
 		System.out.println();
 		System.out.println();
 	}

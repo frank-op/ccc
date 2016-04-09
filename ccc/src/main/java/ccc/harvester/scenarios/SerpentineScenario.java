@@ -9,7 +9,6 @@ import ccc.harvester.OutputFormatter;
 import ccc.harvester.field.Cell;
 import ccc.harvester.field.CornField;
 import ccc.harvester.steps.HarvestStep;
-import ccc.harvester.steps.HarvestStep.Alignment;
 
 public class SerpentineScenario extends Scenario {
 
@@ -39,38 +38,12 @@ public class SerpentineScenario extends Scenario {
 
 			List<Cell> resultOfStep = harvestStep.doIt(currentCell);
 
-			resultOfStep = fixEmptyCells(field, harvestStep, resultOfStep);
-
-			if (resultOfStep.isEmpty()) {
+			currentCell = harvestStep.getLastCell();
+			cells.addAll(resultOfStep);
+			if (cells.size() >= field.size()) {
 				return;
 			}
-			currentCell = resultOfStep.get(resultOfStep.size() - 1);
-			cells.addAll(resultOfStep);
 		}
-		if (cells.size() >= field.size()) {
-			return;
-		} else {
-			iterateScenarioSerpentine(field, cells, currentCell);
-		}
-	}
-
-	private List<Cell> fixEmptyCells(CornField field, HarvestStep harvestStep, List<Cell> resultOfStep) {
-
-		if (Scenario.isFixEmptyCells()) {
-			if (harvestStep.getMowers() > 1) {
-				if (harvestStep.getAlignment() == Alignment.VERTICAL && resultOfStep.size() == field.getRows()
-						|| harvestStep.getAlignment() == Alignment.HORIZONTAL
-								&& resultOfStep.size() == field.getColumns()) {
-
-					List<Cell> temp = new ArrayList<>();
-					for (Cell cell : resultOfStep) {
-						temp.add(cell);
-						temp.add(new Cell(0, 0, 0, field));
-					}
-					resultOfStep = temp;
-				}
-			}
-		}
-		return resultOfStep;
+		iterateScenarioSerpentine(field, cells, currentCell);
 	}
 }

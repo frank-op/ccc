@@ -8,7 +8,11 @@ import ccc.harvester.scenarios.SerpentineScenario;
 public class HarvestingCalculator {
 
 	public static String harvestInSerpentinesStartTopLeft(CornField field, int row, int column) {
-		SerpentineScenario scenario = Scenario.build(field).goEast().goSouth(1).goWest().goSouth(1)
+		SerpentineScenario scenario = Scenario.build(field)//
+				.goEast()//
+				.goSouthWithoutMowing(1)//
+				.goWest()//
+				.goSouthWithoutMowing(1)//
 				.getSerpentineScenario();
 		return scenario.executeSteps(field, row, column);
 	}
@@ -20,16 +24,36 @@ public class HarvestingCalculator {
 
 		switch (whichCorner) {
 		case TOP_LEFT:
-			scenario = Scenario.build(field).goEast().goSouth(1).goWest().goSouth(1).getSerpentineScenario();
+			scenario = Scenario.build(field)//
+					.goEast()//
+					.goSouthWithoutMowing(1)//
+					.goWest()//
+					.goSouthWithoutMowing(1)//
+					.getSerpentineScenario();
 			break;
 		case TOP_RIGHT:
-			scenario = Scenario.build(field).goWest().goSouth(1).goEast().goSouth(1).getSerpentineScenario();
+			scenario = Scenario.build(field)//
+					.goWest()//
+					.goSouthWithoutMowing(1)//
+					.goEast()//
+					.goSouthWithoutMowing(1)//
+					.getSerpentineScenario();
 			break;
 		case BOTTOM_LEFT:
-			scenario = Scenario.build(field).goEast().goNorth(1).goWest().goNorth(1).getSerpentineScenario();
+			scenario = Scenario.build(field)//
+					.goEast()//
+					.goNorthWithoutMowing(1)//
+					.goWest()//
+					.goNorthWithoutMowing(1)//
+					.getSerpentineScenario();
 			break;
 		case BOTTOM_RIGHT:
-			scenario = Scenario.build(field).goWest().goNorth(1).goEast().goNorth(1).getSerpentineScenario();
+			scenario = Scenario.build(field)//
+					.goWest()//
+					.goNorthWithoutMowing(1)//
+					.goEast()//
+					.goNorthWithoutMowing(1)//
+					.getSerpentineScenario();
 			break;
 		case NOT_A_CORNER:
 		default:
@@ -51,10 +75,20 @@ public class HarvestingCalculator {
 		case TOP_LEFT:
 			switch (direction) {
 			case EAST:
-				scenario = Scenario.build(field).goEast().goSouth(1).goWest().goSouth(1).getSerpentineScenario();
+				scenario = Scenario.build(field)//
+						.goEast()//
+						.goSouthWithoutMowing(1)//
+						.goWest()//
+						.goSouthWithoutMowing(1)//
+						.getSerpentineScenario();
 				break;
 			case SOUTH:
-				scenario = Scenario.build(field).goSouth().goEast(1).goNorth().goEast(1).getSerpentineScenario();
+				scenario = Scenario.build(field)//
+						.goSouth()//
+						.goEastWithoutMowing(1)//
+						.goNorth()//
+						.goEastWithoutMowing(1)//
+						.getSerpentineScenario();
 				break;
 			default:
 				throw new RuntimeException();
@@ -63,10 +97,20 @@ public class HarvestingCalculator {
 		case TOP_RIGHT:
 			switch (direction) {
 			case WEST:
-				scenario = Scenario.build(field).goWest().goSouth(1).goEast().goSouth(1).getSerpentineScenario();
+				scenario = Scenario.build(field)//
+						.goWest()//
+						.goSouthWithoutMowing(1)//
+						.goEast()//
+						.goSouthWithoutMowing(1)//
+						.getSerpentineScenario();
 				break;
 			case SOUTH:
-				scenario = Scenario.build(field).goSouth().goWest(1).goNorth().goWest(1).getSerpentineScenario();
+				scenario = Scenario.build(field)//
+						.goSouth()//
+						.goWestWithoutMowing(1)//
+						.goNorth()//
+						.goWestWithoutMowing(1)//
+						.getSerpentineScenario();
 				break;
 			default:
 				throw new RuntimeException();
@@ -75,10 +119,20 @@ public class HarvestingCalculator {
 		case BOTTOM_LEFT:
 			switch (direction) {
 			case EAST:
-				scenario = Scenario.build(field).goEast().goNorth(1).goWest().goNorth(1).getSerpentineScenario();
+				scenario = Scenario.build(field)//
+						.goEast()//
+						.goNorthWithoutMowing(1)//
+						.goWest()//
+						.goNorthWithoutMowing(1)//
+						.getSerpentineScenario();
 				break;
 			case NORTH:
-				scenario = Scenario.build(field).goNorth().goEast(1).goSouth().goEast(1).getSerpentineScenario();
+				scenario = Scenario.build(field)//
+						.goNorth()//
+						.goEastWithoutMowing(1)//
+						.goSouth()//
+						.goEastWithoutMowing(1)//
+						.getSerpentineScenario();
 				break;
 			default:
 				throw new RuntimeException();
@@ -87,10 +141,20 @@ public class HarvestingCalculator {
 		case BOTTOM_RIGHT:
 			switch (direction) {
 			case WEST:
-				scenario = Scenario.build(field).goWest().goNorth(1).goEast().goNorth(1).getSerpentineScenario();
+				scenario = Scenario.build(field)//
+						.goWest()//
+						.goNorthWithoutMowing(1)//
+						.goEast()//
+						.goNorthWithoutMowing(1)//
+						.getSerpentineScenario();
 				break;
 			case NORTH:
-				scenario = Scenario.build(field).goNorth().goWest(1).goSouth().goWest(1).getSerpentineScenario();
+				scenario = Scenario.build(field)//
+						.goNorth()//
+						.goWestWithoutMowing(1)//
+						.goSouth()//
+						.goWestWithoutMowing(1)//
+						.getSerpentineScenario();
 				break;
 			default:
 				throw new RuntimeException();
@@ -109,16 +173,28 @@ public class HarvestingCalculator {
 		Scenario scenario = Scenario.build(null).error().getCircularScenario();
 		switch (direction) {
 		case EAST:
-			scenario = Scenario.build(field).goEast().goWest().getCircularScenario();
+			scenario = Scenario.build(field)//
+					.goEast()//
+					.goWest()//
+					.getCircularScenario();
 			break;
 		case SOUTH:
-			scenario = Scenario.build(field).goSouth().goNorth().getCircularScenario();
+			scenario = Scenario.build(field)//
+					.goSouth()//
+					.goNorth()//
+					.getCircularScenario();
 			break;
 		case WEST:
-			scenario = Scenario.build(field).goWest().goEast().getCircularScenario();
+			scenario = Scenario.build(field)//
+					.goWest()//
+					.goEast()//
+					.getCircularScenario();
 			break;
 		case NORTH:
-			scenario = Scenario.build(field).goNorth().goSouth().getCircularScenario();
+			scenario = Scenario.build(field)//
+					.goNorth()//
+					.goSouth()//
+					.getCircularScenario();
 			break;
 		}
 		return scenario.executeSteps(field, row, column);
@@ -128,14 +204,14 @@ public class HarvestingCalculator {
 			int mowers, Style style) {
 
 		if (style == Style.S) {
-			return harvestWith2MowersSerpentine(field, direction, row, column, mowers);
+			return harvestWithMultipleMowersSerpentine(field, direction, row, column, mowers);
 		} else if (style == Style.C) {
-			return harvestWith2MowersCircular(field, direction, row, column, mowers);
+			return harvestWithMultipleMowersCircular(field, direction, row, column, mowers);
 		}
 		throw new RuntimeException();
 	}
 
-	private static String harvestWith2MowersCircular(CornField field, Direction direction, int row, int column,
+	private static String harvestWithMultipleMowersCircular(CornField field, Direction direction, int row, int column,
 			int mowers) {
 
 		Scenario scenario = Scenario.build(null).error().getCircularScenario();
@@ -150,8 +226,8 @@ public class HarvestingCalculator {
 				break;
 			case SOUTH:
 				scenario = Scenario.build(field)//
-						.goSouthWithMowersEasternNeighbours(2)//
-						.goNorthWithMowersWesternNeighbours(2)//
+						.goSouthWithMowersEasternNeighbours(mowers)//
+						.goNorthWithMowersWesternNeighbours(mowers, true)//
 						.getCircularScenario();//
 				break;
 			default:
@@ -162,8 +238,8 @@ public class HarvestingCalculator {
 			switch (direction) {
 			case WEST:
 				scenario = Scenario.build(field)//
-						.goWestWithMowersSouthernNeighbours(2)//
-						.goEastWithMowersNorthernNeighbours(2)//
+						.goWestWithMowersSouthernNeighbours(mowers)//
+						.goEastWithMowersNorthernNeighbours(mowers, true)//
 						.getCircularScenario();//
 				break;
 			case SOUTH:
@@ -176,14 +252,14 @@ public class HarvestingCalculator {
 			switch (direction) {
 			case EAST:
 				scenario = Scenario.build(field)//
-						.goEastWithMowersSouthernNeighbours(2)//
-						.goWestWithMowersSouthernNeighbours(2, true)//
+						.goEastWithMowersSouthernNeighbours(mowers)//
+						.goWestWithMowersSouthernNeighbours(mowers, true)//
 						.getCircularScenario();//
 				break;
 			case NORTH:
 				scenario = Scenario.build(field)//
-						.goNorthWithMowersEasternNeighbours(2)//
-						.goSouthWithMowersWesternNeighbours(2)//
+						.goNorthWithMowersEasternNeighbours(mowers)//
+						.goSouthWithMowersWesternNeighbours(mowers)//
 						.getCircularScenario();
 				break;
 			default:
@@ -206,7 +282,7 @@ public class HarvestingCalculator {
 		return scenario.executeSteps(field, row, column);
 	}
 
-	private static String harvestWith2MowersSerpentine(CornField field, Direction direction, int row, int column,
+	private static String harvestWithMultipleMowersSerpentine(CornField field, Direction direction, int row, int column,
 			int mowers) {
 
 		CornerPosition whichCorner = field.whichCorner(row, column);

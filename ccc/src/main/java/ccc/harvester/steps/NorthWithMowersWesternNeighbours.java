@@ -32,20 +32,20 @@ public class NorthWithMowersWesternNeighbours extends HarvestStep {
 		int row = startCell.getRow();
 		int column = startCell.getColumn();
 
-		List<Cell> cellsNorthFromHereMultiMowEastNeighbours;
+		List<Cell> cellsNorthFromHereMultiMowWestNeighbours;
 		if (i == Integer.MIN_VALUE) {
-			cellsNorthFromHereMultiMowEastNeighbours = field.cellsNorthFromHereMultiMowEastNeighbours(mowers,
+			cellsNorthFromHereMultiMowWestNeighbours = field.cellsNorthFromHereMultiMowWestNeighbours(mowers,
 					neighboursFirst, row, column);
 		} else {
-			cellsNorthFromHereMultiMowEastNeighbours = field.cellsNorthFromHereMultiMowEastNeighbours(mowers,
+			cellsNorthFromHereMultiMowWestNeighbours = field.cellsNorthFromHereMultiMowWestNeighbours(mowers,
 					neighboursFirst, i, row, column);
 		}
 
-		if (!cellsNorthFromHereMultiMowEastNeighbours.isEmpty()) {
-			lastCell = cellsNorthFromHereMultiMowEastNeighbours
-					.get(cellsNorthFromHereMultiMowEastNeighbours.size() - 1);
+		if (!cellsNorthFromHereMultiMowWestNeighbours.isEmpty()) {
+			lastCell = cellsNorthFromHereMultiMowWestNeighbours
+					.get(cellsNorthFromHereMultiMowWestNeighbours.size() - 1);
 		}
-		return cellsNorthFromHereMultiMowEastNeighbours;
+		return cellsNorthFromHereMultiMowWestNeighbours;
 	}
 
 	@Override
