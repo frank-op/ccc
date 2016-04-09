@@ -1,4 +1,4 @@
-package ccc.harvester.test;
+package ccc.harvester.level;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;

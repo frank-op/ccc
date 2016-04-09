@@ -1,4 +1,4 @@
-package ccc.harvester.test;
+package ccc.harvester.level;
 
 import static ccc.harvester.HarvestingCalculator.harvestInSerpentinesStartTopLeft;
 

@@ -1,30 +1,14 @@
-package ccc.harvester.test;
+package ccc.harvester.level;
 
-import org.testng.Assert;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import ccc.harvester.Direction;
 import ccc.harvester.HarvestingCalculator;
 import ccc.harvester.HarvestingCalculator.Style;
 import ccc.harvester.field.CornField;
-import ccc.harvester.scenarios.Scenario;
+import junit.framework.Assert;
 
-public class Level6Tester_Turns {
-
-	private boolean fixEmptyCells;
-
-	@BeforeClass
-	public void setup() {
-		fixEmptyCells = Scenario.isFixEmptyCells();
-		Scenario.setFixEmptyCells(true);
-	}
-
-	@AfterClass
-	public void tearDown() {
-		Scenario.setFixEmptyCells(fixEmptyCells);
-	}
+public class Level5Tester_TwoMowers {
 
 	@Test
 	public void test1() {
@@ -34,7 +18,7 @@ public class Level6Tester_Turns {
 		String harvestWith2Mowers = HarvestingCalculator.harvestWithMultipleMowers(field, Direction.EAST, 1, 1, 2,
 				Style.S);
 		System.out.println(harvestWith2Mowers);
-		Assert.assertEquals(harvestWith2Mowers, "1 5 2 6 3 7 4 8 16 12 15 11 14 10 13 9 17 0 18 0 19 0 20 0 ");
+		Assert.assertEquals("1 5 2 6 3 7 4 8 16 12 15 11 14 10 13 9 17 18 19 20 ", harvestWith2Mowers);
 
 		System.out.println();
 		System.out.println();
@@ -48,8 +32,7 @@ public class Level6Tester_Turns {
 		String harvestWith2Mowers = HarvestingCalculator.harvestWithMultipleMowers(field, Direction.EAST, 4, 1, 2,
 				Style.C);
 		System.out.println(harvestWith2Mowers);
-		Assert.assertEquals(harvestWith2Mowers, "13 17 14 18 15 19 16 20 8 4 7 3 6 2 5 1 9 0 10 0 11 0 12 0 ");
-
+		Assert.assertEquals("13 17 14 18 15 19 16 20 8 4 7 3 6 2 5 1 9 10 11 12 ", harvestWith2Mowers);
 		System.out.println();
 		System.out.println();
 	}
@@ -95,10 +78,9 @@ public class Level6Tester_Turns {
 				Style.C);
 		System.out.println(harvestWith2Mowers);
 		Assert.assertEquals(
-				"145 146 136 137 127 128 118 119 109 110 100 101 91 92 82 83 73 74 64 65 55 56 46 47 37 38 28 29 19 20 10 11 1 2 9 8 18 17 27 26 36 35 45 44 54 53 63 62 72 71 81 80 90 89 99 98 108 107 117 116 126 125 135 134 144 143 153 152 147 148 138 139 129 130 120 121 111 112 102 103 93 94 84 85 75 76 66 67 57 58 48 49 39 40 30 31 21 22 12 13 3 4 7 6 16 15 25 24 34 33 43 42 52 51 61 60 70 69 79 78 88 87 97 96 106 105 115 114 124 123 133 132 142 141 151 150 0 149 0 140 0 131 0 122 0 113 0 104 0 95 0 86 0 77 0 68 0 59 0 50 0 41 0 32 0 23 0 14 0 5 ",
+				"145 146 136 137 127 128 118 119 109 110 100 101 91 92 82 83 73 74 64 65 55 56 46 47 37 38 28 29 19 20 10 11 1 2 9 8 18 17 27 26 36 35 45 44 54 53 63 62 72 71 81 80 90 89 99 98 108 107 117 116 126 125 135 134 144 143 153 152 147 148 138 139 129 130 120 121 111 112 102 103 93 94 84 85 75 76 66 67 57 58 48 49 39 40 30 31 21 22 12 13 3 4 7 6 16 15 25 24 34 33 43 42 52 51 61 60 70 69 79 78 88 87 97 96 106 105 115 114 124 123 133 132 142 141 151 150 149 140 131 122 113 104 95 86 77 68 59 50 41 32 23 14 5 ",
 				harvestWith2Mowers);
 		System.out.println();
 		System.out.println();
 	}
-
 }
