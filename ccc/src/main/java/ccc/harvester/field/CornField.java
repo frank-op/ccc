@@ -72,7 +72,7 @@ public class CornField {
 
 		for (int i = 1; i <= rows; i++) {
 			for (int j = 1; j <= columns; j++) {
-				builder.append(String.format("%03d", getCell(i, j).getContent())).append(",");
+				builder.append(String.format("%05d", getCell(i, j).getContent())).append(",");
 			}
 			builder.append("\n");
 		}

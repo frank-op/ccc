@@ -8,6 +8,7 @@ import java.util.List;
 import ccc.harvester.OutputFormatter;
 import ccc.harvester.field.Cell;
 import ccc.harvester.field.CornField;
+import ccc.harvester.field.CornField.CornerPosition;
 import ccc.harvester.steps.HarvestStep;
 import ccc.harvester.steps.HarvestStep.Alignment;
 
@@ -28,17 +29,24 @@ public class CircularScenario extends Scenario {
 	}
 
 	private List<Cell> executeStepsCircularAndGetCells(CornField field, Cell startCell) {
-		boolean isCurPosLeftOrUp = isCellIsEitherLeftOrOnTop(startCell);
+		boolean isCurPosLeftOrUp = isCellIsEitherLeftOrOnTop(startCell, field);
 
 		LinkedHashSet<Cell> cells = new LinkedHashSet<>();
 		iterateScenarioCircular(field, cells, startCell, 0, isCurPosLeftOrUp);
 		return new ArrayList<Cell>(cells);
 	}
 
-	private boolean isCellIsEitherLeftOrOnTop(Cell startCell) {
+	private boolean isCellIsEitherLeftOrOnTop(Cell startCell, CornField field) {
 		HarvestStep firstStep = getSteps().get(0);
-		boolean isCurPosLeftOrUp = ((firstStep.getAlignment() == Alignment.VERTICAL && startCell.getColumn() == 1)
-				|| (firstStep.getAlignment() == Alignment.HORIZONTAL && startCell.getRow() == 1));
+		CornerPosition corner = field.whichCorner(startCell.getRow(), startCell.getColumn(), firstStep.getMowers());
+		boolean isCurPosLeftOrUp;
+
+		if (firstStep.getAlignment() == Alignment.VERTICAL) {
+			isCurPosLeftOrUp = (corner == CornerPosition.TOP_LEFT || corner == CornerPosition.BOTTOM_LEFT);
+		} else { // HORIZONTAL
+			isCurPosLeftOrUp = (corner == CornerPosition.TOP_LEFT || corner == CornerPosition.TOP_RIGHT);
+		}
+
 		return isCurPosLeftOrUp;
 	}
 
@@ -123,6 +131,10 @@ public class CircularScenario extends Scenario {
 		}
 	}
 
+	
+	//TODO: vielleicht braucht es das nicht mir dem extra zeug:
+	// man muss eventuell einfach wenn das nicht in einem eck startet einfach den Abstand schon
+	// höher stellen... so ist das eh wieder ein gemurkse
 	private Cell getNextCellFromWesternHalf(CornField field, HarvestStep harvestStep, Cell lastCell,
 			int currentSpaceFromFirstOrLastCell) {
 

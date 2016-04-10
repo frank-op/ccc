@@ -225,7 +225,7 @@ public class HarvestingScenarioExecutor {
 			case EAST:
 				scenario = Scenario.build(field)//
 						.goEastWithMowersSouthernNeighbours(mowers)//
-						.goWestWithMowersNorthernNeighbours(mowers, true)//
+						.goWestWithMowersSouthernNeighbours(mowers)//
 						.getCircularScenario();
 				break;
 			case SOUTH:
@@ -242,7 +242,7 @@ public class HarvestingScenarioExecutor {
 			switch (direction) {
 			case WEST:
 				scenario = Scenario.build(field)//
-						.goWestWithMowersSouthernNeighbours(mowers)//
+						.goWestWithMowersNorthernNeighbours(mowers)//
 						.goEastWithMowersNorthernNeighbours(mowers, true)//
 						.getCircularScenario();//
 				break;
