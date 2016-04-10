@@ -29,25 +29,28 @@ public class HarvestingScenarioExecutor {
 		Direction direction = executeParams.getDirection();
 		int mowers = executeParams.getMowers();
 
+		String result = "";
 		switch (corner) {
 
 		case TOP_LEFT:
 			switch (direction) {
 			case EAST:
 				scenario = Scenario.build()//
-						.goEastWithMowersSouthernNeighbours(mowers)//
+						.goEastWithSouthernNeighbours(mowers)//
 						.goSouthWithoutMowing(1)//
-						.goWestWithMowersSouthernNeighbours(mowers, true)//
+						.goWestWithSouthernNeighbours(mowers, true)//
 						.goSouthWithoutMowing(mowers)//
 						.getSerpentineScenario();//
+				result = scenario.executeSteps(executeParams);
 				break;
 			case SOUTH:
 				scenario = Scenario.build()//
-						.goSouthWithMowersEasternNeighbours(mowers)//
+						.goSouthWithEasternNeighbours(mowers)//
 						.goEastWithoutMowing(1)//
-						.goNorthWithMowersWesternNeighbours(mowers, true)//
+						.goNorthWesternNeighbours(mowers, true)//
 						.goEastWithoutMowing(mowers)//
 						.getSerpentineScenario();//
+				result = scenario.executeSteps(executeParams);
 				break;
 			default:
 				throw new RuntimeException();
@@ -57,19 +60,21 @@ public class HarvestingScenarioExecutor {
 			switch (direction) {
 			case WEST:
 				scenario = Scenario.build()//
-						.goWestWithMowersSouthernNeighbours(mowers)//
+						.goWestWithSouthernNeighbours(mowers)//
 						.goSouthWithoutMowing(1)//
-						.goEastWithMowersSouthernNeighbours(mowers, true)//
+						.goEastWithSouthernNeighbours(mowers, true)//
 						.goSouthWithoutMowing(mowers)//
 						.getSerpentineScenario();//
+				result = scenario.executeSteps(executeParams);
 				break;
 			case SOUTH:
 				scenario = Scenario.build()//
-						.goSouthWithMowersWesternNeighbours(mowers)//
+						.goSouthWithWesternNeighbours(mowers)//
 						.goWestWithoutMowing(1)//
-						.goNorthWithMowersWesternNeighbours(mowers, true)//
+						.goNorthWesternNeighbours(mowers, true)//
 						.goWestWithoutMowing(mowers)//
 						.getSerpentineScenario();//
+				result = scenario.executeSteps(executeParams);
 				break;
 			default:
 				throw new RuntimeException();
@@ -79,19 +84,21 @@ public class HarvestingScenarioExecutor {
 			switch (direction) {
 			case EAST:
 				scenario = Scenario.build()//
-						.goEastWithMowersNorthernNeighbours(mowers)//
+						.goEastWithNorthernNeighbours(mowers)//
 						.goNorthWithoutMowing(1)//
-						.goWestWithMowersNorthernNeighbours(mowers, true)//
+						.goWestWithNorthernNeighbours(mowers, true)//
 						.goNorthWithoutMowing(mowers)//
 						.getSerpentineScenario();//
+				result = scenario.executeSteps(executeParams);
 				break;
 			case NORTH:
 				scenario = Scenario.build()//
-						.goNorthWithMowersWesternNeighbours(mowers)//
+						.goNorthWithWesternNeighbours(mowers)//
 						.goEastWithoutMowing(1)//
-						.goSouthWithMowersEasternNeighbours(mowers, true)//
+						.goSouthEasternNeighbours(mowers, true)//
 						.goEastWithoutMowing(mowers)//
 						.getSerpentineScenario();//
+				result = scenario.executeSteps(executeParams);
 				break;
 			default:
 				throw new RuntimeException();
@@ -101,19 +108,21 @@ public class HarvestingScenarioExecutor {
 			switch (direction) {
 			case WEST:
 				scenario = Scenario.build()//
-						.goWestWithMowersNorthernNeighbours(mowers)//
+						.goWestWithNorthernNeighbours(mowers)//
 						.goNorthWithoutMowing(1)//
-						.goEastWithMowersNorthernNeighbours(mowers, true)//
+						.goEastWithNorthernNeighbours(mowers, true)//
 						.goNorthWithoutMowing(mowers)//
 						.getSerpentineScenario();//
+				result = scenario.executeSteps(executeParams);
 				break;
 			case NORTH:
 				scenario = Scenario.build()//
-						.goNorthWithMowersEasternNeighbours(mowers)//
+						.goNorthWithEasternNeighbours(mowers)//
 						.goWestWithoutMowing(1)//
-						.goSouthWithMowersEasternNeighbours(mowers, true)//
+						.goSouthEasternNeighbours(mowers, true)//
 						.goWestWithoutMowing(mowers)//
 						.getSerpentineScenario();//
+				result = scenario.executeSteps(executeParams);
 				break;
 			default:
 				throw new RuntimeException();
@@ -123,7 +132,6 @@ public class HarvestingScenarioExecutor {
 			throw new RuntimeException();
 		}
 
-		String result = scenario.executeSteps(executeParams);
 		System.out.println(result);
 		return result;
 	}
@@ -136,21 +144,24 @@ public class HarvestingScenarioExecutor {
 		Direction direction = executeParams.getDirection();
 		int mowers = executeParams.getMowers();
 
+		String result = "";
 		switch (corner) {
 
 		case TOP_LEFT:
 			switch (direction) {
 			case EAST:
 				scenario = Scenario.build()//
-						.goEastWithMowersSouthernNeighbours(mowers)//
-						.goWestWithMowersSouthernNeighbours(mowers)//
+						.goEastWithSouthernNeighbours(mowers)//
+						.goWestWithSouthernNeighbours(mowers)//
 						.getCircularScenario();
+				result = scenario.executeSteps(executeParams);
 				break;
 			case SOUTH:
 				scenario = Scenario.build()//
-						.goSouthWithMowersEasternNeighbours(mowers)//
-						.goNorthWithMowersWesternNeighbours(mowers, true)//
+						.goSouthWithEasternNeighbours(mowers)//
+						.goNorthWesternNeighbours(mowers, true)//
 						.getCircularScenario();//
+				result = scenario.executeSteps(executeParams);
 				break;
 			default:
 				throw new RuntimeException();
@@ -160,15 +171,17 @@ public class HarvestingScenarioExecutor {
 			switch (direction) {
 			case WEST:
 				scenario = Scenario.build()//
-						.goWestWithMowersNorthernNeighbours(mowers)//
-						.goEastWithMowersNorthernNeighbours(mowers, true)//
+						.goWestWithNorthernNeighbours(mowers)//
+						.goEastWithNorthernNeighbours(mowers, true)//
 						.getCircularScenario();//
+				result = scenario.executeSteps(executeParams);
 				break;
 			case SOUTH:
 				scenario = Scenario.build()//
-						.goSouthWithMowersEasternNeighbours(mowers)//
-						.goNorthWithMowersWesternNeighbours(mowers, true)//
+						.goSouthWithEasternNeighbours(mowers)//
+						.goNorthWesternNeighbours(mowers, true)//
 						.getCircularScenario();//
+				result = scenario.executeSteps(executeParams);
 				break;
 			default:
 				throw new RuntimeException();
@@ -178,15 +191,17 @@ public class HarvestingScenarioExecutor {
 			switch (direction) {
 			case EAST:
 				scenario = Scenario.build()//
-						.goEastWithMowersSouthernNeighbours(mowers)//
-						.goWestWithMowersSouthernNeighbours(mowers, true)//
+						.goEastWithSouthernNeighbours(mowers)//
+						.goWestWithSouthernNeighbours(mowers, true)//
 						.getCircularScenario();//
+				result = scenario.executeSteps(executeParams);
 				break;
 			case NORTH:
 				scenario = Scenario.build()//
-						.goNorthWithMowersEasternNeighbours(mowers)//
-						.goSouthWithMowersWesternNeighbours(mowers)//
+						.goNorthWithEasternNeighbours(mowers)//
+						.goSouthWithWesternNeighbours(mowers)//
 						.getCircularScenario();
+				result = scenario.executeSteps(executeParams);
 				break;
 			default:
 				throw new RuntimeException();
@@ -198,9 +213,10 @@ public class HarvestingScenarioExecutor {
 				break;
 			case NORTH:
 				scenario = Scenario.build()//
-						.goNorthWithMowersWesternNeighbours(mowers)//
-						.goSouthWithMowersEasternNeighbours(mowers)//
+						.goNorthWithWesternNeighbours(mowers)//
+						.goSouthWithEasternNeighbours(mowers)//
 						.getCircularScenario();
+				result = scenario.executeSteps(executeParams);
 				break;
 			default:
 				throw new RuntimeException();
@@ -210,7 +226,6 @@ public class HarvestingScenarioExecutor {
 			throw new RuntimeException();
 		}
 
-		String result = scenario.executeSteps(executeParams);
 		System.out.println(result);
 		return result;
 	}

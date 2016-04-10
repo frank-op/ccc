@@ -5,14 +5,14 @@ import java.util.List;
 import ccc.harvester.field.Cell;
 import ccc.harvester.field.CornField;
 
-public class SouthWithMowersEasternNeighbours extends HarvestStep {
+public class NorthWithWesternNeighbours extends HarvestStep {
 
 	private int i = Integer.MIN_VALUE;
 	private int mowers;
 	private boolean neighboursFirst;
 	private Cell lastCell;
 
-	public SouthWithMowersEasternNeighbours(int mowers, boolean neighboursFirst, int[] i) {
+	public NorthWithWesternNeighbours(int mowers, boolean neighboursFirst, int[] i) {
 		this.mowers = mowers;
 		this.neighboursFirst = neighboursFirst;
 		if (isArrayNullOrEmtpy(i)) {
@@ -30,20 +30,20 @@ public class SouthWithMowersEasternNeighbours extends HarvestStep {
 		int row = startCell.getRow();
 		int column = startCell.getColumn();
 
-		List<Cell> cellsSouthFromHereMultiMowEastNeighbours;
+		List<Cell> cellsNorthFromHereMultiMowWestNeighbours;
 		if (i == Integer.MIN_VALUE) {
-			cellsSouthFromHereMultiMowEastNeighbours = field.cellsSouthFromHereMultiMowEastNeighbours(mowers,
+			cellsNorthFromHereMultiMowWestNeighbours = field.cellsNorthFromHereMultiMowWestNeighbours(mowers,
 					neighboursFirst, row, column);
 		} else {
-			cellsSouthFromHereMultiMowEastNeighbours = field.cellsSouthFromHereMultiMowEastNeighbours(mowers,
+			cellsNorthFromHereMultiMowWestNeighbours = field.cellsNorthFromHereMultiMowWestNeighbours(mowers,
 					neighboursFirst, i, row, column);
 		}
 
-		if (!cellsSouthFromHereMultiMowEastNeighbours.isEmpty()) {
-			lastCell = cellsSouthFromHereMultiMowEastNeighbours
-					.get(cellsSouthFromHereMultiMowEastNeighbours.size() - 1);
+		if (!cellsNorthFromHereMultiMowWestNeighbours.isEmpty()) {
+			lastCell = cellsNorthFromHereMultiMowWestNeighbours
+					.get(cellsNorthFromHereMultiMowWestNeighbours.size() - 1);
 		}
-		return cellsSouthFromHereMultiMowEastNeighbours;
+		return cellsNorthFromHereMultiMowWestNeighbours;
 	}
 
 	@Override

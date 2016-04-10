@@ -5,14 +5,14 @@ import java.util.List;
 import ccc.harvester.field.Cell;
 import ccc.harvester.field.CornField;
 
-public class EastWithMowersSouthernNeighbours extends HarvestStep {
+public class NorthWithEasternNeighbours extends HarvestStep {
 
 	private int i = Integer.MIN_VALUE;
 	private int mowers;
 	private boolean neighboursFirst;
 	private Cell lastCell;
 
-	public EastWithMowersSouthernNeighbours(int mowers, boolean neighboursFirst, int[] i) {
+	public NorthWithEasternNeighbours(int mowers, boolean neighboursFirst, int[] i) {
 		this.mowers = mowers;
 		this.neighboursFirst = neighboursFirst;
 		if (isArrayNullOrEmtpy(i)) {
@@ -30,21 +30,20 @@ public class EastWithMowersSouthernNeighbours extends HarvestStep {
 		int row = startCell.getRow();
 		int column = startCell.getColumn();
 
-		List<Cell> cellsEastFromHereMultiMowSouthNeighbours;
+		List<Cell> cellsNorthFromHereMultiMowEastNeighbours;
 		if (i == Integer.MIN_VALUE) {
-			cellsEastFromHereMultiMowSouthNeighbours = field.cellsEastFromHereMultiMowSouthNeighbours(mowers,
+			cellsNorthFromHereMultiMowEastNeighbours = field.cellsNorthFromHereMultiMowEastNeighbours(mowers,
 					neighboursFirst, row, column);
 		} else {
-			cellsEastFromHereMultiMowSouthNeighbours = field.cellsEastFromHereMultiMowSouthNeighbours(mowers,
+			cellsNorthFromHereMultiMowEastNeighbours = field.cellsNorthFromHereMultiMowEastNeighbours(mowers,
 					neighboursFirst, i, row, column);
 		}
 
-		if (!cellsEastFromHereMultiMowSouthNeighbours.isEmpty()) {
-			lastCell = cellsEastFromHereMultiMowSouthNeighbours
-					.get(cellsEastFromHereMultiMowSouthNeighbours.size() - 1);
+		if (!cellsNorthFromHereMultiMowEastNeighbours.isEmpty()) {
+			lastCell = cellsNorthFromHereMultiMowEastNeighbours
+					.get(cellsNorthFromHereMultiMowEastNeighbours.size() - 1);
 		}
-
-		return cellsEastFromHereMultiMowSouthNeighbours;
+		return cellsNorthFromHereMultiMowEastNeighbours;
 	}
 
 	@Override
@@ -54,6 +53,6 @@ public class EastWithMowersSouthernNeighbours extends HarvestStep {
 
 	@Override
 	public Alignment getAlignment() {
-		return Alignment.HORIZONTAL;
+		return Alignment.VERTICAL;
 	}
 }

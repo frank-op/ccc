@@ -8,8 +8,8 @@ import org.testng.annotations.Test;
 import ccc.harvester.exec.OutputFormatter;
 import ccc.harvester.field.Cell;
 import ccc.harvester.field.CornField;
-import ccc.harvester.steps.SouthWithMowersEasternNeighbours;
-import ccc.harvester.steps.SouthWithMowersWesternNeighbours;
+import ccc.harvester.steps.SouthWithEasternNeighbours;
+import ccc.harvester.steps.SouthWithWesternNeighbours;
 import ccc.harvester.steps.SouthWithoutMowing;
 
 public class HarvestStepsTestSouth {
@@ -19,7 +19,7 @@ public class HarvestStepsTestSouth {
 
 		CornField field = new CornField(5, 5);
 
-		SouthWithMowersEasternNeighbours south = new SouthWithMowersEasternNeighbours(2, false, null);
+		SouthWithEasternNeighbours south = new SouthWithEasternNeighbours(2, false, null);
 
 		List<Cell> cells = south.doIt(field, field.getCell(1, 1));
 		Assert.assertEquals("1 2 6 7 11 12 16 17 21 22 ", OutputFormatter.getFormattedContent(cells));
@@ -39,7 +39,7 @@ public class HarvestStepsTestSouth {
 
 		CornField field = new CornField(5, 5);
 
-		SouthWithMowersEasternNeighbours south = new SouthWithMowersEasternNeighbours(2, false, new int[] { 3 });
+		SouthWithEasternNeighbours south = new SouthWithEasternNeighbours(2, false, new int[] { 3 });
 
 		List<Cell> cells = south.doIt(field, field.getCell(1, 1));
 		Assert.assertEquals("1 2 6 7 11 12 ", OutputFormatter.getFormattedContent(cells));
@@ -59,7 +59,7 @@ public class HarvestStepsTestSouth {
 
 		CornField field = new CornField(5, 5);
 
-		SouthWithMowersWesternNeighbours south = new SouthWithMowersWesternNeighbours(2, false, null);
+		SouthWithWesternNeighbours south = new SouthWithWesternNeighbours(2, false, null);
 
 		List<Cell> cells = south.doIt(field, field.getCell(1, 1));
 		Assert.assertEquals("1 6 11 16 21 ", OutputFormatter.getFormattedContent(cells));
@@ -79,7 +79,7 @@ public class HarvestStepsTestSouth {
 
 		CornField field = new CornField(5, 5);
 
-		SouthWithMowersWesternNeighbours south = new SouthWithMowersWesternNeighbours(2, false, new int[] { 2 });
+		SouthWithWesternNeighbours south = new SouthWithWesternNeighbours(2, false, new int[] { 2 });
 
 		List<Cell> cells = south.doIt(field, field.getCell(1, 1));
 		Assert.assertEquals("1 6 ", OutputFormatter.getFormattedContent(cells));

@@ -6,18 +6,18 @@ import java.util.List;
 import ccc.harvester.exec.ExecuteParams;
 import ccc.harvester.field.Cell;
 import ccc.harvester.field.CornField;
-import ccc.harvester.steps.EastWithMowersNorthernNeighbours;
-import ccc.harvester.steps.EastWithMowersSouthernNeighbours;
+import ccc.harvester.steps.EastWithNorthernNeighbours;
+import ccc.harvester.steps.EastWithSouthernNeighbours;
 import ccc.harvester.steps.EastWithoutMowing;
 import ccc.harvester.steps.HarvestStep;
-import ccc.harvester.steps.NorthWithMowersEasternNeighbours;
-import ccc.harvester.steps.NorthWithMowersWesternNeighbours;
+import ccc.harvester.steps.NorthWithEasternNeighbours;
+import ccc.harvester.steps.NorthWithWesternNeighbours;
 import ccc.harvester.steps.NorthWithoutMowing;
-import ccc.harvester.steps.SouthWithMowersEasternNeighbours;
-import ccc.harvester.steps.SouthWithMowersWesternNeighbours;
+import ccc.harvester.steps.SouthWithEasternNeighbours;
+import ccc.harvester.steps.SouthWithWesternNeighbours;
 import ccc.harvester.steps.SouthWithoutMowing;
-import ccc.harvester.steps.WestWithMowersNorthernNeighbours;
-import ccc.harvester.steps.WestWithMowersSouthernNeighbours;
+import ccc.harvester.steps.WestWithNorthernNeighbours;
+import ccc.harvester.steps.WestWithSouthernNeighbours;
 import ccc.harvester.steps.WestWithoutMowing;
 
 public abstract class Scenario {
@@ -71,21 +71,21 @@ public abstract class Scenario {
 			return this;
 		}
 
-		public ScenarioBuilder goNorthWithMowersWesternNeighbours(int mowers, int... i) {
-			return goNorthWithMowersWesternNeighbours(mowers, false, i);
+		public ScenarioBuilder goNorthWithWesternNeighbours(int mowers, int... i) {
+			return goNorthWesternNeighbours(mowers, false, i);
 		}
 
-		public ScenarioBuilder goNorthWithMowersWesternNeighbours(int mowers, boolean neighboursFirst, int... i) {
-			steps.add(new NorthWithMowersWesternNeighbours(mowers, neighboursFirst, i));
+		public ScenarioBuilder goNorthWesternNeighbours(int mowers, boolean neighboursFirst, int... i) {
+			steps.add(new NorthWithWesternNeighbours(mowers, neighboursFirst, i));
 			return this;
 		}
 
-		public ScenarioBuilder goNorthWithMowersEasternNeighbours(int mowers, int... i) {
-			return goNorthWithMowersEasternNeighbours(mowers, false, i);
+		public ScenarioBuilder goNorthWithEasternNeighbours(int mowers, int... i) {
+			return goNorthWithEasternNeighbours(mowers, false, i);
 		}
 
-		public ScenarioBuilder goNorthWithMowersEasternNeighbours(int mowers, boolean neighboursFirst, int... i) {
-			steps.add(new NorthWithMowersEasternNeighbours(mowers, neighboursFirst, i));
+		public ScenarioBuilder goNorthWithEasternNeighbours(int mowers, boolean neighboursFirst, int... i) {
+			steps.add(new NorthWithEasternNeighbours(mowers, neighboursFirst, i));
 			return this;
 		}
 
@@ -94,21 +94,21 @@ public abstract class Scenario {
 			return this;
 		}
 
-		public ScenarioBuilder goEastWithMowersSouthernNeighbours(int mowers, int... i) {
-			return goEastWithMowersSouthernNeighbours(mowers, false, i);
+		public ScenarioBuilder goEastWithSouthernNeighbours(int mowers, int... i) {
+			return goEastWithSouthernNeighbours(mowers, false, i);
 		}
 
-		public ScenarioBuilder goEastWithMowersSouthernNeighbours(int mowers, boolean neighboursFirst, int... i) {
-			steps.add(new EastWithMowersSouthernNeighbours(mowers, neighboursFirst, i));
+		public ScenarioBuilder goEastWithSouthernNeighbours(int mowers, boolean neighboursFirst, int... i) {
+			steps.add(new EastWithSouthernNeighbours(mowers, neighboursFirst, i));
 			return this;
 		}
 
-		public ScenarioBuilder goEastWithMowersNorthernNeighbours(int mowers, int... i) {
-			return goEastWithMowersNorthernNeighbours(mowers, false, i);
+		public ScenarioBuilder goEastWithNorthernNeighbours(int mowers, int... i) {
+			return goEastWithNorthernNeighbours(mowers, false, i);
 		}
 
-		public ScenarioBuilder goEastWithMowersNorthernNeighbours(int mowers, boolean neighboursFirst, int... i) {
-			steps.add(new EastWithMowersNorthernNeighbours(mowers, neighboursFirst, i));
+		public ScenarioBuilder goEastWithNorthernNeighbours(int mowers, boolean neighboursFirst, int... i) {
+			steps.add(new EastWithNorthernNeighbours(mowers, neighboursFirst, i));
 			return this;
 		}
 
@@ -117,21 +117,21 @@ public abstract class Scenario {
 			return this;
 		}
 
-		public ScenarioBuilder goSouthWithMowersEasternNeighbours(int mowers, int... i) {
-			return goSouthWithMowersEasternNeighbours(mowers, false, i);
+		public ScenarioBuilder goSouthWithEasternNeighbours(int mowers, int... i) {
+			return goSouthEasternNeighbours(mowers, false, i);
 		}
 
-		public ScenarioBuilder goSouthWithMowersEasternNeighbours(int mowers, boolean neighboursFirst, int... i) {
-			steps.add(new SouthWithMowersEasternNeighbours(mowers, neighboursFirst, i));
+		public ScenarioBuilder goSouthEasternNeighbours(int mowers, boolean neighboursFirst, int... i) {
+			steps.add(new SouthWithEasternNeighbours(mowers, neighboursFirst, i));
 			return this;
 		}
 
-		public ScenarioBuilder goSouthWithMowersWesternNeighbours(int mowers, int... i) {
-			return goSouthWithMowersWesternNeighbours(mowers, false, i);
+		public ScenarioBuilder goSouthWithWesternNeighbours(int mowers, int... i) {
+			return goSouthWithWesternNeighbours(mowers, false, i);
 		}
 
-		public ScenarioBuilder goSouthWithMowersWesternNeighbours(int mowers, boolean neighboursFirst, int... i) {
-			steps.add(new SouthWithMowersWesternNeighbours(mowers, neighboursFirst, i));
+		public ScenarioBuilder goSouthWithWesternNeighbours(int mowers, boolean neighboursFirst, int... i) {
+			steps.add(new SouthWithWesternNeighbours(mowers, neighboursFirst, i));
 			return this;
 		}
 
@@ -140,21 +140,21 @@ public abstract class Scenario {
 			return this;
 		}
 
-		public ScenarioBuilder goWestWithMowersSouthernNeighbours(int mowers, int... i) {
-			return goWestWithMowersSouthernNeighbours(mowers, false, i);
+		public ScenarioBuilder goWestWithSouthernNeighbours(int mowers, int... i) {
+			return goWestWithSouthernNeighbours(mowers, false, i);
 		}
 
-		public ScenarioBuilder goWestWithMowersSouthernNeighbours(int mowers, boolean neighboursFirst, int... i) {
-			steps.add(new WestWithMowersSouthernNeighbours(mowers, neighboursFirst, i));
+		public ScenarioBuilder goWestWithSouthernNeighbours(int mowers, boolean neighboursFirst, int... i) {
+			steps.add(new WestWithSouthernNeighbours(mowers, neighboursFirst, i));
 			return this;
 		}
 
-		public ScenarioBuilder goWestWithMowersNorthernNeighbours(int mowers, int... i) {
-			return goWestWithMowersNorthernNeighbours(mowers, false, i);
+		public ScenarioBuilder goWestWithNorthernNeighbours(int mowers, int... i) {
+			return goWestWithNorthernNeighbours(mowers, false, i);
 		}
 
-		public ScenarioBuilder goWestWithMowersNorthernNeighbours(int mowers, boolean neighboursFirst, int... i) {
-			steps.add(new WestWithMowersNorthernNeighbours(mowers, neighboursFirst, i));
+		public ScenarioBuilder goWestWithNorthernNeighbours(int mowers, boolean neighboursFirst, int... i) {
+			steps.add(new WestWithNorthernNeighbours(mowers, neighboursFirst, i));
 			return this;
 		}
 

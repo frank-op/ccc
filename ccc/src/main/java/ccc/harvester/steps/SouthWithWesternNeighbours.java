@@ -5,14 +5,14 @@ import java.util.List;
 import ccc.harvester.field.Cell;
 import ccc.harvester.field.CornField;
 
-public class EastWithMowersNorthernNeighbours extends HarvestStep {
+public class SouthWithWesternNeighbours extends HarvestStep {
 
 	private int i = Integer.MIN_VALUE;
 	private int mowers;
 	private boolean neighboursFirst;
 	private Cell lastCell;
 
-	public EastWithMowersNorthernNeighbours(int mowers, boolean neighboursFirst, int[] i) {
+	public SouthWithWesternNeighbours(int mowers, boolean neighboursFirst, int[] i) {
 		this.mowers = mowers;
 		this.neighboursFirst = neighboursFirst;
 		if (isArrayNullOrEmtpy(i)) {
@@ -30,20 +30,20 @@ public class EastWithMowersNorthernNeighbours extends HarvestStep {
 		int row = startCell.getRow();
 		int column = startCell.getColumn();
 
-		List<Cell> cellsEastFromHereMultiMowNorthNeighbours;
+		List<Cell> cellsSouthFromHereMultiMowWestNeighbours;
 		if (i == Integer.MIN_VALUE) {
-			cellsEastFromHereMultiMowNorthNeighbours = field.cellsEastFromHereMultiMowNorthNeighbours(mowers,
+			cellsSouthFromHereMultiMowWestNeighbours = field.cellsSouthFromHereMultiMowWestNeighbours(mowers,
 					neighboursFirst, row, column);
 		} else {
-			cellsEastFromHereMultiMowNorthNeighbours = field.cellsEastFromHereMultiMowNorthNeighbours(mowers,
+			cellsSouthFromHereMultiMowWestNeighbours = field.cellsSouthFromHereMultiMowWestNeighbours(mowers,
 					neighboursFirst, i, row, column);
 		}
-		if (!cellsEastFromHereMultiMowNorthNeighbours.isEmpty()) {
-			lastCell = cellsEastFromHereMultiMowNorthNeighbours
-					.get(cellsEastFromHereMultiMowNorthNeighbours.size() - 1);
-		}
 
-		return cellsEastFromHereMultiMowNorthNeighbours;
+		if (!cellsSouthFromHereMultiMowWestNeighbours.isEmpty()) {
+			lastCell = cellsSouthFromHereMultiMowWestNeighbours
+					.get(cellsSouthFromHereMultiMowWestNeighbours.size() - 1);
+		}
+		return cellsSouthFromHereMultiMowWestNeighbours;
 	}
 
 	@Override
@@ -53,6 +53,6 @@ public class EastWithMowersNorthernNeighbours extends HarvestStep {
 
 	@Override
 	public Alignment getAlignment() {
-		return Alignment.HORIZONTAL;
+		return Alignment.VERTICAL;
 	}
 }
