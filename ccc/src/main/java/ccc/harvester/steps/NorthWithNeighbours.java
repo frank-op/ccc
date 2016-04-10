@@ -1,5 +1,8 @@
 package ccc.harvester.steps;
 
+import static ccc.harvester.field.CornfieldCalculator.cellsNorthFromHereWithEastNeighbours;
+import static ccc.harvester.field.CornfieldCalculator.cellsNorthFromHereWithWestNeighbours;
+
 import java.util.List;
 
 import ccc.harvester.exec.Direction;
@@ -30,11 +33,11 @@ public class NorthWithNeighbours extends HarvestStep {
 		case SOUTH:
 			throw new RuntimeException("Values NORTH and SOUTH are no good for neighbours!");
 		case EAST:
-			cellsNorthFromHereWithNeighbours = field.cellsNorthFromHereWithEastNeighbours(getMowers(),
+			cellsNorthFromHereWithNeighbours = cellsNorthFromHereWithEastNeighbours(field, getMowers(),
 					isNeighboursFirst(), getCount(), row, column);
 			break;
 		case WEST:
-			cellsNorthFromHereWithNeighbours = field.cellsNorthFromHereWithWestNeighbours(getMowers(),
+			cellsNorthFromHereWithNeighbours = cellsNorthFromHereWithWestNeighbours(field, getMowers(),
 					isNeighboursFirst(), getCount(), row, column);
 			break;
 		}
