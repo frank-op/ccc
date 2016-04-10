@@ -5,7 +5,8 @@ import java.util.Collection;
 import java.util.LinkedHashSet;
 import java.util.List;
 
-import ccc.harvester.OutputFormatter;
+import ccc.harvester.exec.ExecuteParams;
+import ccc.harvester.exec.OutputFormatter;
 import ccc.harvester.field.Cell;
 import ccc.harvester.field.CornField;
 import ccc.harvester.steps.HarvestStep;
@@ -17,11 +18,13 @@ public class SerpentineScenario extends Scenario {
 	}
 
 	@Override
-	public String executeSteps(CornField field, int row, int column) {
-		return executeStepsSerpentine(field, field.getCell(row, column));
-	}
+	public String executeSteps(ExecuteParams params) {
+		CornField field = new CornField(params.getFieldRows(), params.getFieldCols());
 
-	private String executeStepsSerpentine(CornField field, Cell startCell) {
+		System.out.println(field);
+
+		Cell startCell = field.getCell(params.getStartCellRow(), params.getStartCellCol());
+
 		List<Cell> cells = executeStepsSerpentineAndGetCells(field, startCell);
 		return OutputFormatter.getFormattedContent(cells);
 	}
@@ -36,7 +39,7 @@ public class SerpentineScenario extends Scenario {
 	private void iterateScenarioSerpentine(CornField field, Collection<Cell> cells, Cell currentCell) {
 		for (HarvestStep harvestStep : getSteps()) {
 
-			List<Cell> resultOfStep = harvestStep.doIt(currentCell);
+			List<Cell> resultOfStep = harvestStep.doIt(field, currentCell);
 
 			currentCell = harvestStep.getLastCell();
 			cells.addAll(resultOfStep);

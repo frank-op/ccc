@@ -5,10 +5,11 @@ import java.util.Collection;
 import java.util.LinkedHashSet;
 import java.util.List;
 
-import ccc.harvester.OutputFormatter;
+import ccc.harvester.exec.ExecuteParams.CornerPosition;
+import ccc.harvester.exec.ExecuteParams;
+import ccc.harvester.exec.OutputFormatter;
 import ccc.harvester.field.Cell;
 import ccc.harvester.field.CornField;
-import ccc.harvester.field.CornField.CornerPosition;
 import ccc.harvester.steps.HarvestStep;
 import ccc.harvester.steps.HarvestStep.Alignment;
 
@@ -19,34 +20,37 @@ public class CircularScenario extends Scenario {
 	}
 
 	@Override
-	public String executeSteps(CornField field, int row, int column) {
-		return executeStepsCircular(field, field.getCell(row, column));
-	}
+	public String executeSteps(ExecuteParams params) {
 
-	private String executeStepsCircular(CornField field, Cell startCell) {
-		List<Cell> cells = executeStepsCircularAndGetCells(field, startCell);
+		CornField field = new CornField(params.getFieldRows(), params.getFieldCols());
+		System.out.println(field);
+
+		Cell startCell = field.getCell(params.getStartCellRow(), params.getStartCellCol());
+		CornerPosition corner = params.getCorner();
+
+		List<Cell> cells = executeStepsCircularAndGetCells(field, startCell, corner);
 		return OutputFormatter.getFormattedContent(cells);
 	}
 
-	private List<Cell> executeStepsCircularAndGetCells(CornField field, Cell startCell) {
-		boolean isCurPosLeftOrUp = isCellIsEitherLeftOrOnTop(startCell, field);
+	private List<Cell> executeStepsCircularAndGetCells(CornField field, Cell startCell, CornerPosition corner) {
+
+		boolean isCurPosLeftOrUp = isCellIsEitherLeftOrOnTop(startCell, field, corner);
 
 		LinkedHashSet<Cell> cells = new LinkedHashSet<>();
 		iterateScenarioCircular(field, cells, startCell, 0, isCurPosLeftOrUp);
 		return new ArrayList<Cell>(cells);
 	}
 
-	private boolean isCellIsEitherLeftOrOnTop(Cell startCell, CornField field) {
-		HarvestStep firstStep = getSteps().get(0);
-		CornerPosition corner = field.whichCorner(startCell.getRow(), startCell.getColumn(), firstStep.getMowers());
-		boolean isCurPosLeftOrUp;
+	private boolean isCellIsEitherLeftOrOnTop(Cell startCell, CornField field, CornerPosition corner) {
 
+		HarvestStep firstStep = getSteps().get(0);
+
+		boolean isCurPosLeftOrUp;
 		if (firstStep.getAlignment() == Alignment.VERTICAL) {
 			isCurPosLeftOrUp = (corner == CornerPosition.TOP_LEFT || corner == CornerPosition.BOTTOM_LEFT);
 		} else { // HORIZONTAL
 			isCurPosLeftOrUp = (corner == CornerPosition.TOP_LEFT || corner == CornerPosition.TOP_RIGHT);
 		}
-
 		return isCurPosLeftOrUp;
 	}
 
@@ -70,7 +74,7 @@ public class CircularScenario extends Scenario {
 
 	private void addCellsOfCurrentStep(CornField field, Collection<Cell> cells, Cell currentCell,
 			HarvestStep harvestStep) {
-		List<Cell> resultOfStep = harvestStep.doIt(currentCell);
+		List<Cell> resultOfStep = harvestStep.doIt(field, currentCell);
 		resultOfStep = fixEmptyCells(field, harvestStep, resultOfStep, cells);
 		cells.addAll(resultOfStep);
 	}
@@ -131,9 +135,9 @@ public class CircularScenario extends Scenario {
 		}
 	}
 
-	
-	//TODO: vielleicht braucht es das nicht mir dem extra zeug:
-	// man muss eventuell einfach wenn das nicht in einem eck startet einfach den Abstand schon
+	// TODO: vielleicht braucht es das nicht mir dem extra zeug:
+	// man muss eventuell einfach wenn das nicht in einem eck startet einfach
+	// den Abstand schon
 	// höher stellen... so ist das eh wieder ein gemurkse
 	private Cell getNextCellFromWesternHalf(CornField field, HarvestStep harvestStep, Cell lastCell,
 			int currentSpaceFromFirstOrLastCell) {

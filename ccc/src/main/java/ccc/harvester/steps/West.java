@@ -7,19 +7,17 @@ import ccc.harvester.field.CornField;
 
 public class West extends HarvestStep {
 
-	private CornField field;
 	private int i = Integer.MIN_VALUE;
 	private Cell lastCell;
 
-	public West(CornField field, int[] i) {
-		this.field = field;
+	public West(int[] i) {
 		if (isArrayNullOrEmtpy(i)) {
 			this.i = i[0];
 		}
 	}
 
 	@Override
-	public List<Cell> doIt(Cell startCell) {
+	public List<Cell> doIt(CornField field, Cell startCell) {
 		int row = startCell.getRow();
 		int column = startCell.getColumn();
 

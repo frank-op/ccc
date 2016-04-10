@@ -7,14 +7,12 @@ import ccc.harvester.field.CornField;
 
 public class NorthWithMowersWesternNeighbours extends HarvestStep {
 
-	private CornField field;
 	private int i = Integer.MIN_VALUE;
 	private int mowers;
 	private boolean neighboursFirst;
 	private Cell lastCell;
 
-	public NorthWithMowersWesternNeighbours(CornField field, int mowers, boolean neighboursFirst, int[] i) {
-		this.field = field;
+	public NorthWithMowersWesternNeighbours(int mowers, boolean neighboursFirst, int[] i) {
 		this.mowers = mowers;
 		this.neighboursFirst = neighboursFirst;
 		if (isArrayNullOrEmtpy(i)) {
@@ -28,7 +26,7 @@ public class NorthWithMowersWesternNeighbours extends HarvestStep {
 	}
 
 	@Override
-	public List<Cell> doIt(Cell startCell) {
+	public List<Cell> doIt(CornField field, Cell startCell) {
 		int row = startCell.getRow();
 		int column = startCell.getColumn();
 

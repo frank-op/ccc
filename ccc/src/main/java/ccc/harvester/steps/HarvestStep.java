@@ -3,10 +3,11 @@ package ccc.harvester.steps;
 import java.util.List;
 
 import ccc.harvester.field.Cell;
+import ccc.harvester.field.CornField;
 
 public abstract class HarvestStep {
 
-	public abstract List<Cell> doIt(Cell startCell);
+	public abstract List<Cell> doIt(CornField field, Cell startCell);
 
 	public abstract Alignment getAlignment();
 
