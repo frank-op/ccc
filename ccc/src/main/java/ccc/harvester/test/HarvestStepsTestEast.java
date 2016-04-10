@@ -8,38 +8,11 @@ import org.testng.annotations.Test;
 import ccc.harvester.exec.OutputFormatter;
 import ccc.harvester.field.Cell;
 import ccc.harvester.field.CornField;
-import ccc.harvester.steps.East;
 import ccc.harvester.steps.EastWithMowersNorthernNeighbours;
 import ccc.harvester.steps.EastWithMowersSouthernNeighbours;
 import ccc.harvester.steps.EastWithoutMowing;
 
 public class HarvestStepsTestEast {
-
-	@Test
-	public void testGoEast() {
-
-		CornField field = new CornField(5, 5);
-
-		East east = new East(null);
-		List<Cell> cells = east.doIt(field, field.getCell(1, 1));
-		Assert.assertEquals("1 2 3 4 5 ", OutputFormatter.getFormattedContent(cells));
-		Assert.assertEquals(east.getLastCell().getContent(), 5);
-
-		cells = east.doIt(field, field.getCell(2, 1));
-		Assert.assertEquals("6 7 8 9 10 ", OutputFormatter.getFormattedContent(cells));
-		Assert.assertEquals(east.getLastCell().getContent(), 10);
-	}
-
-	@Test
-	public void testGoEastLimited() {
-
-		CornField field = new CornField(5, 5);
-
-		East east = new East(new int[] { 4 });
-		List<Cell> cells = east.doIt(field, field.getCell(1, 1));
-		Assert.assertEquals("1 2 3 4 ", OutputFormatter.getFormattedContent(cells));
-		Assert.assertEquals(east.getLastCell().getContent(), 4);
-	}
 
 	@Test
 	public void testGoEastWithMowersNorthernNeighbours() {

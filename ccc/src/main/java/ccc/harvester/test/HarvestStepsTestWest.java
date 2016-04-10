@@ -8,38 +8,11 @@ import org.testng.annotations.Test;
 import ccc.harvester.exec.OutputFormatter;
 import ccc.harvester.field.Cell;
 import ccc.harvester.field.CornField;
-import ccc.harvester.steps.West;
 import ccc.harvester.steps.WestWithMowersNorthernNeighbours;
 import ccc.harvester.steps.WestWithMowersSouthernNeighbours;
 import ccc.harvester.steps.WestWithoutMowing;
 
 public class HarvestStepsTestWest {
-
-	@Test
-	public void testGoWest() {
-
-		CornField field = new CornField(5, 5);
-
-		West west = new West(null);
-		List<Cell> cells = west.doIt(field, field.getCell(1, 5));
-		Assert.assertEquals("5 4 3 2 1 ", OutputFormatter.getFormattedContent(cells));
-		Assert.assertEquals(west.getLastCell().getContent(), 1);
-
-		cells = west.doIt(field, field.getCell(2, 5));
-		Assert.assertEquals("10 9 8 7 6 ", OutputFormatter.getFormattedContent(cells));
-		Assert.assertEquals(west.getLastCell().getContent(), 6);
-	}
-
-	@Test
-	public void testGoWestLimited() {
-
-		CornField field = new CornField(5, 5);
-
-		West west = new West(new int[] { 4 });
-		List<Cell> cells = west.doIt(field, field.getCell(1, 5));
-		Assert.assertEquals("5 4 3 2 ", OutputFormatter.getFormattedContent(cells));
-		Assert.assertEquals(west.getLastCell().getContent(), 2);
-	}
 
 	@Test
 	public void testGoWestWithMowersNorthernNeighbours() {

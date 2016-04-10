@@ -123,7 +123,9 @@ public class HarvestingScenarioExecutor {
 			throw new RuntimeException();
 		}
 
-		return scenario.executeSteps(executeParams);
+		String result = scenario.executeSteps(executeParams);
+		System.out.println(result);
+		return result;
 	}
 
 	private static String executeCircularStyle(ExecuteParams executeParams) {

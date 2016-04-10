@@ -6,20 +6,16 @@ import java.util.List;
 import ccc.harvester.exec.ExecuteParams;
 import ccc.harvester.field.Cell;
 import ccc.harvester.field.CornField;
-import ccc.harvester.steps.East;
 import ccc.harvester.steps.EastWithMowersNorthernNeighbours;
 import ccc.harvester.steps.EastWithMowersSouthernNeighbours;
 import ccc.harvester.steps.EastWithoutMowing;
 import ccc.harvester.steps.HarvestStep;
-import ccc.harvester.steps.North;
 import ccc.harvester.steps.NorthWithMowersEasternNeighbours;
 import ccc.harvester.steps.NorthWithMowersWesternNeighbours;
 import ccc.harvester.steps.NorthWithoutMowing;
-import ccc.harvester.steps.South;
 import ccc.harvester.steps.SouthWithMowersEasternNeighbours;
 import ccc.harvester.steps.SouthWithMowersWesternNeighbours;
 import ccc.harvester.steps.SouthWithoutMowing;
-import ccc.harvester.steps.West;
 import ccc.harvester.steps.WestWithMowersNorthernNeighbours;
 import ccc.harvester.steps.WestWithMowersSouthernNeighbours;
 import ccc.harvester.steps.WestWithoutMowing;
@@ -75,11 +71,6 @@ public abstract class Scenario {
 			return this;
 		}
 
-		public ScenarioBuilder goNorth(int... i) {
-			steps.add(new North(i));
-			return this;
-		}
-
 		public ScenarioBuilder goNorthWithMowersWesternNeighbours(int mowers, int... i) {
 			return goNorthWithMowersWesternNeighbours(mowers, false, i);
 		}
@@ -100,11 +91,6 @@ public abstract class Scenario {
 
 		public ScenarioBuilder goNorthWithoutMowing(int... i) {
 			steps.add(new NorthWithoutMowing(i));
-			return this;
-		}
-
-		public ScenarioBuilder goEast(int... i) {
-			steps.add(new East(i));
 			return this;
 		}
 
@@ -131,11 +117,6 @@ public abstract class Scenario {
 			return this;
 		}
 
-		public ScenarioBuilder goSouth(int... i) {
-			steps.add(new South(i));
-			return this;
-		}
-
 		public ScenarioBuilder goSouthWithMowersEasternNeighbours(int mowers, int... i) {
 			return goSouthWithMowersEasternNeighbours(mowers, false, i);
 		}
@@ -156,11 +137,6 @@ public abstract class Scenario {
 
 		public ScenarioBuilder goSouthWithoutMowing(int... i) {
 			steps.add(new SouthWithoutMowing(i));
-			return this;
-		}
-
-		public ScenarioBuilder goWest(int... i) {
-			steps.add(new West(i));
 			return this;
 		}
 
