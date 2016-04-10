@@ -51,24 +51,4 @@ public class FieldTester {
 		System.out.println("WEST  " + cellsWestFromHere);
 		System.out.println(OutputFormatter.getFormattedContent(cellsWestFromHere));
 	}
-
-	@Test
-	public void testGetCellsWithNeighbours() {
-
-		CornField cornField = new CornField(5, 5);
-		List<Cell> cellsNorthFromHere = cornField.cellsNorthFromHereMultiMowEastNeighbours(2, false, 5, 1);
-		System.out.println(cornField);
-		System.out.println();
-
-		System.out.println(OutputFormatter.getFormattedContent(cellsNorthFromHere));
-
-		List<Cell> cellsEastFromHere = cornField.cellsEastFromHereMultiMowSouthNeighbours(2, false, 1, 1);
-		System.out.println(OutputFormatter.getFormattedContent(cellsEastFromHere));
-
-		List<Cell> cellsSouthFromHere = cornField.cellsSouthFromHereMultiMowEastNeighbours(2, false, 1, 1);
-		System.out.println(OutputFormatter.getFormattedContent(cellsSouthFromHere));
-
-		List<Cell> cellsWestFromHere = cornField.cellsWestFromHereMultiMowSouthNeighbours(2, false, 1, 5);
-		System.out.println(OutputFormatter.getFormattedContent(cellsWestFromHere));
-	}
 }

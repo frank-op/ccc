@@ -5,11 +5,11 @@ import java.util.List;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import ccc.harvester.exec.Direction;
 import ccc.harvester.exec.OutputFormatter;
 import ccc.harvester.field.Cell;
 import ccc.harvester.field.CornField;
-import ccc.harvester.steps.EastWithNorthernNeighbours;
-import ccc.harvester.steps.EastWithSouthernNeighbours;
+import ccc.harvester.steps.EastWithNeighbours;
 import ccc.harvester.steps.EastWithoutMowing;
 
 public class HarvestStepsTestEast {
@@ -19,7 +19,7 @@ public class HarvestStepsTestEast {
 
 		CornField field = new CornField(5, 5);
 
-		EastWithNorthernNeighbours east = new EastWithNorthernNeighbours(2, false, null);
+		EastWithNeighbours east = new EastWithNeighbours(Direction.NORTH, 2, false, null);
 
 		List<Cell> cells = east.doIt(field, field.getCell(1, 1));
 		Assert.assertEquals("1 2 3 4 5 ", OutputFormatter.getFormattedContent(cells));
@@ -39,7 +39,7 @@ public class HarvestStepsTestEast {
 
 		CornField field = new CornField(5, 5);
 
-		EastWithNorthernNeighbours east = new EastWithNorthernNeighbours(2, false, new int[] { 3 });
+		EastWithNeighbours east = new EastWithNeighbours(Direction.NORTH, 2, false, 3);
 
 		List<Cell> cells = east.doIt(field, field.getCell(1, 1));
 		Assert.assertEquals("1 2 3 ", OutputFormatter.getFormattedContent(cells));
@@ -59,7 +59,7 @@ public class HarvestStepsTestEast {
 
 		CornField field = new CornField(5, 5);
 
-		EastWithSouthernNeighbours east = new EastWithSouthernNeighbours(2, false, null);
+		EastWithNeighbours east = new EastWithNeighbours(Direction.SOUTH, 2, false, null);
 
 		List<Cell> cells = east.doIt(field, field.getCell(1, 1));
 		Assert.assertEquals("1 6 2 7 3 8 4 9 5 10 ", OutputFormatter.getFormattedContent(cells));
@@ -79,7 +79,7 @@ public class HarvestStepsTestEast {
 
 		CornField field = new CornField(5, 5);
 
-		EastWithSouthernNeighbours east = new EastWithSouthernNeighbours(2, false, new int[] { 2 });
+		EastWithNeighbours east = new EastWithNeighbours(Direction.SOUTH, 2, false, 2);
 
 		List<Cell> cells = east.doIt(field, field.getCell(1, 1));
 		Assert.assertEquals("1 6 2 7 ", OutputFormatter.getFormattedContent(cells));

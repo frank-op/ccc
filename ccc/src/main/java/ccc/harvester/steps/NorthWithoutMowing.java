@@ -8,13 +8,13 @@ import ccc.harvester.field.CornField;
 
 public class NorthWithoutMowing extends HarvestStep {
 
-	private int i = Integer.MIN_VALUE;
-	private Cell lastCell;
-
 	public NorthWithoutMowing(int[] i) {
-		if (isArrayNullOrEmtpy(i)) {
-			this.i = i[0];
-		}
+		super(i);
+	}
+
+	@Override
+	public Alignment getAlignment() {
+		return Alignment.VERTICAL;
 	}
 
 	@Override
@@ -22,22 +22,7 @@ public class NorthWithoutMowing extends HarvestStep {
 
 		int row = startCell.getRow();
 		int column = startCell.getColumn();
-
-		if (i == Integer.MIN_VALUE) {
-			lastCell = field.getCell(1, column);
-		} else {
-			lastCell = field.getCellReturnNull(row - i, column);
-		}
+		setLastCell(field.getCellReturnNull(row - getCount(), column));
 		return Collections.emptyList();
-	}
-
-	@Override
-	public Cell getLastCell() {
-		return lastCell;
-	}
-
-	@Override
-	public Alignment getAlignment() {
-		return Alignment.VERTICAL;
 	}
 }

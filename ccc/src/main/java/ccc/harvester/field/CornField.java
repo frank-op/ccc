@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.List;
 
 import ccc.harvester.scenarios.Scenario;
+import ccc.harvester.steps.HarvestStep;
 
 public class CornField {
 
@@ -90,27 +91,28 @@ public class CornField {
 		return builder.toString();
 	}
 
-	public List<Cell> cellsNorthFromHereMultiMowEastNeighbours(int mowers, boolean neighboursFirst, int row,
+	public List<Cell> cellsNorthFromHereWithEastNeighbours(int mowers, boolean neighboursFirst, int count, int row,
 			int column) {
-		List<Cell> cellsNorthFromHere = cellsNorthFromHere(row, column);
+
+		List<Cell> cellsNorthFromHere;
+
+		if (count == HarvestStep.GET_UNTIL_THE_END) {
+			cellsNorthFromHere = cellsNorthFromHere(row, column);
+		} else {
+			cellsNorthFromHere = cellsNorthFromHere(0, count, row, column);
+		}
 		return getNeighbourinosEast(cellsNorthFromHere, mowers, neighboursFirst);
 	}
 
-	public List<Cell> cellsNorthFromHereMultiMowEastNeighbours(int mowers, boolean neighboursFirst, int count, int row,
+	public List<Cell> cellsNorthFromHereWithWestNeighbours(int mowers, boolean neighboursFirst, int count, int row,
 			int column) {
-		List<Cell> cellsNorthFromHere = cellsNorthFromHere(0, count, row, column);
-		return getNeighbourinosEast(cellsNorthFromHere, mowers, neighboursFirst);
-	}
+		List<Cell> cellsNorthFromHere;
 
-	public List<Cell> cellsNorthFromHereMultiMowWestNeighbours(int mowers, boolean neighboursFirst, int row,
-			int column) {
-		List<Cell> cellsNorthFromHere = cellsNorthFromHere(row, column);
-		return getNeighbourinosWest(cellsNorthFromHere, mowers, neighboursFirst);
-	}
-
-	public List<Cell> cellsNorthFromHereMultiMowWestNeighbours(int mowers, boolean neighboursFirst, int count, int row,
-			int column) {
-		List<Cell> cellsNorthFromHere = cellsNorthFromHere(0, count, row, column);
+		if (count == HarvestStep.GET_UNTIL_THE_END) {
+			cellsNorthFromHere = cellsNorthFromHere(row, column);
+		} else {
+			cellsNorthFromHere = cellsNorthFromHere(0, count, row, column);
+		}
 		return getNeighbourinosWest(cellsNorthFromHere, mowers, neighboursFirst);
 	}
 
@@ -158,27 +160,28 @@ public class CornField {
 		return builder.toString();
 	}
 
-	public List<Cell> cellsEastFromHereMultiMowSouthNeighbours(int mowers, boolean neighboursFirst, int row,
+	public List<Cell> cellsEastFromHereSouthNeighbours(int mowers, boolean neighboursFirst, int count, int row,
 			int column) {
-		List<Cell> cellsEastFromHere = cellsEastFromHere(row, column);
+		List<Cell> cellsEastFromHere;
+
+		if (count == HarvestStep.GET_UNTIL_THE_END) {
+			cellsEastFromHere = cellsEastFromHere(row, column);
+		} else {
+			cellsEastFromHere = cellsEastFromHere(0, count, row, column);
+		}
 		return getNeighbourinosSouth(cellsEastFromHere, mowers, neighboursFirst);
 	}
 
-	public List<Cell> cellsEastFromHereMultiMowSouthNeighbours(int mowers, boolean neighboursFirst, int count, int row,
+	public List<Cell> cellsEastFromHereNorthNeighbours(int mowers, boolean neighboursFirst, int count, int row,
 			int column) {
-		List<Cell> cellsEastFromHere = cellsEastFromHere(0, count, row, column);
-		return getNeighbourinosSouth(cellsEastFromHere, mowers, neighboursFirst);
-	}
 
-	public List<Cell> cellsEastFromHereMultiMowNorthNeighbours(int mowers, boolean neighboursFirst, int row,
-			int column) {
-		List<Cell> cellsEastFromHere = cellsEastFromHere(row, column);
-		return getNeighbourinosNorth(cellsEastFromHere, mowers, neighboursFirst);
-	}
+		List<Cell> cellsEastFromHere;
 
-	public List<Cell> cellsEastFromHereMultiMowNorthNeighbours(int mowers, boolean neighboursFirst, int count, int row,
-			int column) {
-		List<Cell> cellsEastFromHere = cellsEastFromHere(0, count, row, column);
+		if (count == HarvestStep.GET_UNTIL_THE_END) {
+			cellsEastFromHere = cellsEastFromHere(row, column);
+		} else {
+			cellsEastFromHere = cellsEastFromHere(0, count, row, column);
+		}
 		return getNeighbourinosNorth(cellsEastFromHere, mowers, neighboursFirst);
 	}
 
@@ -228,27 +231,28 @@ public class CornField {
 		return builder.toString();
 	}
 
-	public List<Cell> cellsSouthFromHereMultiMowEastNeighbours(int mowers, boolean neighboursFirst, int row,
+	public List<Cell> cellsSouthFromHereWithEastNeighbours(int mowers, boolean neighboursFirst, int count, int row,
 			int column) {
-		List<Cell> cellsSouthFromHere = cellsSouthFromHere(row, column);
+
+		List<Cell> cellsSouthFromHere;
+
+		if (count == HarvestStep.GET_UNTIL_THE_END) {
+			cellsSouthFromHere = cellsSouthFromHere(row, column);
+		} else {
+			cellsSouthFromHere = cellsSouthFromHere(0, count, row, column);
+		}
 		return getNeighbourinosEast(cellsSouthFromHere, mowers, neighboursFirst);
 	}
 
-	public List<Cell> cellsSouthFromHereMultiMowEastNeighbours(int mowers, boolean neighboursFirst, int count, int row,
+	public List<Cell> cellsSouthFromHereWithWestNeighbours(int mowers, boolean neighboursFirst, int count, int row,
 			int column) {
-		List<Cell> cellsSouthFromHere = cellsSouthFromHere(0, count, row, column);
-		return getNeighbourinosEast(cellsSouthFromHere, mowers, neighboursFirst);
-	}
+		List<Cell> cellsSouthFromHere;
 
-	public List<Cell> cellsSouthFromHereMultiMowWestNeighbours(int mowers, boolean neighboursFirst, int row,
-			int column) {
-		List<Cell> cellsSouthFromHere = cellsSouthFromHere(row, column);
-		return getNeighbourinosWest(cellsSouthFromHere, mowers, neighboursFirst);
-	}
-
-	public List<Cell> cellsSouthFromHereMultiMowWestNeighbours(int mowers, boolean neighboursFirst, int count, int row,
-			int column) {
-		List<Cell> cellsSouthFromHere = cellsSouthFromHere(0, count, row, column);
+		if (count == HarvestStep.GET_UNTIL_THE_END) {
+			cellsSouthFromHere = cellsSouthFromHere(row, column);
+		} else {
+			cellsSouthFromHere = cellsSouthFromHere(0, count, row, column);
+		}
 		return getNeighbourinosWest(cellsSouthFromHere, mowers, neighboursFirst);
 	}
 
@@ -298,27 +302,27 @@ public class CornField {
 		return builder.toString();
 	}
 
-	public List<Cell> cellsWestFromHereMultiMowSouthNeighbours(int mowers, boolean neighboursFirst, int row,
+	public List<Cell> cellsWestFromHereWithSouthNeighbours(int mowers, boolean neighboursFirst, int count, int row,
 			int column) {
-		List<Cell> cellsWestFromHere = cellsWestFromHere(row, column);
+
+		List<Cell> cellsWestFromHere;
+		if (count == HarvestStep.GET_UNTIL_THE_END) {
+			cellsWestFromHere = cellsWestFromHere(row, column);
+		} else {
+			cellsWestFromHere = cellsWestFromHere(0, count, row, column);
+		}
 		return getNeighbourinosSouth(cellsWestFromHere, mowers, neighboursFirst);
 	}
 
-	public List<Cell> cellsWestFromHereMultiMowSouthNeighbours(int mowers, boolean neighboursFirst, int count, int row,
+	public List<Cell> cellsWestFromHereWithNorthNeighbours(int mowers, boolean neighboursFirst, int count, int row,
 			int column) {
-		List<Cell> cellsWestFromHere = cellsWestFromHere(0, count, row, column);
-		return getNeighbourinosSouth(cellsWestFromHere, mowers, neighboursFirst);
-	}
 
-	public List<Cell> cellsWestFromHereMultiMowNorthNeighbours(int mowers, boolean neighboursFirst, int row,
-			int column) {
-		List<Cell> cellsWestFromHere = cellsWestFromHere(row, column);
-		return getNeighbourinosNorth(cellsWestFromHere, mowers, neighboursFirst);
-	}
-
-	public List<Cell> cellsWestFromHereMultiMowNorthNeighbours(int mowers, boolean neighboursFirst, int count, int row,
-			int column) {
-		List<Cell> cellsWestFromHere = cellsWestFromHere(0, count, row, column);
+		List<Cell> cellsWestFromHere;
+		if (count == HarvestStep.GET_UNTIL_THE_END) {
+			cellsWestFromHere = cellsWestFromHere(row, column);
+		} else {
+			cellsWestFromHere = cellsWestFromHere(0, count, row, column);
+		}
 		return getNeighbourinosNorth(cellsWestFromHere, mowers, neighboursFirst);
 	}
 
