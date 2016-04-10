@@ -41,10 +41,6 @@ public abstract class HarvestStep {
 		return i == null || i.length == 0;
 	}
 
-	public enum Alignment {
-		HORIZONTAL, VERTICAL;
-	}
-
 	public Direction getDirection() {
 		return direction;
 	}
@@ -78,10 +74,17 @@ public abstract class HarvestStep {
 	}
 
 	public Cell getLastCell() {
+		if (lastCell == null) {
+			throw new RuntimeException("Only call that after #doIt");
+		}
 		return lastCell;
 	}
 
 	public void setLastCell(Cell lastCell) {
 		this.lastCell = lastCell;
+	}
+
+	public enum Alignment {
+		HORIZONTAL, VERTICAL;
 	}
 }
