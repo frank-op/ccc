@@ -15,6 +15,9 @@ import ccc.harvester.steps.HarvestStep.Alignment;
 
 public class CircularScenario extends Scenario {
 
+	private CornField field;
+	private int spaceToBorder;
+
 	public CircularScenario(List<HarvestStep> steps) {
 		super(steps);
 	}
@@ -22,26 +25,27 @@ public class CircularScenario extends Scenario {
 	@Override
 	public String executeSteps(ExecuteParams params) {
 
-		CornField field = new CornField(params.getFieldRows(), params.getFieldCols());
+		field = new CornField(params.getFieldRows(), params.getFieldCols());
 		System.out.println(field);
+		spaceToBorder = params.getSpaceToBorder();
 
 		Cell startCell = field.getCell(params.getStartCellRow(), params.getStartCellCol());
 		CornerPosition corner = params.getCorner();
 
-		List<Cell> cells = executeStepsCircularAndGetCells(field, startCell, corner);
+		List<Cell> cells = executeStepsCircularAndGetCells(startCell, corner);
 		return OutputFormatter.getFormattedContent(cells);
 	}
 
-	private List<Cell> executeStepsCircularAndGetCells(CornField field, Cell startCell, CornerPosition corner) {
+	private List<Cell> executeStepsCircularAndGetCells(Cell startCell, CornerPosition corner) {
 
-		boolean isCurPosLeftOrUp = isCellIsEitherLeftOrOnTop(startCell, field, corner);
+		boolean isCurPosLeftOrUp = isCellIsEitherLeftOrOnTop(startCell, corner);
 
 		LinkedHashSet<Cell> cells = new LinkedHashSet<>();
-		iterateScenarioCircular(field, cells, startCell, 0, isCurPosLeftOrUp);
+		iterateScenarioCircular(cells, startCell, 0, isCurPosLeftOrUp);
 		return new ArrayList<Cell>(cells);
 	}
 
-	private boolean isCellIsEitherLeftOrOnTop(Cell startCell, CornField field, CornerPosition corner) {
+	private boolean isCellIsEitherLeftOrOnTop(Cell startCell, CornerPosition corner) {
 
 		HarvestStep firstStep = getSteps().get(0);
 
@@ -54,38 +58,36 @@ public class CircularScenario extends Scenario {
 		return isCurPosLeftOrUp;
 	}
 
-	private void iterateScenarioCircular(CornField field, Collection<Cell> cells, Cell currentCell, int iteration,
+	private void iterateScenarioCircular(Collection<Cell> cells, Cell currentCell, int iteration,
 			boolean isCurPosLeftOrUp) {
 
 		for (HarvestStep harvestStep : getSteps()) {
 			iteration++;
 
-			addCellsOfCurrentStep(field, cells, currentCell, harvestStep);
+			addCellsOfCurrentStep(cells, currentCell, harvestStep);
 
 			if (cells.size() >= field.size()) {
 				return;
 			}
 			Cell lastCell = harvestStep.getLastCell();
-			currentCell = findNextCellToStartFrom(field, iteration, isCurPosLeftOrUp, harvestStep, lastCell);
+			currentCell = findNextCellToStartFrom(iteration, isCurPosLeftOrUp, harvestStep, lastCell);
 			isCurPosLeftOrUp = !isCurPosLeftOrUp;
 		}
-		iterateScenarioCircular(field, cells, currentCell, iteration, isCurPosLeftOrUp);
+		iterateScenarioCircular(cells, currentCell, iteration, isCurPosLeftOrUp);
 	}
 
-	private void addCellsOfCurrentStep(CornField field, Collection<Cell> cells, Cell currentCell,
-			HarvestStep harvestStep) {
+	private void addCellsOfCurrentStep(Collection<Cell> cells, Cell currentCell, HarvestStep harvestStep) {
 		List<Cell> resultOfStep = harvestStep.doIt(field, currentCell);
-		resultOfStep = fixEmptyCells(field, harvestStep, resultOfStep, cells);
+		resultOfStep = fixEmptyCells(harvestStep, resultOfStep, cells);
 		cells.addAll(resultOfStep);
 	}
 
-	private List<Cell> fixEmptyCells(CornField field, HarvestStep harvestStep, List<Cell> resultOfStep,
-			Collection<Cell> cells) {
+	private List<Cell> fixEmptyCells(HarvestStep harvestStep, List<Cell> resultOfStep, Collection<Cell> cells) {
 
 		if (Scenario.isFixEmptyCells()) {
 			if (harvestStep.getMowers() > 1) {
 				if (areCellsOfLastStepAlreadyInCells(resultOfStep, cells)) {
-					resultOfStep = fixDoubles(field, resultOfStep, cells);
+					resultOfStep = fixDoubles(resultOfStep, cells);
 				}
 			}
 		}
@@ -103,7 +105,7 @@ public class CircularScenario extends Scenario {
 		return isContained;
 	}
 
-	private List<Cell> fixDoubles(CornField field, List<Cell> resultOfStep, Collection<Cell> cells) {
+	private List<Cell> fixDoubles(List<Cell> resultOfStep, Collection<Cell> cells) {
 		List<Cell> temp = new ArrayList<>();
 		for (Cell cell : resultOfStep) {
 			if (cells.contains(cell)) {
@@ -115,35 +117,31 @@ public class CircularScenario extends Scenario {
 		return temp;
 	}
 
-	private Cell findNextCellToStartFrom(CornField field, int iteration, boolean isCurPosEastOrUp,
-			HarvestStep harvestStep, Cell lastCell) {
+	private Cell findNextCellToStartFrom(int iteration, boolean isCurPosEastOrUp, HarvestStep harvestStep,
+			Cell lastCell) {
 
 		int currentSpaceFromFirstOrLastCell = Math.abs(iteration / 2) * harvestStep.getMowers();
 
 		if (harvestStep.getAlignment() == Alignment.VERTICAL) {
 			if (isCurPosEastOrUp) {
-				return getNextCellFromWesternHalf(field, harvestStep, lastCell, currentSpaceFromFirstOrLastCell);
+				return getNextCellFromWesternHalf(harvestStep, lastCell, currentSpaceFromFirstOrLastCell);
 			} else {
-				return getNextCellFromEasternHalf(field, harvestStep, lastCell, currentSpaceFromFirstOrLastCell);
+				return getNextCellFromEasternHalf(harvestStep, lastCell, currentSpaceFromFirstOrLastCell);
 			}
 		} else { // is HORIZONTAL
 			if (isCurPosEastOrUp) {
-				return getNextCellFromLowerHalf(field, harvestStep, lastCell, currentSpaceFromFirstOrLastCell);
+				return getNextCellFromLowerHalf(harvestStep, lastCell, currentSpaceFromFirstOrLastCell);
 			} else {
-				return getNextCellFromUpperHalf(field, harvestStep, lastCell, currentSpaceFromFirstOrLastCell);
+				return getNextCellFromUpperHalf(harvestStep, lastCell, currentSpaceFromFirstOrLastCell);
 			}
 		}
 	}
 
-	// TODO: vielleicht braucht es das nicht mir dem extra zeug:
-	// man muss eventuell einfach wenn das nicht in einem eck startet einfach
-	// den Abstand schon
-	// höher stellen... so ist das eh wieder ein gemurkse
-	private Cell getNextCellFromWesternHalf(CornField field, HarvestStep harvestStep, Cell lastCell,
+	private Cell getNextCellFromWesternHalf(HarvestStep harvestStep, Cell lastCell,
 			int currentSpaceFromFirstOrLastCell) {
 
 		int rowOfLastCell = lastCell.getRow();
-		int columnOfNextCell = field.getColumns() - currentSpaceFromFirstOrLastCell;
+		int columnOfNextCell = field.getColumns() - currentSpaceFromFirstOrLastCell - spaceToBorder;
 
 		if (columnOfNextCell < field.getColumns() / 2) {
 			columnOfNextCell = lastCell.getColumn() + harvestStep.getMowers();
@@ -151,11 +149,11 @@ public class CircularScenario extends Scenario {
 		return field.getCell(rowOfLastCell, columnOfNextCell);
 	}
 
-	private Cell getNextCellFromEasternHalf(CornField field, HarvestStep harvestStep, Cell lastCell,
+	private Cell getNextCellFromEasternHalf(HarvestStep harvestStep, Cell lastCell,
 			int currentSpaceFromFirstOrLastCell) {
 
 		int rowOfLastCell = lastCell.getRow();
-		int columnOfNextCell = 1 + currentSpaceFromFirstOrLastCell;
+		int columnOfNextCell = 1 + spaceToBorder + currentSpaceFromFirstOrLastCell;
 
 		if (columnOfNextCell > field.getColumns() / 2) {
 			columnOfNextCell = lastCell.getColumn() - harvestStep.getMowers();
@@ -163,10 +161,9 @@ public class CircularScenario extends Scenario {
 		return field.getCell(rowOfLastCell, columnOfNextCell);
 	}
 
-	private Cell getNextCellFromLowerHalf(CornField field, HarvestStep harvestStep, Cell lastCell,
-			int currentSpaceFromFirstOrLastCell) {
+	private Cell getNextCellFromLowerHalf(HarvestStep harvestStep, Cell lastCell, int currentSpaceFromFirstOrLastCell) {
 
-		int rowOfNextCell = field.getRows() - currentSpaceFromFirstOrLastCell;
+		int rowOfNextCell = field.getRows() - currentSpaceFromFirstOrLastCell - spaceToBorder;
 		int columnOfLastCell = lastCell.getColumn();
 
 		if (rowOfNextCell < field.getRows() / 2) {
@@ -175,10 +172,9 @@ public class CircularScenario extends Scenario {
 		return field.getCell(rowOfNextCell, columnOfLastCell);
 	}
 
-	private Cell getNextCellFromUpperHalf(CornField field, HarvestStep harvestStep, Cell lastCell,
-			int currentSpaceFromFirstOrLastCell) {
+	private Cell getNextCellFromUpperHalf(HarvestStep harvestStep, Cell lastCell, int currentSpaceFromFirstOrLastCell) {
 
-		int rowOfNextCell = 1 + currentSpaceFromFirstOrLastCell;
+		int rowOfNextCell = 1 + spaceToBorder + currentSpaceFromFirstOrLastCell;
 		int columnOfLastCell = lastCell.getColumn();
 
 		if (rowOfNextCell > field.getRows() / 2) {

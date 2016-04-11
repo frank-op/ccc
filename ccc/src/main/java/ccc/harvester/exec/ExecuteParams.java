@@ -7,17 +7,20 @@ public class ExecuteParams {
 	private Direction direction;
 	private Style style;
 
+	private CornerPosition cornerConsideringMower;
+	private int spaceToBorder;
+
 	ExecuteParams(String args) {
 
 		String[] argumentsAsArray = args.split(" ");
 
-		// DON'T CHANGE ORDER!
+		// DON'T CHANGE THE ORDER!
 		initFieldMembers(argumentsAsArray);
 		initStartCellMembers(argumentsAsArray);
 		initStyle(argumentsAsArray);
 		initMowers(argumentsAsArray);
-		initCorner();
 		initDirection(argumentsAsArray);
+		initCornersAndSpace();
 	}
 
 	private void initFieldMembers(String[] argumentsAsArray) {
@@ -33,10 +36,6 @@ public class ExecuteParams {
 
 		this.startCellRow = Integer.parseInt(startCellRow);
 		this.startCellCol = Integer.parseInt(startCellCol);
-	}
-
-	private void initCorner() {
-		corner = whichCorner();
 	}
 
 	private void initDirection(String[] argumentsAsArray) {
@@ -76,48 +75,59 @@ public class ExecuteParams {
 		this.mowers = Integer.parseInt(mowersAsString);
 	}
 
-	public int getFieldRows() {
-		return fieldRows;
+	private void initCornersAndSpace() {
+
+		corner = whichCorner(false);
+		cornerConsideringMower = whichCorner(true);
+
+		if (corner == CornerPosition.NOT_A_CORNER) {
+			switch (cornerConsideringMower) {
+			case TOP_LEFT:
+				if (isEastOrWest()) {
+					spaceToBorder = getStartCellRow() - 1;
+				} else {
+					spaceToBorder = getStartCellCol() - 1;
+				}
+				break;
+			case TOP_RIGHT:
+				if (isEastOrWest()) {
+					spaceToBorder = getStartCellRow() - 1;
+				} else {
+					spaceToBorder = getFieldCols() - getStartCellCol();
+				}
+				break;
+			case BOTTOM_LEFT:
+				if (isEastOrWest()) {
+					spaceToBorder = getFieldRows() - getStartCellRow();
+				} else {
+					spaceToBorder = getStartCellCol() - 1;
+				}
+				break;
+			case BOTTOM_RIGHT:
+				if (isEastOrWest()) {
+					spaceToBorder = getFieldRows() - getStartCellRow();
+				} else {
+					spaceToBorder = getFieldCols() - getStartCellCol();
+				}
+				break;
+			case NOT_A_CORNER:
+			default:
+				throw new RuntimeException();
+			}
+		}
 	}
 
-	public int getFieldCols() {
-		return fieldCols;
+	private boolean isEastOrWest() {
+		return (getDirection() == Direction.EAST || getDirection() == Direction.WEST);
 	}
 
-	public int getStartCellRow() {
-		return startCellRow;
-	}
+	private CornerPosition whichCorner(boolean consideringMowers) {
 
-	public int getStartCellCol() {
-		return startCellCol;
-	}
+		int spaceBecauseofMower = 0;
 
-	public int getMowers() {
-		return mowers;
-	}
-
-	public Direction getDirection() {
-		return direction;
-	}
-
-	public Style getStyle() {
-		return style;
-	}
-
-	public CornerPosition getCorner() {
-		return corner;
-	}
-
-	@Override
-	public String toString() {
-		return "ExecuteParams [fieldRows=" + fieldRows + ", fieldCols=" + fieldCols + ", startCellRow=" + startCellRow
-				+ ", startCellCol=" + startCellCol + ", mowers=" + mowers + ", direction=" + direction + ", style="
-				+ style + "]";
-	}
-
-	private CornerPosition whichCorner() {
-
-		int spaceBecauseofMower = mowers - 1;
+		if (consideringMowers) {
+			spaceBecauseofMower = mowers - 1;
+		}
 
 		if (isTopLeft(spaceBecauseofMower)) {
 			return CornerPosition.TOP_LEFT;
@@ -155,6 +165,61 @@ public class ExecuteParams {
 		return (getStartCellRow() == getFieldRows() && getStartCellCol() == getFieldCols()) //
 				|| (getStartCellRow() == getFieldRows() && getStartCellCol() == getFieldCols() - spaceBecauseofMower)//
 				|| (getStartCellRow() == getFieldRows() - spaceBecauseofMower && getStartCellCol() == getFieldCols());
+	}
+
+	public int getFieldRows() {
+		return fieldRows;
+	}
+
+	public int getFieldCols() {
+		return fieldCols;
+	}
+
+	public int getStartCellRow() {
+		return startCellRow;
+	}
+
+	public int getStartCellCol() {
+		return startCellCol;
+	}
+
+	public int getMowers() {
+		return mowers;
+	}
+
+	public Direction getDirection() {
+		return direction;
+	}
+
+	public Style getStyle() {
+		return style;
+	}
+
+	public CornerPosition getCorner() {
+		return corner;
+	}
+
+	public int getSpaceToBorder() {
+		return spaceToBorder;
+	}
+
+	public void setSpaceToBorder(int spaceToBorder) {
+		this.spaceToBorder = spaceToBorder;
+	}
+
+	public CornerPosition getCornerConsideringMower() {
+		return cornerConsideringMower;
+	}
+
+	public void setCornerConsideringMower(CornerPosition cornerConsideringMower) {
+		this.cornerConsideringMower = cornerConsideringMower;
+	}
+
+	@Override
+	public String toString() {
+		return "ExecuteParams [fieldRows=" + fieldRows + ", fieldCols=" + fieldCols + ", startCellRow=" + startCellRow
+				+ ", startCellCol=" + startCellCol + ", mowers=" + mowers + ", direction=" + direction + ", style="
+				+ style + "]";
 	}
 
 	public enum CornerPosition {

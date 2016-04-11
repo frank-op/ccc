@@ -15,7 +15,11 @@ public class HarvestingScenarioExecutor {
 		if (executeParams.getStyle() == Style.SERPENTINE) {
 			return executeSerpentineStyle(executeParams);
 		} else if (executeParams.getStyle() == Style.CIRCULAR) {
-			return executeCircularStyle(executeParams);
+			if (executeParams.getCorner() == CornerPosition.NOT_A_CORNER) {
+				return executeCircularStyleWithStartCellNotACorner(executeParams);
+			} else {
+				return executeCircularStyle(executeParams);
+			}
 		} else {
 			throw new RuntimeException("Can't be!");
 		}
@@ -136,6 +140,104 @@ public class HarvestingScenarioExecutor {
 		return result;
 	}
 
+	private static String executeCircularStyleWithStartCellNotACorner(ExecuteParams executeParams) {
+
+		Scenario scenario = Scenario.build().error().getCircularScenario();
+		Direction direction = executeParams.getDirection();
+		int mowers = executeParams.getMowers();
+		String result = "";
+		CornerPosition cornerWithMowers = executeParams.getCornerConsideringMower();
+
+		switch (cornerWithMowers) {
+
+		case TOP_LEFT:
+			switch (direction) {
+			case EAST:
+				scenario = Scenario.build()//
+						.goEastWithNorthernNeighbours(mowers)//
+						.goWestWithSouthernNeighbours(mowers)//
+						.getCircularScenario();
+				result = scenario.executeSteps(executeParams);
+				break;
+			case SOUTH:
+				scenario = Scenario.build()//
+						.goSouthWithWesternNeighbours(mowers)//
+						.goNorthWithEasternNeighbours(mowers)//
+						.getCircularScenario();//
+				result = scenario.executeSteps(executeParams);
+				break;
+			default:
+				throw new RuntimeException();
+			}
+			break;
+		case TOP_RIGHT:
+			switch (direction) {
+			case WEST:
+				scenario = Scenario.build()//
+						.goWestWithNorthernNeighbours(mowers)//
+						.goEastWithSouthernNeighbours(mowers)//
+						.getCircularScenario();//
+				result = scenario.executeSteps(executeParams);
+				break;
+			case SOUTH:
+				scenario = Scenario.build()//
+						.goSouthWithEasternNeighbours(mowers)//
+						.goNorthWithWesternNeighbours(mowers)//
+						.getCircularScenario();//
+				result = scenario.executeSteps(executeParams);
+				break;
+			default:
+				throw new RuntimeException();
+			}
+			break;
+		case BOTTOM_LEFT:
+			switch (direction) {
+			case EAST:
+				scenario = Scenario.build()//
+						.goEastWithSouthernNeighbours(mowers)//
+						.goWestWithNorthernNeighbours(mowers)//
+						.getCircularScenario();//
+				result = scenario.executeSteps(executeParams);
+				break;
+			case NORTH:
+				scenario = Scenario.build()//
+						.goNorthWithWesternNeighbours(mowers)//
+						.goSouthWithEasternNeighbours(mowers)//
+						.getCircularScenario();
+				result = scenario.executeSteps(executeParams);
+				break;
+			default:
+				throw new RuntimeException();
+			}
+			break;
+		case BOTTOM_RIGHT:
+			switch (direction) {
+			case WEST:
+				scenario = Scenario.build()//
+						.goWestWithSouthernNeighbours(mowers)//
+						.goEastWithNorthernNeighbours(mowers)//
+						.getCircularScenario();
+				result = scenario.executeSteps(executeParams);
+				break;
+			case NORTH:
+				scenario = Scenario.build()//
+						.goNorthWithEasternNeighbours(mowers)//
+						.goSouthWithWesternNeighbours(mowers)//
+						.getCircularScenario();
+				result = scenario.executeSteps(executeParams);
+				break;
+			default:
+				throw new RuntimeException();
+			}
+			break;
+		case NOT_A_CORNER:
+			throw new RuntimeException();
+		}
+
+		System.out.println(result);
+		return result;
+	}
+
 	private static String executeCircularStyle(ExecuteParams executeParams) {
 
 		Scenario scenario = Scenario.build().error().getCircularScenario();
@@ -152,14 +254,14 @@ public class HarvestingScenarioExecutor {
 			case EAST:
 				scenario = Scenario.build()//
 						.goEastWithSouthernNeighbours(mowers)//
-						.goWestWithSouthernNeighbours(mowers)//
+						.goWestWithNorthernNeighbours(mowers)//
 						.getCircularScenario();
 				result = scenario.executeSteps(executeParams);
 				break;
 			case SOUTH:
 				scenario = Scenario.build()//
 						.goSouthWithEasternNeighbours(mowers)//
-						.goNorthWesternNeighbours(mowers, true)//
+						.goNorthWithWesternNeighbours(mowers)//
 						.getCircularScenario();//
 				result = scenario.executeSteps(executeParams);
 				break;
@@ -171,15 +273,15 @@ public class HarvestingScenarioExecutor {
 			switch (direction) {
 			case WEST:
 				scenario = Scenario.build()//
-						.goWestWithNorthernNeighbours(mowers)//
-						.goEastWithNorthernNeighbours(mowers, true)//
+						.goWestWithSouthernNeighbours(mowers)//
+						.goEastWithNorthernNeighbours(mowers)//
 						.getCircularScenario();//
 				result = scenario.executeSteps(executeParams);
 				break;
 			case SOUTH:
 				scenario = Scenario.build()//
-						.goSouthWithEasternNeighbours(mowers)//
-						.goNorthWesternNeighbours(mowers, true)//
+						.goSouthWithWesternNeighbours(mowers)//
+						.goNorthWithEasternNeighbours(mowers)//
 						.getCircularScenario();//
 				result = scenario.executeSteps(executeParams);
 				break;
@@ -191,8 +293,8 @@ public class HarvestingScenarioExecutor {
 			switch (direction) {
 			case EAST:
 				scenario = Scenario.build()//
-						.goEastWithSouthernNeighbours(mowers)//
-						.goWestWithSouthernNeighbours(mowers, true)//
+						.goEastWithNorthernNeighbours(mowers)//
+						.goWestWithSouthernNeighbours(mowers)//
 						.getCircularScenario();//
 				result = scenario.executeSteps(executeParams);
 				break;
@@ -210,6 +312,11 @@ public class HarvestingScenarioExecutor {
 		case BOTTOM_RIGHT:
 			switch (direction) {
 			case WEST:
+				scenario = Scenario.build()//
+						.goWestWithNorthernNeighbours(mowers)//
+						.goEastWithSouthernNeighbours(mowers)//
+						.getCircularScenario();
+				result = scenario.executeSteps(executeParams);
 				break;
 			case NORTH:
 				scenario = Scenario.build()//
