@@ -1,4 +1,4 @@
-package ccc.harvester.level;
+package ccc.harvester;
 
 import static ccc.harvester.exec.HarvestingScenarioExecutor.execute;
 
