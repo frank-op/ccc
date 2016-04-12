@@ -136,7 +136,6 @@ public class HarvestingScenarioExecutor {
 			throw new RuntimeException();
 		}
 
-		System.out.println(result);
 		return result;
 	}
 
@@ -233,8 +232,6 @@ public class HarvestingScenarioExecutor {
 		case NOT_A_CORNER:
 			throw new RuntimeException();
 		}
-
-		System.out.println(result);
 		return result;
 	}
 
@@ -332,8 +329,6 @@ public class HarvestingScenarioExecutor {
 		case NOT_A_CORNER:
 			throw new RuntimeException();
 		}
-
-		System.out.println(result);
 		return result;
 	}
 }

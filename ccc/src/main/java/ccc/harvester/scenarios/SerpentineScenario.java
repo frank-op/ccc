@@ -26,7 +26,9 @@ public class SerpentineScenario extends Scenario {
 		Cell startCell = field.getCell(params.getStartCellRow(), params.getStartCellCol());
 
 		List<Cell> cells = executeStepsSerpentineAndGetCells(field, startCell);
-		return OutputFormatter.getFormattedContent(cells);
+		String formattedContent = OutputFormatter.getFormattedContent(cells);
+		System.out.println(formattedContent + "\n\n");
+		return formattedContent;
 	}
 
 	private List<Cell> executeStepsSerpentineAndGetCells(CornField field, Cell startCell) {

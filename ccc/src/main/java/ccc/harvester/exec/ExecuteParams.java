@@ -128,15 +128,14 @@ public class ExecuteParams {
 		if (consideringMowers) {
 			spaceBecauseofMower = mowers - 1;
 		}
-
-		if (isTopLeft(spaceBecauseofMower)) {
-			return CornerPosition.TOP_LEFT;
+		if (isBottomRight(spaceBecauseofMower)) {
+			return CornerPosition.BOTTOM_RIGHT;
 		} else if (isBottomLeft(spaceBecauseofMower)) {
 			return CornerPosition.BOTTOM_LEFT;
 		} else if (isTopRight(spaceBecauseofMower)) {
 			return CornerPosition.TOP_RIGHT;
-		} else if (isBottomRight(spaceBecauseofMower)) {
-			return CornerPosition.BOTTOM_RIGHT;
+		} else if (isTopLeft(spaceBecauseofMower)) {
+			return CornerPosition.TOP_LEFT;
 		}
 		return CornerPosition.NOT_A_CORNER;
 	}

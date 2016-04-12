@@ -30,10 +30,12 @@ public class CircularScenario extends Scenario {
 		spaceToBorder = params.getSpaceToBorder();
 
 		Cell startCell = field.getCell(params.getStartCellRow(), params.getStartCellCol());
-		CornerPosition corner = params.getCorner();
+		CornerPosition corner = params.getCornerConsideringMower();
 
 		List<Cell> cells = executeStepsCircularAndGetCells(startCell, corner);
-		return OutputFormatter.getFormattedContent(cells);
+		String formattedContent = OutputFormatter.getFormattedContent(cells);
+		System.out.println(formattedContent + "\n\n");
+		return formattedContent;
 	}
 
 	private List<Cell> executeStepsCircularAndGetCells(Cell startCell, CornerPosition corner) {
@@ -143,7 +145,8 @@ public class CircularScenario extends Scenario {
 		int rowOfLastCell = lastCell.getRow();
 		int columnOfNextCell = field.getColumns() - currentSpaceFromFirstOrLastCell - spaceToBorder;
 
-		if (columnOfNextCell < field.getColumns() / 2) {
+		double halfOfTheField = (double) field.getColumns() / 2;
+		if (columnOfNextCell < halfOfTheField) {
 			columnOfNextCell = lastCell.getColumn() + harvestStep.getMowers();
 		}
 		return field.getCell(rowOfLastCell, columnOfNextCell);
@@ -155,7 +158,8 @@ public class CircularScenario extends Scenario {
 		int rowOfLastCell = lastCell.getRow();
 		int columnOfNextCell = 1 + spaceToBorder + currentSpaceFromFirstOrLastCell;
 
-		if (columnOfNextCell > field.getColumns() / 2) {
+		double halfOfTheField = (double) field.getColumns() / 2;
+		if (columnOfNextCell > halfOfTheField) {
 			columnOfNextCell = lastCell.getColumn() - harvestStep.getMowers();
 		}
 		return field.getCell(rowOfLastCell, columnOfNextCell);
@@ -166,8 +170,9 @@ public class CircularScenario extends Scenario {
 		int rowOfNextCell = field.getRows() - currentSpaceFromFirstOrLastCell - spaceToBorder;
 		int columnOfLastCell = lastCell.getColumn();
 
-		if (rowOfNextCell < field.getRows() / 2) {
-			rowOfNextCell = lastCell.getRow() - harvestStep.getMowers();
+		double halfOfTheField = (double) field.getRows() / 2;
+		if (rowOfNextCell < halfOfTheField) {
+			rowOfNextCell = lastCell.getRow() + harvestStep.getMowers();
 		}
 		return field.getCell(rowOfNextCell, columnOfLastCell);
 	}
@@ -177,8 +182,9 @@ public class CircularScenario extends Scenario {
 		int rowOfNextCell = 1 + spaceToBorder + currentSpaceFromFirstOrLastCell;
 		int columnOfLastCell = lastCell.getColumn();
 
-		if (rowOfNextCell > field.getRows() / 2) {
-			rowOfNextCell = lastCell.getRow() + harvestStep.getMowers();
+		double halfOfTheField = (double) field.getRows() / 2;
+		if (rowOfNextCell > halfOfTheField) {
+			rowOfNextCell = lastCell.getRow() - harvestStep.getMowers();
 		}
 		return field.getCell(rowOfNextCell, columnOfLastCell);
 	}
