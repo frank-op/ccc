@@ -2,51 +2,45 @@ package ccc.drone;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.PrintStream;
 import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.Scanner;
 
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
+
+import ccc.drone.drone.Drone;
+import ccc.drone.drone.DroneController;
 
 public class DroneTest1 {
 
-	private final static String HOST = "127.0.0.1";
-	private final static int PORT = 4444;
+	private String constrainedArea;
+	private String numberOfDrones;
+	private String height;
+
+	@BeforeClass
+	public void setUp() throws UnknownHostException, IOException {
+
+		Socket clientSocket = new Socket(DroneController.HOST, DroneController.PORT);
+
+		InputStream inputStream = clientSocket.getInputStream();
+		Scanner scanner = new Scanner(inputStream);
+
+		constrainedArea = scanner.nextLine();
+		System.out.println("Constrained Area: " + constrainedArea);
+		numberOfDrones = scanner.nextLine();
+		System.out.println("Number of Drones: " + numberOfDrones);
+		height = scanner.nextLine();
+		System.out.println("Height " + height + "\n");
+
+		scanner.close();
+		clientSocket.close();
+	}
 
 	@Test
-	public void testDrone() throws UnknownHostException, IOException {
+	public void testDrone() {
 
-		try (Socket clientSocket = new Socket(HOST, PORT)) {
-
-			OutputStream outputStream = clientSocket.getOutputStream();
-			PrintStream printStream = new PrintStream(outputStream);
-			InputStream inputStream = clientSocket.getInputStream();
-			Scanner scanner = new Scanner(inputStream);
-
-			String constrainedArea = scanner.nextLine();
-			System.out.println("Constrained Area: " + constrainedArea);
-			String numberOfDrones = scanner.nextLine();
-			System.out.println("Number of Drones: " + numberOfDrones);
-			String height = scanner.nextLine();
-			System.out.println("Height " + height);
-
-			printStream.println("THROTTLE 0 0.6");
-
-			String response = scanner.nextLine();
-			System.out.println("ThrottleOK: " + response);
-
-			printStream.println("TICK 10");
-
-			response = scanner.nextLine();
-			System.out.println("TickSuccess " + response);
-
-			printStream.println("STATUS 0");
-			response = scanner.nextLine();
-			System.out.println("Status: " + response);
-
-			scanner.close();
-		}
+		Drone drone = new Drone(0);
+		drone.flyToZCoordinate(Double.valueOf(height));
 	}
 }

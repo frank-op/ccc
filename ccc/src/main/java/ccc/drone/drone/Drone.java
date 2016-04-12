@@ -2,39 +2,43 @@ package ccc.drone.drone;
 
 public class Drone {
 
+	public final static double HOVERING_THROTTLE = 0.569052216728;
+
 	private Integer droneId;
 
-	private Integer weightInKg = 2;
-
+	private Double weightInKg = 2.0;
 	private Double lengthInMeter = 1.0;
 	private Double widthInMeter = 1.0;
 	private Double heightInMeter = 0.5;
-
-	private Integer rotorCount = 8;
-
+	private Double rotorCount = 8.0;
 	private Double diameterOfRotorInMeter = 0.25;
+	private Double veolicityMaxInMeterPerSecond = 14.0;
 
-	private Integer veolicityMaxInMeterPerSecond = 14;
+	private DroneController droneController = new DroneController();
 
 	public Drone(Integer droneId) {
 		this.droneId = droneId;
 	}
 
-	public Double getThrust(double d) {
+	public void flyToZCoordinate(double z) {
+		droneController.sendDroneToMinZ(this.droneId, z);
+	}
 
-		double powerOfRotor = 0.015 * Math.pow((d * 10), 3.2);
+	public Double getThrustForThrottle(double throttle) {
+
+		double powerOfRotor = 0.015 * Math.pow((throttle * 10), 3.2);
 
 		double thrust = Math.cbrt(
 				(Math.PI / 2) * diameterOfRotorInMeter * diameterOfRotorInMeter * 1.225 * powerOfRotor * powerOfRotor);
 
-		return thrust;
+		return thrust * 8;
 	}
 
 	public Integer getDroneId() {
 		return droneId;
 	}
 
-	public Integer getWeightInKg() {
+	public Double getWeightInKg() {
 		return weightInKg;
 	}
 
@@ -50,7 +54,7 @@ public class Drone {
 		return heightInMeter;
 	}
 
-	public Integer getRotorCount() {
+	public Double getRotorCount() {
 		return rotorCount;
 	}
 
@@ -58,7 +62,7 @@ public class Drone {
 		return diameterOfRotorInMeter;
 	}
 
-	public Integer getVeolicityMaxInMeterPerSecond() {
+	public Double getVeolicityMaxInMeterPerSecond() {
 		return veolicityMaxInMeterPerSecond;
 	}
 }
