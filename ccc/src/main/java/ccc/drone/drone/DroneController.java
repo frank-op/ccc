@@ -1,66 +1,41 @@
 package ccc.drone.drone;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.PrintStream;
-import java.net.Socket;
-import java.net.UnknownHostException;
-import java.util.Scanner;
+import static ccc.drone.drone.SimulatorCommunicator.communication;
 
-public class DroneController implements AutoCloseable {
+public class DroneController {
 
-	public final static String HOST = "127.0.0.1";
-	public final static int PORT = 4444;
+	public void sendDroneToMinZ(Drone drone, double z) {
 
-	private OutputStream outputStream;
-	private PrintStream printStream;
-	private InputStream inputStream;
-	private Scanner scanner;
-	private Socket clientSocket;
+		Integer droneId = drone.getDroneId();
 
-	public DroneController() {
-
-		try {
-			initComunicationWithSimulator();
-		} catch (IOException e) {
-			throw new RuntimeException(e);
-		}
-	}
-
-	private void initComunicationWithSimulator() throws IOException, UnknownHostException {
-		clientSocket = new Socket(HOST, PORT);
-		outputStream = clientSocket.getOutputStream();
-		printStream = new PrintStream(outputStream);
-		inputStream = clientSocket.getInputStream();
-		scanner = new Scanner(inputStream);
-	}
-
-	public void sendDroneToMinZ(int droneID, double z) {
-
-		changeThrottleForDrone(droneID, 0.7);
+		changeThrottleForDrone(droneId, 0.7);
 		while (true) {
 			tick(0.05);
-			if (getCurrentZForDrone(droneID) > z) {
+			if (getCurrentVZForDrone(droneId) > 13) {
+				changeThrottleForDrone(droneId, drone.getHoveringThrottle());
+			}
+			if (getCurrentZForDrone(droneId) > z) {
 				break;
 			}
 		}
-		changeThrottleForDrone(droneID, Drone.HOVERING_THROTTLE);
+		changeThrottleForDrone(droneId, drone.getHoveringThrottle());
 	}
 
 	private void changeThrottleForDrone(int droneID, double throttle) {
 		System.out.println("SET THROTTLE: " + throttle + " for drone: " + droneID);
-		printStream.println("THROTTLE " + droneID + " " + throttle);
-		String response = scanner.nextLine();
-		System.out.println("ThrottleOK: " + response);
-		System.out.println();
+		communication().sendToSimulator("THROTTLE " + droneID + " " + throttle);
+		String response = communication().getNextStringFromSimulator();
+		System.out.println("ThrottleOK: " + response + "\n");
 	}
 
 	private void tick(Double tick) {
 		System.out.println("ADD TICK " + tick);
-		printStream.println("TICK " + tick);
-		String response = scanner.nextLine();
-		System.out.println("TickSuccess " + response);
+		communication().sendToSimulator("TICK " + tick);
+		String response = communication().getNextStringFromSimulator();
+		System.out.println("TickSuccess " + response + "\n");
+		if ("SUCCESS".equals(response)) {
+			throw new LevelDoneException();
+		}
 	}
 
 	public double getCurrentXForDrone(int droneID) {
@@ -72,23 +47,21 @@ public class DroneController implements AutoCloseable {
 	}
 
 	public double getCurrentZForDrone(int droneID) {
-		return getStatusForDrone(droneID).getZ();
+		double z = getStatusForDrone(droneID).getZ();
+		System.out.println("CURRENT Z: " + z + " for Drone: " + droneID + " \n");
+		return z;
+	}
+
+	public double getCurrentVZForDrone(int droneID) {
+		double vz = getStatusForDrone(droneID).getVz();
+		System.out.println("CURRENT VZ: " + vz + " for Drone: " + droneID + " \n");
+		return vz;
 	}
 
 	private Status getStatusForDrone(int droneID) {
 
-		printStream.println("STATUS " + droneID);
-		String response = scanner.nextLine();
-		System.out.println("Status " + droneID + " :" + response);
-		if (response.equals("SUCCESS")) {
-			return Status.success();
-		}
+		communication().sendToSimulator("STATUS " + droneID);
+		String response = communication().getNextStringFromSimulator();
 		return new Status(response);
-	}
-
-	@Override
-	public void close() throws Exception {
-		clientSocket.close();
-		scanner.close();
 	}
 }

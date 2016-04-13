@@ -7,17 +7,16 @@ public class Status {
 	Status(String statusAsString) {
 
 		String[] split = statusAsString.split(" ");
-		this.z = Double.parseDouble(split[0]);
 
-		// this.x = Double.parseDouble(split[0]);
-		// this.y = Double.parseDouble(split[1]);
-		// this.z = Double.parseDouble(split[2]);
-		// this.vx = Double.parseDouble(split[3]);
-		// this.vy = Double.parseDouble(split[4]);
-		// this.vz = Double.parseDouble(split[5]);
-		// this.rx = Double.parseDouble(split[6]);
-		// this.ry = Double.parseDouble(split[7]);
-		// this.rz = Double.parseDouble(split[8]);
+		this.x = Double.parseDouble(split[0]);
+		this.y = Double.parseDouble(split[1]);
+		this.z = Double.parseDouble(split[2]);
+		this.vx = Double.parseDouble(split[3]);
+		this.vy = Double.parseDouble(split[4]);
+		this.vz = Double.parseDouble(split[5]);
+		this.rx = Double.parseDouble(split[6]);
+		this.ry = Double.parseDouble(split[7]);
+		this.rz = Double.parseDouble(split[8]);
 	}
 
 	public double getX() {

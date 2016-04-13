@@ -10,5 +10,6 @@ public class DroneTest {
 	public void basicDroneTest() {
 		Drone drone = new Drone(0);
 		System.out.println(drone.getThrustForThrottle(0.569052216728));
+		System.out.println(drone.getHoveringThrottle());
 	}
 }
