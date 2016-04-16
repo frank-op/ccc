@@ -1,14 +1,13 @@
 package ccc.drones;
 
+import java.io.IOException;
+import java.net.UnknownHostException;
 import java.util.LinkedHashMap;
 import java.util.Map;
-
-import org.testng.annotations.Test;
 
 import ccc.drones.drone.Drone;
 import ccc.drones.drone.Target;
 import ccc.drones.level.BaseLevel;
-import ccc.drones.level.LevelDoneException;
 
 public class Level3_FlyToTarget extends BaseLevel {
 
@@ -32,9 +31,8 @@ public class Level3_FlyToTarget extends BaseLevel {
 		}
 	}
 
-	@Test()
-	public void testDrone() {
-
-		System.out.println(drones);
+	public static void main(String[] args) throws UnknownHostException, IOException {
+		Level3_FlyToTarget level = new Level3_FlyToTarget();
+		level.setUp();
 	}
 }

@@ -1,13 +1,12 @@
 package ccc.drones;
 
+import java.io.IOException;
+import java.net.UnknownHostException;
 import java.util.List;
 
-import org.testng.annotations.Test;
-
 import ccc.drones.drone.Drone;
-import ccc.drones.drone.DroneFactory;
 import ccc.drones.level.BaseLevel;
-import ccc.drones.level.LevelDoneException;
+import ccc.drones.level.DroneFactory;
 
 public class Level2_FlyInInterval extends BaseLevel {
 
@@ -23,18 +22,14 @@ public class Level2_FlyInInterval extends BaseLevel {
 		System.out.println("Number of Drones: " + numberOfDrones);
 	}
 
-	@Test(expectedExceptions = LevelDoneException.class)
 	public void testDrone() {
 
 		List<Drone> drones = DroneFactory.gimmeDrones(numberOfDrones);
-		for (Drone drone : drones) {
-			drone.flyToZCoordinate(minZ);
-		}
-		for (Drone drone : drones) {
-			drone.hoverSeconds(10.0);
-		}
-		for (Drone drone : drones) {
-			drone.landSafely();
-		}
+	}
+
+	public static void main(String[] args) throws UnknownHostException, IOException {
+		Level2_FlyInInterval level = new Level2_FlyInInterval();
+		level.setUp();
+		level.testDrone();
 	}
 }

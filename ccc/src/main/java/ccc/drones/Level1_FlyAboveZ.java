@@ -26,14 +26,14 @@ public class Level1_FlyAboveZ extends BaseLevel {
 
 	public void testDrone() {
 		Drone drone = new Drone(0);
-		DroneController droneController = drone.getDroneController();
+		DroneController droneController = new DroneController(drone);
+
 		Scenario scenario = Scenario.build(droneController).sendDroneToMinZ(Double.valueOf(height)).scenario();
 		droneController.setScenario(scenario);
 		droneController.startScenario();
 	}
 
 	public static void main(String[] args) throws UnknownHostException, IOException {
-
 		Level1_FlyAboveZ level = new Level1_FlyAboveZ();
 		level.setUp();
 		level.testDrone();

@@ -17,7 +17,7 @@ public class MissionControl {
 	private List<Check> checks = new ArrayList<>();
 	private ExecutorService executor = Executors.newSingleThreadExecutor();
 
-	public static Object sync = new Object();
+	public static Object communicationLock = new Object();
 
 	private static MissionControl instance;
 
@@ -51,7 +51,7 @@ public class MissionControl {
 
 	private Double tick(Double timeInSeconds) {
 
-		synchronized (MissionControl.sync) {
+		synchronized (MissionControl.communicationLock) {
 			System.out.println("ADD TICK " + timeInSeconds);
 			communication().sendToSimulator("TICK " + timeInSeconds);
 			String response = communication().getNextStringFromSimulator();
@@ -67,7 +67,7 @@ public class MissionControl {
 
 	private Status getStatusForDrone(Drone drone) {
 
-		synchronized (MissionControl.sync) {
+		synchronized (MissionControl.communicationLock) {
 			communication().sendToSimulator("STATUS " + drone.getDroneId());
 			String response = communication().getNextStringFromSimulator();
 			return new Status(response);

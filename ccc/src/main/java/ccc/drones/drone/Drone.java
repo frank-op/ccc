@@ -17,23 +17,8 @@ public class Drone {
 	private final Double rotorConstant = 0.015;
 	private final Double gravityConstant = 9.80665;
 
-	private final DroneController droneController = new DroneController(this);
-
 	public Drone(Integer droneId) {
 		this.droneId = droneId;
-	}
-
-	public void flyToZCoordinate(Double z) {
-		droneController.sendDroneToMinZ(z);
-	}
-
-	public void landSafely() {
-		droneController.sendDroneToMaxZ(0.3);
-		droneController.land();
-	}
-
-	public void hoverSeconds(Double seconds) {
-		droneController.hoverOnZ(seconds);
 	}
 
 	public Double getThrottleToOvercomeGravity() {
@@ -119,9 +104,5 @@ public class Drone {
 	@Override
 	public String toString() {
 		return "Drone [droneId=" + droneId + "]";
-	}
-
-	public DroneController getDroneController() {
-		return droneController;
 	}
 }
