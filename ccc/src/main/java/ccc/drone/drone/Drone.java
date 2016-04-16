@@ -27,9 +27,14 @@ public class Drone {
 		droneController.sendDroneToMinZ(this, z);
 	}
 
-	public Double getHoveringThrottle() {
+	public Double getThrottleToOvercomeGravity() {
 
-		double P = Math.sqrt((Math.pow(gravityConstant / rotorCount, 3))
+		return getThrottleForThrust(gravityConstant);
+	}
+
+	public Double getThrottleForThrust(double thrust) {
+
+		double P = Math.sqrt((Math.pow(thrust / rotorCount, 3))
 				/ ((Math.PI / 2) * Math.pow(diameterOfRotorInMeter, 2) * densityOfAir));
 
 		return Math.pow(P, 1 / 3.2) / (Math.pow(rotorConstant, 1 / 3.2) * 10);
