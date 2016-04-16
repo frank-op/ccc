@@ -2,7 +2,7 @@ package ccc.drone.test;
 
 import org.testng.annotations.Test;
 
-import ccc.drone.drone.Drone;
+import ccc.drones.drone.Drone;
 
 public class DroneTest {
 
