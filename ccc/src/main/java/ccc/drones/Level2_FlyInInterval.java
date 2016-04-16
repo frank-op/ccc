@@ -1,18 +1,14 @@
-package ccc.drone;
-
-import static ccc.drone.drone.SimulatorCommunicator.communication;
+package ccc.drones;
 
 import org.testng.annotations.Test;
 
-import ccc.drone.drone.BaseDroneTest;
-import ccc.drone.drone.Drone;
-import ccc.drone.drone.LevelDoneException;
+import ccc.drones.level.BaseLevel;
+import ccc.drones.level.LevelDoneException;
 
-public class DroneTest1 extends BaseDroneTest {
+public class Level2_FlyInInterval extends BaseLevel {
 
 	private String constrainedArea;
 	private String numberOfDrones;
-	private String height;
 
 	@Override
 	public void doSetUp() {
@@ -20,13 +16,10 @@ public class DroneTest1 extends BaseDroneTest {
 		System.out.println("Constrained Area: " + constrainedArea);
 		numberOfDrones = communication().getNextStringFromSimulator();
 		System.out.println("Number of Drones: " + numberOfDrones);
-		height = communication().getNextStringFromSimulator();
-		System.out.println("Height " + height + "\n");
 	}
 
 	@Test(expectedExceptions = LevelDoneException.class)
 	public void testDrone() {
-		Drone drone = new Drone(0);
-		drone.flyToZCoordinate(Double.valueOf(height));
+
 	}
 }

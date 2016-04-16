@@ -1,4 +1,4 @@
-package ccc.drone.drone;
+package ccc.drones.sim;
 
 import java.io.IOException;
 import java.io.InputStream;

@@ -1,4 +1,4 @@
-package ccc.drone.drone.test;
+package ccc.drone.test;
 
 import org.testng.annotations.Test;
 

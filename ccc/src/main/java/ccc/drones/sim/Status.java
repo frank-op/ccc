@@ -1,10 +1,10 @@
-package ccc.drone.drone;
+package ccc.drones.sim;
 
 public class Status {
 
 	private double x, y, z, vx, vy, vz, rx, ry, rz;
 
-	Status(String statusAsString) {
+	public Status(String statusAsString) {
 
 		String[] split = statusAsString.split(" ");
 

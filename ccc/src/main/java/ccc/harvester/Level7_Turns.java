@@ -9,7 +9,7 @@ import org.testng.annotations.Test;
 
 import ccc.harvester.scenarios.Scenario;
 
-public class Level7Tester_Turns {
+public class Level7_Turns {
 
 	private boolean fixEmptyCells;
 

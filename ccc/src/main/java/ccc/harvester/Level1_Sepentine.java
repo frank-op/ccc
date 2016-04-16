@@ -5,7 +5,7 @@ import static ccc.harvester.exec.HarvestingScenarioExecutor.execute;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-public class Level1Tester_Sepentine {
+public class Level1_Sepentine {
 
 	@Test
 	public void testLevel1() {

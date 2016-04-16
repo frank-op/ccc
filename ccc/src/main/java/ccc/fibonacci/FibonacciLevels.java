@@ -2,7 +2,7 @@ package ccc.fibonacci;
 
 import org.testng.annotations.Test;
 
-public class Fibonacci {
+public class FibonacciLevels {
 
 	@Test
 	public void test() {

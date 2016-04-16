@@ -2,7 +2,7 @@ package ccc.koch;
 
 import org.testng.annotations.Test;
 
-public class TriKochTest {
+public class KochLevels {
 
 	@Test
 	public void createKochSnowflake() {

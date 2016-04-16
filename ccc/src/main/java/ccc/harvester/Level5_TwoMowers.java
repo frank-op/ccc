@@ -5,7 +5,7 @@ import static ccc.harvester.exec.HarvestingScenarioExecutor.execute;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-public class Level5Tester_TwoMowers {
+public class Level5_TwoMowers {
 
 	@Test
 	public void test1() {

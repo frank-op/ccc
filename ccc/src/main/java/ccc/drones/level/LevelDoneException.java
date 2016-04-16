@@ -1,4 +1,4 @@
-package ccc.drone.drone;
+package ccc.drones.level;
 
 public class LevelDoneException extends RuntimeException {
 

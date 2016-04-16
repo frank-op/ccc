@@ -5,7 +5,7 @@ import static ccc.harvester.exec.HarvestingScenarioExecutor.execute;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-public class Level2Tester_Serpentine_Corner {
+public class Level2_Serpentine_Corner {
 
 	@Test
 	public void test1() {

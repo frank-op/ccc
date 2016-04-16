@@ -1,6 +1,6 @@
-package ccc.drone.drone;
+package ccc.drones.level;
 
-import static ccc.drone.drone.SimulatorCommunicator.communication;
+import ccc.drones.sim.SimulatorCommunicator;
 
 import java.io.IOException;
 import java.net.UnknownHostException;
@@ -8,18 +8,22 @@ import java.net.UnknownHostException;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 
-public abstract class BaseDroneTest {
+public abstract class BaseLevel {
 
 	@BeforeClass
 	public void setUp() throws UnknownHostException, IOException {
-		communication().open();
+		SimulatorCommunicator.communication().open();
 		doSetUp();
 	}
 
 	@AfterClass
 	public void tearDown() throws IOException {
-		communication().close();
+		SimulatorCommunicator.communication().close();
 	}
 
 	protected abstract void doSetUp();
+
+	public SimulatorCommunicator communication() {
+		return SimulatorCommunicator.communication();
+	}
 }

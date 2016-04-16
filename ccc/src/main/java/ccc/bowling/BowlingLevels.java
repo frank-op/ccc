@@ -7,7 +7,7 @@ import org.testng.annotations.Test;
 import ccc.bowling.Attempt.AttemptResult;
 import ccc.bowling.Attempt.AttemptState;
 
-public class Bowling {
+public class BowlingLevels {
 
 	// 3:1,2,6,4,5,2
 	// 2:1,2,6,4,5

@@ -5,7 +5,7 @@ import static ccc.harvester.exec.HarvestingScenarioExecutor.execute;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-public class Level3Columns {
+public class Level3_Columns {
 
 	@Test
 	public void test1() {

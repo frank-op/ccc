@@ -5,7 +5,7 @@ import static ccc.harvester.exec.HarvestingScenarioExecutor.execute;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-public class Level4Tester_Circular {
+public class Level4_Circular {
 
 	@Test
 	public void test1() {

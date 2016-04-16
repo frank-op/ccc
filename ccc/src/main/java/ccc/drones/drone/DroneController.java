@@ -1,6 +1,9 @@
-package ccc.drone.drone;
+package ccc.drones.drone;
 
-import static ccc.drone.drone.SimulatorCommunicator.communication;
+import static ccc.drones.sim.SimulatorCommunicator.communication;
+
+import ccc.drones.level.LevelDoneException;
+import ccc.drones.sim.Status;
 
 public class DroneController {
 

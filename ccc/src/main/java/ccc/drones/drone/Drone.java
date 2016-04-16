@@ -1,4 +1,4 @@
-package ccc.drone.drone;
+package ccc.drones.drone;
 
 public class Drone {
 
