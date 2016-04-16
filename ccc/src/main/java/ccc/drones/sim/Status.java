@@ -2,7 +2,7 @@ package ccc.drones.sim;
 
 public class Status {
 
-	private double x, y, z, vx, vy, vz, rx, ry, rz;
+	private Double x, y, z, vx, vy, vz, rx, ry, rz;
 
 	public Status(String statusAsString) {
 
@@ -19,39 +19,39 @@ public class Status {
 		this.rz = Double.parseDouble(split[8]);
 	}
 
-	public double getX() {
+	public Double getX() {
 		return x;
 	}
 
-	public double getY() {
+	public Double getY() {
 		return y;
 	}
 
-	public double getZ() {
+	public Double getZ() {
 		return z;
 	}
 
-	public double getVx() {
+	public Double getVx() {
 		return vx;
 	}
 
-	public double getVy() {
+	public Double getVy() {
 		return vy;
 	}
 
-	public double getVz() {
+	public Double getVz() {
 		return vz;
 	}
 
-	public double getRx() {
+	public Double getRx() {
 		return rx;
 	}
 
-	public double getRy() {
+	public Double getRy() {
 		return ry;
 	}
 
-	public double getRz() {
+	public Double getRz() {
 		return rz;
 	}
 
