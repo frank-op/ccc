@@ -1,10 +1,12 @@
 package ccc.drones;
 
-import org.testng.annotations.Test;
+import java.io.IOException;
+import java.net.UnknownHostException;
 
 import ccc.drones.drone.Drone;
+import ccc.drones.drone.DroneController;
 import ccc.drones.level.BaseLevel;
-import ccc.drones.level.LevelDoneException;
+import ccc.drones.sim.Scenario;
 
 public class Level1_FlyAboveZ extends BaseLevel {
 
@@ -22,9 +24,18 @@ public class Level1_FlyAboveZ extends BaseLevel {
 		System.out.println("Height " + height + "\n");
 	}
 
-	@Test(expectedExceptions = LevelDoneException.class)
 	public void testDrone() {
 		Drone drone = new Drone(0);
-		drone.flyToZCoordinate(Double.valueOf(height));
+		DroneController droneController = drone.getDroneController();
+		Scenario scenario = Scenario.build(droneController).sendDroneToMinZ(Double.valueOf(height)).scenario();
+		droneController.setScenario(scenario);
+		droneController.startScenario();
+	}
+
+	public static void main(String[] args) throws UnknownHostException, IOException {
+
+		Level1_FlyAboveZ level = new Level1_FlyAboveZ();
+		level.setUp();
+		level.testDrone();
 	}
 }
