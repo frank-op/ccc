@@ -90,4 +90,34 @@ public class Drone {
 	public Double getVeolicityMaxInMeterPerSecond() {
 		return veolicityMaxInMeterPerSecond;
 	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((droneId == null) ? 0 : droneId.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Drone other = (Drone) obj;
+		if (droneId == null) {
+			if (other.droneId != null)
+				return false;
+		} else if (!droneId.equals(other.droneId))
+			return false;
+		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "Drone [droneId=" + droneId + "]";
+	}
 }
