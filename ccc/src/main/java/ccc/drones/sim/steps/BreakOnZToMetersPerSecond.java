@@ -31,7 +31,6 @@ public class BreakOnZToMetersPerSecond extends Step {
 
 		@Override
 		public boolean check(Status status) {
-			System.out.println(status);
 			return velocity > status.getVz();
 		}
 	}

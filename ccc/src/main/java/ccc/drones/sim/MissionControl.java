@@ -113,6 +113,7 @@ public class MissionControl {
 
 					Status statusForDrone = getStatusForDrone(drone);
 
+					System.out.println(statusForDrone);
 					boolean doesCheckOut = check.check(statusForDrone);
 					if (doesCheckOut) {
 						checksToCallAndRemove.add(check);

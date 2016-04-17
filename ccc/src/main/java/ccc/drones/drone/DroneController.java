@@ -18,6 +18,7 @@ public class DroneController {
 	public static final Double MAX_SPEED_DOWN = -5.0;
 	public static final Double MAX_SPEED_X = 3.0;
 	public static final Double MAX_SPEED_Y = 3.0;
+	public static final Double MAX_SPEED_XY = 3.0;
 	public static final Double TURN_ANGLE = 0.5;
 	public static final Double BREAK_ANGLE = 5.0;
 
@@ -75,17 +76,10 @@ public class DroneController {
 		}
 	}
 
-	public void turnOnX(double tiltAngle) {
+	public void turnOnXY(Double tiltAngleX, Double tiltAngleY) {
 		synchronized (MissionControl.communicationLock) {
-			communication().sendToSimulator("TURN " + drone.getDroneId() + " " + tiltAngle + " " + 0.0 + " " + 0.0);
-			String response = communication().getNextStringFromSimulator();
-			System.out.println("TurnOK: " + response);
-		}
-	}
-
-	public void turnOnY(double tiltAngle) {
-		synchronized (MissionControl.communicationLock) {
-			communication().sendToSimulator("TURN " + drone.getDroneId() + " " + 0.0 + " " + tiltAngle + " " + 0.0);
+			communication()
+					.sendToSimulator("TURN " + drone.getDroneId() + " " + tiltAngleX + " " + tiltAngleY + " " + 0.0);
 			String response = communication().getNextStringFromSimulator();
 			System.out.println("TurnOK: " + response);
 		}

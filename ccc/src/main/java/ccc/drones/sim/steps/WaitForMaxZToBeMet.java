@@ -20,7 +20,6 @@ public class WaitForMaxZToBeMet extends Step {
 
 			@Override
 			public boolean check(Status status) {
-				System.out.println(status);
 				return z > status.getZ();
 			}
 		};

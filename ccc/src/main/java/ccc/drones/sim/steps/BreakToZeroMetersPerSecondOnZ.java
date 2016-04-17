@@ -22,7 +22,6 @@ public class BreakToZeroMetersPerSecondOnZ extends Step {
 
 			@Override
 			public boolean check(Status status) {
-				System.out.println(status);
 				return status.getVz() < 0.1 && status.getVz() > -0.1;
 			}
 		};

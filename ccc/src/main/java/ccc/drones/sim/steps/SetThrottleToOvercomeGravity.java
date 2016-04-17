@@ -12,15 +12,7 @@ public class SetThrottleToOvercomeGravity extends Step {
 
 	@Override
 	public Check getCheck() {
-
-		return new Check(getController()) {
-
-			@Override
-			public boolean check(Status status) {
-
-				return true;
-			}
-		};
+		return new TrueCheck(getController());
 	}
 
 	@Override

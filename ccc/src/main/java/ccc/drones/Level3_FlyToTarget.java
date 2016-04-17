@@ -36,7 +36,6 @@ public class Level3_FlyToTarget extends BaseLevel {
 					new Target(Double.valueOf(split[0]), Double.valueOf(split[1]), Double.valueOf(split[2])));
 		}
 
-		System.out.println(dronesAndTheirTargets);
 	}
 
 	public void start() {
@@ -60,9 +59,9 @@ public class Level3_FlyToTarget extends BaseLevel {
 			controllers.add(droneController);
 		}
 
-		// for (DroneController droneController : controllers) {
-		// droneController.startScenario();
-		// }
+		for (DroneController droneController : controllers) {
+			droneController.startScenario();
+		}
 	}
 
 	public static void main(String[] args) throws UnknownHostException, IOException {
