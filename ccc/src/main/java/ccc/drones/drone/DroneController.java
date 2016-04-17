@@ -31,15 +31,25 @@ public class DroneController {
 	}
 
 	public void nextStep() {
+
 		currentStep++;
 		if (currentStep < steps.size()) {
 			Step step = steps.get(currentStep);
-			Check check = step.getCheck();
-			MissionControl.instance().addCheck(check);
+			logCurrentStep(step);
+			addCurrentCheckToMissionControl(step);
 			step.doIt();
 		} else {
 			System.out.println("Scenario of drone " + drone + " is done!");
 		}
+	}
+
+	private void logCurrentStep(Step step) {
+		System.out.println("EXECUTING STEP: (" + step.getClass().getSimpleName() + ")" + step);
+	}
+
+	private void addCurrentCheckToMissionControl(Step step) {
+		Check check = step.getCheck();
+		MissionControl.instance().addCheck(check);
 	}
 
 	public void changeThrottleForDrone(Double throttle) {
@@ -49,6 +59,15 @@ public class DroneController {
 			communication().sendToSimulator("THROTTLE " + droneId + " " + throttle);
 			String response = communication().getNextStringFromSimulator();
 			System.out.println("ThrottleOK: " + response + "\n");
+		}
+	}
+
+	public void landThatDamnThing() {
+		synchronized (MissionControl.communicationLock) {
+			System.out.println("Landing drone " + drone);
+			communication().sendToSimulator("LAND " + drone.getDroneId());
+			String response = communication().getNextStringFromSimulator();
+			System.out.println("LANDOk: " + response + "\n");
 		}
 	}
 

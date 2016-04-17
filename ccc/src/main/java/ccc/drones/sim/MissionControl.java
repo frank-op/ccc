@@ -4,8 +4,10 @@ import static ccc.drones.sim.SimulatorCommunicator.communication;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.TimeUnit;
 
 import ccc.drones.drone.Drone;
@@ -14,7 +16,8 @@ public class MissionControl {
 
 	private static final Double SMALL_TICK_TIME = 0.01;
 
-	private List<Check> checks = new ArrayList<>();
+	private BlockingQueue<Check> checkQueue = new LinkedBlockingQueue<>();
+
 	private ExecutorService executor = Executors.newSingleThreadExecutor();
 
 	public static Object communicationLock = new Object();
@@ -38,11 +41,15 @@ public class MissionControl {
 	}
 
 	public void addCheck(Check check) {
-		checks.add(check);
+		checkQueue.offer(check);
 	}
 
 	public Double getCurrentTime() {
-		return tick(0.0);
+		synchronized (MissionControl.communicationLock) {
+			communication().sendToSimulator("TICK 0.0");
+			String response = communication().getNextStringFromSimulator();
+			return Double.valueOf(response);
+		}
 	}
 
 	private Double tick() {
@@ -52,7 +59,6 @@ public class MissionControl {
 	private Double tick(Double timeInSeconds) {
 
 		synchronized (MissionControl.communicationLock) {
-			System.out.println("ADD TICK " + timeInSeconds);
 			communication().sendToSimulator("TICK " + timeInSeconds);
 			String response = communication().getNextStringFromSimulator();
 			System.out.println("TickSuccess " + response + "\n");
@@ -62,24 +68,27 @@ public class MissionControl {
 			}
 			return Double.valueOf(response);
 		}
-
 	}
 
 	private Status getStatusForDrone(Drone drone) {
+		String response = getStatusString(drone);
+		Double currentTime = getCurrentTime();
+		return new Status(response, currentTime, drone);
 
+	}
+
+	private String getStatusString(Drone drone) {
 		synchronized (MissionControl.communicationLock) {
 			communication().sendToSimulator("STATUS " + drone.getDroneId());
-			String response = communication().getNextStringFromSimulator();
-			return new Status(response);
+			return communication().getNextStringFromSimulator();
 		}
-
 	}
 
 	private final class WaitForCheckRunnables implements Runnable {
 
 		@Override
 		public void run() {
-			while (checks.isEmpty()) {
+			while (checkQueue.isEmpty()) {
 				try {
 					TimeUnit.MILLISECONDS.sleep(100);
 				} catch (InterruptedException e) {
@@ -95,11 +104,11 @@ public class MissionControl {
 		@Override
 		public void run() {
 
-			while (!checks.isEmpty()) {
+			while (!checkQueue.isEmpty()) {
 
 				List<Check> checksToCallAndRemove = new ArrayList<>();
 
-				for (Check check : checks) {
+				for (Check check : checkQueue) {
 					Drone drone = check.getDroneController().getDrone();
 
 					Status statusForDrone = getStatusForDrone(drone);
@@ -111,7 +120,7 @@ public class MissionControl {
 				}
 
 				checksToCallAndRemove.stream().forEach(x -> x.callBack());
-				checks.removeAll(checksToCallAndRemove);
+				checkQueue.removeAll(checksToCallAndRemove);
 				tick();
 			}
 

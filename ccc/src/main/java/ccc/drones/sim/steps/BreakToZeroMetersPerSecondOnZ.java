@@ -4,9 +4,9 @@ import ccc.drones.drone.DroneController;
 import ccc.drones.sim.Check;
 import ccc.drones.sim.Status;
 
-public class HoverOnZ extends Step {
+public class BreakToZeroMetersPerSecondOnZ extends Step {
 
-	public HoverOnZ(DroneController controller) {
+	public BreakToZeroMetersPerSecondOnZ(DroneController controller) {
 		super(controller);
 	}
 
@@ -22,8 +22,14 @@ public class HoverOnZ extends Step {
 
 			@Override
 			public boolean check(Status status) {
+				System.out.println(getController().getDrone() + " VZ: " + status.getVz());
 				return status.getVz() < 0.1 && status.getVz() > -0.1;
 			}
 		};
+	}
+
+	@Override
+	public String toString() {
+		return "Breaking to Zero m/s on Z. Drone: " + getController().getDrone();
 	}
 }

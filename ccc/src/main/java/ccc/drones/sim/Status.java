@@ -1,10 +1,14 @@
 package ccc.drones.sim;
 
+import ccc.drones.drone.Drone;
+
 public class Status {
 
-	private Double x, y, z, vx, vy, vz, rx, ry, rz;
+	private final Double x, y, z, vx, vy, vz, rx, ry, rz;
+	private final Double currentTime;
+	private final Drone drone;
 
-	public Status(String statusAsString) {
+	public Status(String statusAsString, Double currentTime, Drone drone) {
 
 		String[] split = statusAsString.split(" ");
 
@@ -17,6 +21,9 @@ public class Status {
 		this.rx = Double.parseDouble(split[6]);
 		this.ry = Double.parseDouble(split[7]);
 		this.rz = Double.parseDouble(split[8]);
+
+		this.currentTime = currentTime;
+		this.drone = drone;
 	}
 
 	public Double getX() {
@@ -55,13 +62,17 @@ public class Status {
 		return rz;
 	}
 
+	public Double getCurrentTime() {
+		return currentTime;
+	}
+
+	public Drone getDrone() {
+		return drone;
+	}
+
 	@Override
 	public String toString() {
 		return "Status [x=" + x + ", y=" + y + ", z=" + z + ", vx=" + vx + ", vy=" + vy + ", vz=" + vz + ", rx=" + rx
-				+ ", ry=" + ry + ", rz=" + rz + "]";
-	}
-
-	public static Status success() {
-		return null;
+				+ ", ry=" + ry + ", rz=" + rz + ", currentTime=" + currentTime + "]";
 	}
 }

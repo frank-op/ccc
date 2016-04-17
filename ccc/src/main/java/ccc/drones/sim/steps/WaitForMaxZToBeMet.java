@@ -4,11 +4,11 @@ import ccc.drones.drone.DroneController;
 import ccc.drones.sim.Check;
 import ccc.drones.sim.Status;
 
-public class WaitForMinZToBeMet extends Step {
+public class WaitForMaxZToBeMet extends Step {
 
 	private Double z;
 
-	public WaitForMinZToBeMet(DroneController controller, Double z) {
+	public WaitForMaxZToBeMet(DroneController controller, Double z) {
 		super(controller);
 		this.z = z;
 	}
@@ -21,7 +21,7 @@ public class WaitForMinZToBeMet extends Step {
 			@Override
 			public boolean check(Status status) {
 				System.out.println("Drone " + getDroneController().getDrone().getDroneId() + " Z: " + status.getZ());
-				return z < status.getZ();
+				return z > status.getZ();
 			}
 		};
 	}
@@ -33,6 +33,6 @@ public class WaitForMinZToBeMet extends Step {
 
 	@Override
 	public String toString() {
-		return "Waiting for Drone to be over Z: " + z + ". Drone: " + getController().getDrone();
+		return "Waiting for Drone to be under Z: " + z + ". Drone: " + getController().getDrone();
 	}
 }

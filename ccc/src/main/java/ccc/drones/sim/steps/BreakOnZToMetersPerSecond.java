@@ -4,11 +4,11 @@ import ccc.drones.drone.DroneController;
 import ccc.drones.sim.Check;
 import ccc.drones.sim.Status;
 
-public class AccelerateOnZToMetersPerSecond extends Step {
+public class BreakOnZToMetersPerSecond extends Step {
 
 	private Double velocity;
 
-	public AccelerateOnZToMetersPerSecond(DroneController controller, Double velocity) {
+	public BreakOnZToMetersPerSecond(DroneController controller, Double velocity) {
 		super(controller);
 		this.velocity = velocity;
 	}
@@ -20,7 +20,7 @@ public class AccelerateOnZToMetersPerSecond extends Step {
 
 	@Override
 	public void doIt() {
-		getController().changeThrottleForDrone(DroneController.FULL_THROTTLE);
+		getController().changeThrottleForDrone(0.0);
 	}
 
 	private final class VelocityOnZOverGivenValue extends Check {
@@ -31,13 +31,13 @@ public class AccelerateOnZToMetersPerSecond extends Step {
 
 		@Override
 		public boolean check(Status status) {
-			System.out.println("Drone " + getDroneController().getDrone().getDroneId() + " VZ: " + status.getVz());
-			return velocity < status.getVz();
+			System.out.println("Drone " + status.getDrone().getDroneId() + " VZ: " + status.getVz());
+			return velocity > status.getVz();
 		}
 	}
 
 	@Override
 	public String toString() {
-		return "Accelerating to " + velocity + " on Z. Drone: " + getController().getDrone();
+		return "Breaking to " + velocity + " m/s on Z. Drone: " + getController().getDrone();
 	}
 }

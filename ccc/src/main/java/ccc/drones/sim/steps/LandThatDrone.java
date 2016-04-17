@@ -4,20 +4,18 @@ import ccc.drones.drone.DroneController;
 import ccc.drones.sim.Check;
 import ccc.drones.sim.Status;
 
-public class SetThrottleToOvercomeGravity extends Step {
+public class LandThatDrone extends Step {
 
-	public SetThrottleToOvercomeGravity(DroneController controller) {
+	public LandThatDrone(DroneController controller) {
 		super(controller);
 	}
 
 	@Override
 	public Check getCheck() {
-
 		return new Check(getController()) {
 
 			@Override
 			public boolean check(Status status) {
-
 				return true;
 			}
 		};
@@ -25,11 +23,12 @@ public class SetThrottleToOvercomeGravity extends Step {
 
 	@Override
 	public void doIt() {
-		getController().changeThrottleForDrone(getController().getDrone().getThrottleToOvercomeGravity());
+		getController().changeThrottleForDrone(0.0);
+		getController().landThatDamnThing();
 	}
 
 	@Override
 	public String toString() {
-		return "Set throttle to overcome drones gravity pull: " + getController().getDrone();
+		return "Landing the drone " + getController().getDrone();
 	}
 }
