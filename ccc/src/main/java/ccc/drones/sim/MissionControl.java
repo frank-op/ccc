@@ -70,7 +70,7 @@ public class MissionControl {
 		}
 	}
 
-	private Status getStatusForDrone(Drone drone) {
+	public Status getStatusForDrone(Drone drone) {
 		String response = getStatusString(drone);
 		Double currentTime = getCurrentTime();
 		return new Status(response, currentTime, drone);
@@ -121,7 +121,13 @@ public class MissionControl {
 
 				checksToCallAndRemove.stream().forEach(x -> x.callBack());
 				checkQueue.removeAll(checksToCallAndRemove);
-				tick();
+
+				try {
+					tick();
+				} catch (Throwable e) {
+					e.printStackTrace();
+					System.exit(1);
+				}
 			}
 
 			executor.execute(new WaitForCheckRunnables());

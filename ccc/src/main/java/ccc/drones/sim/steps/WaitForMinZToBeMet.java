@@ -20,8 +20,9 @@ public class WaitForMinZToBeMet extends Step {
 
 			@Override
 			public boolean check(Status status) {
-				System.out.println("Drone " + getDroneController().getDrone().getDroneId() + " Z: " + status.getZ());
-				return z < status.getZ();
+				Double currentZ = status.getZ();
+				System.out.println(status);
+				return z < currentZ;
 			}
 		};
 	}

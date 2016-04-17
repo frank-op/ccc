@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ccc.drones.drone.DroneController;
+import ccc.drones.drone.Target;
 import ccc.drones.sim.steps.AccelerateOnZToMetersPerSecond;
 import ccc.drones.sim.steps.BreakOnZToMetersPerSecond;
 import ccc.drones.sim.steps.BreakToZeroMetersPerSecondOnZ;
@@ -55,13 +56,23 @@ public class Scenario {
 			return this;
 		}
 
+		public ScenarioBuilder flyToTarget(Target target) {
+
+			Status status = MissionControl.instance().getStatusForDrone(controller.getDrone());
+
+			System.out.println(target);
+			System.out.println(status);
+
+			return this;
+		}
+
 		public ScenarioBuilder landThatDamnThing() {
 
 			scenario.getSteps().add(new BreakOnZToMetersPerSecond(controller, DroneController.MAX_SPEED_DOWN));
 			scenario.getSteps().add(new SetThrottleToOvercomeGravity(controller));
 			scenario.getSteps().add(new WaitForMaxZToBeMet(controller, 3.0));
 			scenario.getSteps().add(new AccelerateOnZToMetersPerSecond(controller, 0.0));
-			scenario.getSteps().add(new BreakOnZToMetersPerSecond(controller, -0.45));
+			scenario.getSteps().add(new BreakOnZToMetersPerSecond(controller, -0.35));
 			scenario.getSteps().add(new SetThrottleToOvercomeGravity(controller));
 			scenario.getSteps().add(new WaitForMaxZToBeMet(controller, 0.3));
 			scenario.getSteps().add(new LandThatDrone(controller));

@@ -26,7 +26,7 @@ public class HoverOnZForSeconds extends Step {
 				Double currentTime = status.getCurrentTime();
 				Double timeDone = currentTime - startTimeStamp;
 
-				System.out.println(getController().getDrone() + ": " + timeDone + " / " + seconds);
+				System.out.println(getDroneController().getDrone() + ": " + timeDone + " / " + seconds);
 
 				return timeDone > seconds;
 			}

@@ -31,7 +31,7 @@ public class AccelerateOnZToMetersPerSecond extends Step {
 
 		@Override
 		public boolean check(Status status) {
-			System.out.println("Drone " + getDroneController().getDrone().getDroneId() + " VZ: " + status.getVz());
+			System.out.println(status);
 			return velocity < status.getVz();
 		}
 	}

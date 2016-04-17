@@ -73,6 +73,6 @@ public class Status {
 	@Override
 	public String toString() {
 		return "Status [x=" + x + ", y=" + y + ", z=" + z + ", vx=" + vx + ", vy=" + vy + ", vz=" + vz + ", rx=" + rx
-				+ ", ry=" + ry + ", rz=" + rz + ", currentTime=" + currentTime + "]";
+				+ ", ry=" + ry + ", rz=" + rz + ", currentTime=" + currentTime + ", drone=" + drone + "]";
 	}
 }

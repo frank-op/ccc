@@ -12,10 +12,14 @@ import ccc.drones.sim.steps.Step;
 public class DroneController {
 
 	public static final Double SMALL_TICK_TIME = 0.01;
-	public static final Double FULL_THROTTLE = 1.0;
+	public static final Double FULL_THROTTLE = 0.8;
 	public static final Double DROP_THROTTLE = 0.0;
-	public static final Double MAX_SPEED_UP = 12.0;
+	public static final Double MAX_SPEED_UP = 8.0;
 	public static final Double MAX_SPEED_DOWN = -5.0;
+	public static final Double MAX_SPEED_X = 3.0;
+	public static final Double MAX_SPEED_Y = 3.0;
+	public static final Double TURN_ANGLE = 0.5;
+	public static final Double BREAK_ANGLE = 5.0;
 
 	private final Drone drone;
 
@@ -44,7 +48,7 @@ public class DroneController {
 	}
 
 	private void logCurrentStep(Step step) {
-		System.out.println("EXECUTING STEP: (" + step.getClass().getSimpleName() + ")" + step);
+		System.out.println("EXECUTING STEP: (" + step.getClass().getSimpleName() + ") " + step);
 	}
 
 	private void addCurrentCheckToMissionControl(Step step) {
@@ -68,6 +72,22 @@ public class DroneController {
 			communication().sendToSimulator("LAND " + drone.getDroneId());
 			String response = communication().getNextStringFromSimulator();
 			System.out.println("LANDOk: " + response + "\n");
+		}
+	}
+
+	public void turnOnX(double tiltAngle) {
+		synchronized (MissionControl.communicationLock) {
+			communication().sendToSimulator("TURN " + drone.getDroneId() + " " + tiltAngle + " " + 0.0 + " " + 0.0);
+			String response = communication().getNextStringFromSimulator();
+			System.out.println("TurnOK: " + response);
+		}
+	}
+
+	public void turnOnY(double tiltAngle) {
+		synchronized (MissionControl.communicationLock) {
+			communication().sendToSimulator("TURN " + drone.getDroneId() + " " + 0.0 + " " + tiltAngle + " " + 0.0);
+			String response = communication().getNextStringFromSimulator();
+			System.out.println("TurnOK: " + response);
 		}
 	}
 
