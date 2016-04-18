@@ -36,16 +36,16 @@ public class Cell {
 		this.content = content;
 	}
 
-	@Override
-	public String toString() {
-		return String.valueOf(content);
-	}
-
 	public Board getBoard() {
 		return board;
 	}
 
 	public void setBoard(Board board) {
 		this.board = board;
+	}
+
+	@Override
+	public String toString() {
+		return "Cell [row=" + row + ", column=" + column + ", content=" + content + "]";
 	}
 }

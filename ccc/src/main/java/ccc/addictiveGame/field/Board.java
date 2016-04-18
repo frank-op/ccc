@@ -48,6 +48,26 @@ public class Board {
 		return matrix[row - 1][column - 1];
 	}
 
+	public Cell findCellByValue(int value) {
+
+		int row;
+		int column;
+		if (value < getColumns()) {
+			row = 1;
+			column = value;
+		} else {
+			row = value / getColumns() + 1;
+			column = value % getColumns();
+
+			if (column == 0) {
+				row--;
+				column = getColumns();
+			}
+
+		}
+		return getCell(row, column);
+	}
+
 	public Cell getCellReturnNull(int row, int column) {
 		try {
 			return matrix[row - 1][column - 1];
