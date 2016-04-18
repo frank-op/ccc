@@ -1,7 +1,8 @@
 package ccc.addictiveGame.execute;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import ccc.addictiveGame.field.Board;
 import ccc.addictiveGame.field.Cell;
@@ -12,7 +13,7 @@ public class Executor {
 
 		String[] inputArray = input.split(" ");
 		Board board = createBoard(inputArray[0], inputArray[1]);
-		List<Integer> valuesToFind = getValuesToFind(input, inputArray);
+		List<Integer> valuesToFind = getValuesToFind(inputArray);
 		List<Cell> cellsForValues = getCellsForValues(board, valuesToFind);
 		return OutputFormatter.getFormattedContent(cellsForValues);
 	}
@@ -21,21 +22,12 @@ public class Executor {
 		return new Board(Integer.valueOf(rows), Integer.valueOf(cols));
 	}
 
-	private static List<Integer> getValuesToFind(String input, String[] inputArray) {
-		List<Integer> valuesToFind = new ArrayList<>();
-
-		for (int i = 3; i < inputArray.length; i++) {
-			String string = input.split(" ")[i];
-			valuesToFind.add(Integer.valueOf(string));
-		}
-		return valuesToFind;
+	private static List<Integer> getValuesToFind(String[] inputArray) {
+		return Arrays.asList(inputArray).subList(3, inputArray.length).stream().map(x -> Integer.valueOf(x))
+				.collect(Collectors.toList());
 	}
 
 	private static List<Cell> getCellsForValues(Board board, List<Integer> valuesToFind) {
-		List<Cell> cells = new ArrayList<>();
-		for (Integer integer : valuesToFind) {
-			cells.add(board.findCellByValue(integer));
-		}
-		return cells;
+		return valuesToFind.stream().map(x -> board.findCellByValue(x)).collect(Collectors.toList());
 	}
 }
