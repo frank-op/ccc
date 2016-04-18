@@ -20,6 +20,8 @@ public class MissionControl {
 
 	private ExecutorService executor = Executors.newSingleThreadExecutor();
 
+	private Double currentTime = 0.0;
+
 	public static Object communicationLock = new Object();
 
 	private static MissionControl instance;
@@ -45,11 +47,7 @@ public class MissionControl {
 	}
 
 	public Double getCurrentTime() {
-		synchronized (MissionControl.communicationLock) {
-			communication().sendToSimulator("TICK 0.0");
-			String response = communication().getNextStringFromSimulator();
-			return Double.valueOf(response);
-		}
+		return currentTime;
 	}
 
 	private Double tick() {
@@ -66,7 +64,8 @@ public class MissionControl {
 				System.out.println("LEVEL DONE!");
 				System.exit(0);
 			}
-			return Double.valueOf(response);
+			currentTime = Double.valueOf(response);
+			return currentTime;
 		}
 	}
 
