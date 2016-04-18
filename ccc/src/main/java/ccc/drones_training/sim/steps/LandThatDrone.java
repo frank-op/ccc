@@ -2,7 +2,6 @@ package ccc.drones_training.sim.steps;
 
 import ccc.drones_training.drone.DroneController;
 import ccc.drones_training.sim.Check;
-import ccc.drones_training.sim.Status;
 
 public class LandThatDrone extends Step {
 
