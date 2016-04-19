@@ -40,33 +40,11 @@ public class Executor {
 	public static String executeFindManhattenDistance(String input) {
 
 		String[] inputArray = input.split(" ");
-
 		Board board = createBoard(inputArray[0], inputArray[1]);
-
 		List<ValueColorTuple> valueColorTuples = getValueColorTupleForLevel_2_Input(inputArray);
-
-		List<Cell> cellsWithColorsSet = valueColorTuples.stream().map(tuple -> findCellAndSetColor(board, tuple))
-				.sorted(new Comparator<Cell>() {
-
-					@Override
-					public int compare(Cell cell1, Cell cell2) {
-
-						return cell1.getColor() - cell2.getColor();
-					}
-				}).collect(Collectors.toList());
-
-		List<Integer> manhattenDistances = IntStream
-				.range(0, cellsWithColorsSet.size()).filter(n -> n % 2 == 0).mapToObj(x -> board
-						.getManhattenDistanceForCells(cellsWithColorsSet.get(x), cellsWithColorsSet.get(x + 1)))
-				.collect(Collectors.toList());
-
+		List<Cell> cellsWithColorsSet = getCellsIncludingColors(board, valueColorTuples);
+		List<Integer> manhattenDistances = getManhattenDistances(board, cellsWithColorsSet);
 		return OutputFormatter.formatManhattenDistances(manhattenDistances);
-	}
-
-	public static Cell findCellAndSetColor(Board board, ValueColorTuple tuple) {
-		Cell cell = board.findCellByValue(tuple.value);
-		cell.setColor(tuple.color);
-		return cell;
 	}
 
 	private static List<ValueColorTuple> getValueColorTupleForLevel_2_Input(String[] inputArray) {
@@ -76,6 +54,33 @@ public class Executor {
 				.mapToObj(x -> new ValueColorTuple(Integer.valueOf(valuesFromInput.get(x)),
 						Integer.valueOf(valuesFromInput.get(x + 1))))
 				.collect(Collectors.toList());
+	}
+
+	private static List<Cell> getCellsIncludingColors(Board board, List<ValueColorTuple> valueColorTuples) {
+		List<Cell> cellsWithColorsSet = valueColorTuples.stream().map(tuple -> findCellAndSetColor(board, tuple))
+				.sorted(new Comparator<Cell>() {
+
+					@Override
+					public int compare(Cell cell1, Cell cell2) {
+
+						return cell1.getColor() - cell2.getColor();
+					}
+				}).collect(Collectors.toList());
+		return cellsWithColorsSet;
+	}
+
+	public static Cell findCellAndSetColor(Board board, ValueColorTuple tuple) {
+		Cell cell = board.findCellByValue(tuple.value);
+		cell.setColor(tuple.color);
+		return cell;
+	}
+
+	private static List<Integer> getManhattenDistances(Board board, List<Cell> cellsWithColorsSet) {
+		List<Integer> manhattenDistances = IntStream
+				.range(0, cellsWithColorsSet.size()).filter(n -> n % 2 == 0).mapToObj(x -> board
+						.getManhattenDistanceForCells(cellsWithColorsSet.get(x), cellsWithColorsSet.get(x + 1)))
+				.collect(Collectors.toList());
+		return manhattenDistances;
 	}
 
 	private static class ValueColorTuple {
