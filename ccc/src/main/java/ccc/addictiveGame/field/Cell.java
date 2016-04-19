@@ -4,12 +4,13 @@ public class Cell {
 	private int row, column;
 	private int content;
 	private Board board;
+	private int color;
 
 	public Cell(int x, int y, int content, Board board) {
 		this.row = x;
 		this.column = y;
 		this.board = board;
-		this.setContent(content);
+		this.content = content;
 	}
 
 	public int getRow() {
@@ -44,8 +45,17 @@ public class Cell {
 		this.board = board;
 	}
 
+	public void setColor(int color) {
+		this.color = color;
+	}
+
+	public int getColor() {
+		return color;
+	}
+
 	@Override
 	public String toString() {
-		return "Cell [row=" + row + ", column=" + column + ", content=" + content + "]";
+		return "Cell [row=" + row + ", column=" + column + ", content=" + content + ", color=" + color + "]";
 	}
+
 }

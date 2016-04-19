@@ -1,6 +1,7 @@
 package ccc.addictiveGame.execute;
 
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -39,24 +40,51 @@ public class Executor {
 	public static String executeFindManhattenDistance(String input) {
 
 		String[] inputArray = input.split(" ");
+
 		Board board = createBoard(inputArray[0], inputArray[1]);
 
-		return null;
+		List<ValueColorTuple> valueColorTuples = getValueColorTupleForLevel_2_Input(inputArray);
+
+		List<Cell> cellsWithColorsSet = valueColorTuples.stream().map(tuple -> findCellAndSetColor(board, tuple))
+				.sorted(new Comparator<Cell>() {
+
+					@Override
+					public int compare(Cell cell1, Cell cell2) {
+
+						return cell1.getColor() - cell2.getColor();
+					}
+				}).collect(Collectors.toList());
+
+		List<Integer> manhattenDistances = IntStream
+				.range(0, cellsWithColorsSet.size()).filter(n -> n % 2 == 0).mapToObj(x -> board
+						.getManhattenDistanceForCells(cellsWithColorsSet.get(x), cellsWithColorsSet.get(x + 1)))
+				.collect(Collectors.toList());
+
+		return OutputFormatter.formatManhattenDistances(manhattenDistances);
 	}
 
-	private static List<Integer> getValuesToFindForLevel_2_Input(String[] inputArray) {
+	public static Cell findCellAndSetColor(Board board, ValueColorTuple tuple) {
+		Cell cell = board.findCellByValue(tuple.value);
+		cell.setColor(tuple.color);
+		return cell;
+	}
+
+	private static List<ValueColorTuple> getValueColorTupleForLevel_2_Input(String[] inputArray) {
 		List<String> valuesFromInput = getValuesFromInput(inputArray);
 
-		// so oder so ähnlich
-		List<Integer> values = IntStream.range(0, valuesFromInput.size()).filter(n -> n % 2 == 0)
-				.collect(Collectors.toMap(x -> Integer.valueOf(valuesFromInput.get(x)),  Integer.valueOf(valuesFromInput.get(x + 1))));
-		
-		
-		List<Integer> values = IntStream.range(0, valuesFromInput.size()).filter(n -> n % 2 == 0).mapToObj(x -> Integer.valueOf(valuesFromInput.get(x)))
+		return IntStream.range(0, valuesFromInput.size()).filter(n -> n % 2 == 0)
+				.mapToObj(x -> new ValueColorTuple(Integer.valueOf(valuesFromInput.get(x)),
+						Integer.valueOf(valuesFromInput.get(x + 1))))
 				.collect(Collectors.toList());
-				
-		List<Integer> colors = 		IntStream.range(0, valuesFromInput.size()).filter(n -> n % 2 == 1).mapToObj(x -> Integer.valueOf(valuesFromInput.get(x)))
-				.collect(Collectors.toList());
-		return null;
+	}
+
+	private static class ValueColorTuple {
+		private int value;
+		private int color;
+
+		private ValueColorTuple(int value, int color) {
+			this.value = value;
+			this.color = color;
+		}
 	}
 }

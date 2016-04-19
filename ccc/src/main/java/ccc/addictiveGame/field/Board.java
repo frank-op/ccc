@@ -80,6 +80,11 @@ public class Board {
 		return rows * columns;
 	}
 
+	public Integer getManhattenDistanceForCells(Cell cell1, Cell cell2) {
+
+		return Math.abs(cell1.getRow() - cell2.getRow()) + Math.abs(cell1.getColumn() - cell2.getColumn());
+	}
+
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
