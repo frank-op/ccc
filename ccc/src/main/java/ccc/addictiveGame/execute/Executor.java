@@ -47,7 +47,15 @@ public class Executor {
 	private static List<Integer> getValuesToFindForLevel_2_Input(String[] inputArray) {
 		List<String> valuesFromInput = getValuesFromInput(inputArray);
 
-		IntStream.range(0, valuesFromInput.size()).filter(n -> n % 2 == 0).mapToObj(valuesFromInput::get)
+		// so oder so ähnlich
+		List<Integer> values = IntStream.range(0, valuesFromInput.size()).filter(n -> n % 2 == 0)
+				.collect(Collectors.toMap(x -> Integer.valueOf(valuesFromInput.get(x)),  Integer.valueOf(valuesFromInput.get(x + 1))));
+		
+		
+		List<Integer> values = IntStream.range(0, valuesFromInput.size()).filter(n -> n % 2 == 0).mapToObj(x -> Integer.valueOf(valuesFromInput.get(x)))
+				.collect(Collectors.toList());
+				
+		List<Integer> colors = 		IntStream.range(0, valuesFromInput.size()).filter(n -> n % 2 == 1).mapToObj(x -> Integer.valueOf(valuesFromInput.get(x)))
 				.collect(Collectors.toList());
 		return null;
 	}
