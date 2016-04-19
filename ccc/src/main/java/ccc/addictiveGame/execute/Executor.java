@@ -42,7 +42,7 @@ public class Executor {
 		String[] inputArray = input.split(" ");
 		Board board = createBoard(inputArray[0], inputArray[1]);
 		List<ValueColorTuple> valueColorTuples = getValueColorTupleForLevel_2_Input(inputArray);
-		List<Cell> cellsWithColorsSet = getCellsIncludingColors(board, valueColorTuples);
+		List<Cell> cellsWithColorsSet = getCellsIncludingColorsOrderedByColor(board, valueColorTuples);
 		List<Integer> manhattenDistances = getManhattenDistances(board, cellsWithColorsSet);
 		return OutputFormatter.formatManhattenDistances(manhattenDistances);
 	}
@@ -56,7 +56,7 @@ public class Executor {
 				.collect(Collectors.toList());
 	}
 
-	private static List<Cell> getCellsIncludingColors(Board board, List<ValueColorTuple> valueColorTuples) {
+	private static List<Cell> getCellsIncludingColorsOrderedByColor(Board board, List<ValueColorTuple> valueColorTuples) {
 		List<Cell> cellsWithColorsSet = valueColorTuples.stream().map(tuple -> findCellAndSetColor(board, tuple))
 				.sorted(new Comparator<Cell>() {
 
@@ -66,6 +66,7 @@ public class Executor {
 						return cell1.getColor() - cell2.getColor();
 					}
 				}).collect(Collectors.toList());
+		
 		return cellsWithColorsSet;
 	}
 
