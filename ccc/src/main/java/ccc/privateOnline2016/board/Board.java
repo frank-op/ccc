@@ -5,10 +5,12 @@ public class Board {
 	private int rows;
 	private int columns;
 	private Cell[][] matrix;
+	private String initContent;
 
-	public Board(int rows, int columns) {
+	public Board(int rows, int columns, String initContent) {
 		this.rows = rows;
 		this.columns = columns;
+		this.initContent = initContent;
 		initField(rows, columns);
 	}
 
@@ -19,7 +21,7 @@ public class Board {
 
 		for (int i = 0; i < x; i++) {
 			for (int j = 0; j < y; j++) {
-				matrix[i][j] = new Cell(i + 1, j + 1, cellNumber++, this, "?");
+				matrix[i][j] = new Cell(i + 1, j + 1, cellNumber++, this, initContent);
 			}
 		}
 	}
