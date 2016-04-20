@@ -1,6 +1,6 @@
-package ccc.privateOnline2016.execute;
+package ccc.picturePuzzle.execute;
 
-import ccc.privateOnline2016.board.Board;
+import ccc.picturePuzzle.board.Board;
 
 public class OutputFormatter {
 

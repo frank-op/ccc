@@ -1,4 +1,4 @@
-package ccc.privateOnline2016.execute;
+package ccc.picturePuzzle.execute;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -10,8 +10,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-import ccc.privateOnline2016.board.Board;
-import ccc.privateOnline2016.board.Cell;
+import ccc.picturePuzzle.board.Board;
+import ccc.picturePuzzle.board.Cell;
 
 public class Executor {
 

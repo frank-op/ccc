@@ -1,4 +1,4 @@
-package ccc.privateOnline2016.board;
+package ccc.picturePuzzle.board;
 
 public class Board {
 

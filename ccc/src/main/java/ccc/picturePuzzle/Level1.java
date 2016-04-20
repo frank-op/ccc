@@ -1,4 +1,4 @@
-package ccc.privateOnline2016;
+package ccc.picturePuzzle;
 
 import java.util.List;
 
@@ -6,7 +6,7 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-import ccc.privateOnline2016.execute.Executor;
+import ccc.picturePuzzle.execute.Executor;
 
 public class Level1 {
 
@@ -14,7 +14,7 @@ public class Level1 {
 
 	@BeforeClass
 	public void setUp() {
-		String fileName = "/Users/Frank/Documents/git-repos/ccc/ccc/src/main/resources/ccc/privateOnline2016/input-level1.txt";
+		String fileName = "/Users/Frank/Documents/git-repos/ccc/ccc/src/main/resources/ccc/picturePuzzle/input-level1.txt";
 		list = Executor.readInAndGetStringList(fileName);
 	}
 
